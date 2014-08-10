@@ -2,6 +2,7 @@
   "name": "freesampler",
   "version": "0.0.0",
   "dependencies": {
+    "bigint-node": "1.0.2",
     "node-sha256": "0.1.1"
   },
   "devDependencies": {
