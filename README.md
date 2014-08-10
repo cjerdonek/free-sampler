@@ -3,13 +3,16 @@ FreeSampler
 
 [This project is not yet functional.]
 
-This repository contains a browser application for selecting items
-at random from a collection given a random seed.  For example, the
-application can be used for things like selecting precincts at random
-for a post-election manual audit, after generating a random seed in public.
+This repository contains a web application for randomly selecting items
+from a collection.
+
+For example, the application can be used for things like selecting
+precincts at random after an election for a manual audit.
 
 The application is an implementation of Ronald L. Rivest's SHA-256
 [sampling algorithm][rivest-sampler].
+
+TODO: mention that you supply a seed.
 
 This implementation uses AngularJS and has both unit tests and end-to-end
 tests.  The project was started using version 0.9.5 of
