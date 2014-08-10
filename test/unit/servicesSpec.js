@@ -1,6 +1,6 @@
 'use strict';
 
-describe('services', function() {
+describe('services module', function() {
 
   beforeEach(module('freeSamplerApp.services'));
 
@@ -18,15 +18,29 @@ describe('services', function() {
 
   });
 
-  describe('doSample', function() {
-    var doSample;
+  describe('getSample', function() {
+    var getSample;
 
-    beforeEach(inject(function(_doSample_) {
-      doSample = _doSample_;
+    beforeEach(inject(function(_getSample_) {
+      getSample = _getSample_;
     }));
 
-    it('should hash a string correctly', function() {
-      expect(doSample('0', 1, 1000)).toBe(905);
+    it('should sample 1 item from 1000 items correctly', function() {
+      expect(getSample('0', 1000, 1)).toBe(905);
+    });
+
+  });
+
+  describe('getSamples', function() {
+    var getSamples;
+
+    beforeEach(inject(function(_getSamples_) {
+      getSamples = _getSamples_;
+    }));
+
+    it('should sample 3 items from 1000 correctly', function() {
+      expect(getSamples('abcde', 1000, 3))
+        .toEqual([247, 427, 157]);
     });
 
   });

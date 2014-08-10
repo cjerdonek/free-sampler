@@ -40,13 +40,31 @@
         return bigMod;
     }]);
 
-    samplerServices.factory('doSample', ['bigMod', 'sha256',
-      function doSampleFactory(bigMod, sha256){
-        function doSample(seed, index, total) {
+    samplerServices.factory('getSample', ['bigMod', 'sha256',
+      function getSampleFactory(bigMod, sha256){
+        // Params:
+        //   index: a whole number representing the 1-based index.
+        function getSample(seed, totalSize, index) {
           var hexHash = sha256(seed + ',' + index.toString());
-          return bigMod(hexHash, total) + 1;
+          return bigMod(hexHash, totalSize) + 1;
         }
-        return doSample;
+        return getSample;
+    }]);
+
+    samplerServices.factory('getSamples', ['getSample',
+      function getSamplesFactory(getSample){
+        // Get samples, allowing duplicates.
+        // Returns an array of 1-based items.
+        function getSamples(seed, totalSize, sampleSize) {
+          var item;
+          var items = [];
+          for (var i = 1; i <= sampleSize; i++) {
+              item = getSample(seed, totalSize, i);
+              items.push(item);
+          }
+          return items;
+        }
+        return getSamples;
     }]);
 
 })();
