@@ -7,11 +7,12 @@
  * # MainCtrl
  * Controller of the freeSamplerApp
  */
-angular.module('freeSamplerApp')
-  .controller('MainCtrl', function ($scope) {
+angular.module('freeSamplerApp', ['freeSamplerApp.services'])
+  .controller('MainCtrl', ['$scope', 'myHash', function ($scope, myHash) {
+    $scope.blah = myHash('FOO');
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-  });
+  }]);
