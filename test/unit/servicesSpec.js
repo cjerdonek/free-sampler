@@ -9,7 +9,7 @@ describe('services', function() {
 
     beforeEach(inject(function(_sha256_) {
       sha256 = _sha256_;
-    }))
+    }));
 
     it('should hash a string correctly', function() {
       expect(sha256('foo'))
@@ -17,4 +17,18 @@ describe('services', function() {
     });
 
   });
+
+  describe('doSample', function() {
+    var doSample;
+
+    beforeEach(inject(function(_doSample_) {
+      doSample = _doSample_;
+    }));
+
+    it('should hash a string correctly', function() {
+      expect(doSample('0', 1, 1000)).toBe(905);
+    });
+
+  });
+
 });
