@@ -15,9 +15,9 @@
      * # MainCtrl
      * Controller of the freeSamplerApp
      */
-    samplerControllers.controller('MainCtrl', ['$scope', 'myHash',
-      function ($scope, myHash) {
-        $scope.blah = myHash('FOO') + 5;
+    samplerControllers.controller('MainCtrl', ['$scope', 'sha256',
+      function ($scope, sha256) {
+        $scope.blah = sha256('foo');
         $scope.awesomeThings = [
           'HTML5 Boilerplate',
           'AngularJS',
