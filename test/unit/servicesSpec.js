@@ -45,4 +45,32 @@ describe('services module', function() {
 
   });
 
+  describe('rivest-sampler-tests', function() {
+    var getSamples, tests;
+
+    beforeEach(inject(function($window, _getSamples_) {
+      var json;
+      getSamples = _getSamples_;
+      json = $window.__html__['bower_components/rivest-sampler-tests/tests.json'];
+      tests = angular.fromJson(json);
+    }));
+
+    it('should have JSON test cases', function() {
+      expect(tests.length).toBeGreaterThan(0);
+    });
+
+    it('should pass its JSON test cases', function() {
+      var test, testData;
+      for (var i = 0,  len = tests.length; i < len; i++) {
+        test = tests[i];
+        testData = test.data;
+
+        expect(getSamples(testData.seed, testData.total, testData.count))
+          .toEqual(test.expected);
+      }
+
+    });
+
+  });
+
 });
