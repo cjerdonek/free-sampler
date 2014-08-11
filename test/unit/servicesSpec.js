@@ -46,20 +46,28 @@ describe('services module', function() {
   });
 
   describe('getSamplesUnique', function() {
-    var getSamplesUnique;
+    var getSamples,
+        getSamplesUnique;
 
-    beforeEach(inject(function(_getSamplesUnique_) {
+    beforeEach(inject(function(_getSamples_, _getSamplesUnique_) {
+      getSamples = _getSamples_;
       getSamplesUnique = _getSamplesUnique_;
     }));
 
     it('should handle duplicates', function() {
       expect(getSamplesUnique('abcde', 5, 2))
         .toEqual([[2, 3], [2, 2, 2, 3]]);
+      // Check the raw array against getSamples().
+      expect(getSamples('abcde', 5, 4))
+        .toEqual([2, 2, 2, 3]);
     });
 
     it('should handle a sample size larger than the total', function() {
       expect(getSamplesUnique('abcde', 3, 4))
         .toEqual([[2, 3, 1], [2, 3, 2, 1]]);
+      // Check the raw array against getSamples().
+      expect(getSamples('abcde', 3, 4))
+        .toEqual([2, 3, 2, 1]);
     });
 
   });
