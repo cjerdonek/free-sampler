@@ -1,6 +1,10 @@
 {
   "name": "freesampler",
   "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cjerdonek/free-sampler.git"
+  },
   "dependencies": {
     "bigint-node": "1.0.2",
     "node-sha256": "0.1.1"
