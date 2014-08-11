@@ -45,6 +45,25 @@ describe('services module', function() {
 
   });
 
+  describe('getSamplesUnique', function() {
+    var getSamplesUnique;
+
+    beforeEach(inject(function(_getSamplesUnique_) {
+      getSamplesUnique = _getSamplesUnique_;
+    }));
+
+    it('should handle duplicates', function() {
+      expect(getSamplesUnique('abcde', 5, 2))
+        .toEqual([[2, 3], [2, 2, 2, 3]]);
+    });
+
+    it('should handle a sample size larger than the total', function() {
+      expect(getSamplesUnique('abcde', 3, 4))
+        .toEqual([[2, 3, 1], [2, 3, 2, 1]]);
+    });
+
+  });
+
   describe('rivest-sampler-tests', function() {
     var getSamples, tests;
 
