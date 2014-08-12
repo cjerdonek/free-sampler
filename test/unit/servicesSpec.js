@@ -79,7 +79,7 @@ describe('services module', function() {
       var json;
       getSamples = _getSamples_;
       json = $window.__html__['bower_components/rivest-sampler-tests/tests.json'];
-      tests = angular.fromJson(json);
+      tests = angular.fromJson(json).tests;
     }));
 
     it('should have JSON test cases', function() {
