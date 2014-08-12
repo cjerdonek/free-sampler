@@ -1,10 +1,25 @@
 {
-  "name": "freesampler",
-  "version": "0.0.0",
+  "name": "free-sampler",
+  "version": "0.1.0",
+  "description": "Browser implementation of Ronald L. Rivest's sampling algorithm using AngularJS",
+  "license": "BSD-3-Clause",
+  "author": "Chris Jerdonek <chris.jerdonek@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git://github.com/cjerdonek/free-sampler.git"
+    "url": "http://github.com/cjerdonek/free-sampler.git"
   },
+  "homepage": "https://github.com/cjerdonek/free-sampler",
+  "bugs": "https://github.com/cjerdonek/free-sampler/issues",
+  "keywords": [
+    "rivest",
+    "random",
+    "pseudo-random",
+    "sampler",
+    "sampling",
+    "election",
+    "audit",
+    "precincts"
+  ],
   "dependencies": {
     "bigint-node": "1.0.2",
     "node-sha256": "0.1.1"
