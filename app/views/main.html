@@ -1,8 +1,12 @@
 <!--
 Using .form-horizontal makes .form-group behave as a row, so
 there is no need to use .row.
+
+We suppress HTML5 client-side input validation using "novalidate."
+This lets us include our own error messages for visual consistency, etc.
 -->
-<form class="form-horizontal" role="form">
+
+<form class="form-horizontal" role="form" novalidate>
   <fieldset ng-disabled="formDisabled()">
 
     <div class="form-group">
@@ -29,7 +33,7 @@ there is no need to use .row.
 
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-9">
-        <button type='submit' class="btn btn-primary" ng-click="compute()">Show Results</button>
+        <button type='submit' class="btn btn-primary" ng-click="showResults()">Show Results</button>
       </div>
     </div>
   </fieldset>
@@ -40,7 +44,7 @@ there is no need to use .row.
 <div class="col-sm-offset-3 col-sm-3">
   <h2>Raw</h2>
   <ol>
-    <li ng-repeat="item in items track by $index">{{ item }}</li>
+    <li ng-repeat="item in allItems track by $index">{{ item }}</li>
   </ol>
 </div>
 <div class="col-sm-3">
@@ -50,12 +54,10 @@ there is no need to use .row.
     </ol>
 </div>
 <div class="col-sm-3">
-  <h2>Sorted</h2>
-  <ol>
-    <li>1</li>
-    <li>1</li>
-    <li>1</li>
-  </ol>
+  <h2>Unique</h2>
+    <ol>
+      <li ng-repeat="item in sortedItems">{{ item }}</li>
+    </ol>
 </div>
 
 </div>
