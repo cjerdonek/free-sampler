@@ -1,7 +1,6 @@
 TODO
 ====
 
-* Include version number somewhere in UI, preferably in DRY way
 * Put the site up on GH pages.
 * Handle incorrect input types using Angular, etc.
 * Add instructions at the top.
@@ -12,3 +11,5 @@ TODO
 * Expose option to set lowest number (and display highest number next to it)
 * Add an about page with information about the algorithm, author,
   that the software is open source and on github, etc
+* Automate keeping the version number in synch across bower.json,
+  package.json, and in the page footer.  Can this be a Grunt task?
