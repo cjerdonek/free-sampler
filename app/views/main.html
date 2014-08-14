@@ -8,13 +8,10 @@ This lets us include our own error messages for visual consistency, etc.
 <form class="form-horizontal" role="form" novalidate>
   <fieldset>
 
-    <div class="form-group">
-      <label for="id_total_count" class="control-label col-sm-3">Total Count</label>
-      <!-- We need to include input tags in a containing div. -->
-      <div class="col-sm-9">
-        <input type="number" class="form-control" id="id_total_count" ng-model="input.totalCount" min="1" placeholder="Total number of items">
-      </div>
-    </div>
+    <!-- TODO: add back 'min="1"'. -->
+    <form-input errors="errors" input="input" input-id="'id_total_count'"
+                input-type="'number'" key="'totalCount'" label="'Total Count'"
+                placeholder="'Total number of items'"></form-input>
 
     <div class="form-group" ng-class="{ 'has-error': errors.seed }">
       <label for="id_seed" class="control-label col-sm-3">Seed</label>
