@@ -1,0 +1,9 @@
+<div class="form-group" ng-class="{ 'has-error': errors[key] }">
+  <label for="{{ inputId }}" class="control-label col-sm-3">{{ label }}</label>
+  <div class="col-sm-9">
+    <input class="form-control" id="{{ inputId }}" ng-model="input[key]" placeholder="{{ placeholder }}" type="{{ inputType }}">
+  </div>
+  <p class="help-block col-sm-offset-3 col-sm-9" ng-hide="!errors[key]">
+    {{ errors[key] }}
+  </p>
+</div>
