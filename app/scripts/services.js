@@ -18,6 +18,28 @@
         return $window.bigint;
     }]);
 
+    // Return a Javascript object of test data.
+    samplerServices.factory('getTests', ['$http',
+      function getTestsFactory($http){
+        function getTests(onResponse) {
+          // The warning "unused" (W098) is for things like--
+          // 'config' is defined but never used.
+          // See also--
+          // https://github.com/jshint/jshint/issues/1140
+          /* jshint unused:false */
+          $http.get('bower_components/rivest-sampler-tests/tests.json',
+            {timeout: 1000}).
+            success(function(data, status, headers, config) {
+              onResponse(data);
+            }).
+            error(function(data, status, headers, config) {
+              throw('error: ' + data);
+            });
+          /* jshint unused:true */
+        }
+        return getTests;
+    }]);
+
     // Return a SHA-256 hash function.
     samplerServices.factory('sha256', ['sha',
       // Params:
@@ -54,6 +76,7 @@
     samplerServices.factory('getSamples', ['getSample',
       function getSamplesFactory(getSample){
         // Get samples, allowing duplicates.
+        //
         // Returns an array of 1-based items.
         function getSamples(seed, totalSize, sampleSize) {
           var item;
@@ -65,6 +88,40 @@
           return items;
         }
         return getSamples;
+    }]);
+
+    samplerServices.factory('getSamplesUnique', ['getSample',
+      function getSamplesUniqueFactory(getSample){
+        // Get samples, skipping duplicates.
+        //
+        // Returns a 2-item array of 1-based items:
+        //   1) an array without duplicates, and
+        //   2) the original raw array with duplicates.
+        //
+        // If more samples are requested than the given total, then the
+        // function simply returns the maximum number possible.
+        // In particular, it does not error out, etc.
+        function getSamplesUnique(seed, totalSize, sampleSize) {
+          var item,
+              items = [],
+              uniqueItems = [],
+              selectedItems = {};
+          // Prevent infinite execution.
+          if (sampleSize > totalSize) {
+              sampleSize = totalSize;
+          }
+          for (var i = 1, count = 0; count < sampleSize; i++) {
+              item = getSample(seed, totalSize, i);
+              items.push(item);
+              if (!(item in selectedItems)) {
+                  selectedItems[item] = true;
+                  uniqueItems.push(item);
+                  count++;
+              }
+          }
+          return [uniqueItems, items];
+        }
+        return getSamplesUnique;
     }]);
 
 })();
