@@ -2,16 +2,17 @@ For Maintainers
 ===============
 
 This document provides information for project maintainers and others
-interested in developing and modifying the source.
+interested in running and modifying the source locally.
 
 
 Getting Started
 ---------------
 
 To develop locally, you will need to download and install [Node.js][node-js].
-This will also install [`npm`][npm], which is Node's package manager.
+This will also install Node's package manager [`npm`][npm].
 
-Then run the following from the repository root--
+After cloning the repository using [Git][git], run the following from the
+repository root--
 
     $ npm install
 
@@ -90,6 +91,7 @@ up to 10 minutes for changes to appear.
 
 
 [bower]: http://bower.io/
+[git]: http://git-scm.com/
 [github-pages]: https://help.github.com/categories/20/articles
 [node-js]: http://nodejs.org/
 [npm]: https://www.npmjs.org/
