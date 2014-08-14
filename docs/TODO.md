@@ -2,6 +2,7 @@ TODO
 ====
 
 * Handle incorrect input types using Angular, etc.
+* Make form HTML DRY.
 * Add instructions at the top.
 * Add an about page with information about the algorithm, author,
   that the software is open source and on github, etc

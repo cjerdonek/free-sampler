@@ -28,16 +28,24 @@
     samplerControllers.controller('MainCtrl', ['$log', '$scope', '$window', 'getSamplesUnique',
       function ($log, $scope, $window, getSamplesUnique) {
 
-        // Initialize the input model.
+        // Initialize the input models.
         $scope.input = {};
 
         $scope.showResults = function() {
+            // Clear any errors since we have new input.
+            $scope.errors = {};
+
             var input = $scope.input;
             var seed = input.seed;
             var totalCount = parseInt(input.totalCount, 10);
             var sampleCount = parseInt(input.sampleCount, 10);
 
-            // TODO: validate totalCount and sampleCount.
+            // TODO: finish validating input.
+
+            // Validate the input.
+            if (!seed) {
+                $scope.errors.seed = 'A random seed is required.';
+            }
 
             var result = getSamplesUnique(seed, totalCount, sampleCount);
             var uniqueItems = result[0];
@@ -49,6 +57,15 @@
             $scope.uniqueItems = uniqueItems;
             $scope.sortedItems = sortedItems;
         };
+
+        this.onSaveError = function ($scope, httpResponse) {
+            var errors = httpResponse.data;
+            for (var key in errors) {
+                $scope.errors[key] = errors[key].join(' ');
+            }
+            $scope.formChanging = false;
+        };
+
     }]);
 
 })();
