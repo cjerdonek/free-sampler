@@ -3,12 +3,12 @@ FreeSampler
 
 [The first version of this project is still under development.]
 
-This repository contains the source code for a web application
-that lets you run the [SHA-256][sha-256] pseudo-random
-sampling algorithm described by [Ronald L. Rivest][rivest] in 2011.
+This repository contains an open source web application that lets you
+run the [SHA-256][sha-256] pseudo-random sampling algorithm described
+in 2011 by [Ronald L. Rivest][rivest].
 
 The application can be used for things like selecting precincts at
-random for a manual audit of an election.
+random for a post-election manual audit.
 
 To try out the latest version, go [here][free-sampler-app].
 
