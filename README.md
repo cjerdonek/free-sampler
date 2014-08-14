@@ -9,6 +9,8 @@ from a collection.
 For example, the application can be used for things like selecting
 precincts at random after an election for a manual audit.
 
+To see and try out the application, go [here][free-sampler-app].
+
 The application is an implementation of Ronald L. Rivest's SHA-256
 [sampling algorithm][rivest-sampler].
 
@@ -45,6 +47,7 @@ Author
 Chris Jerdonek (<chris.jerdonek@gmail.com>)
 
 
+[free-sampler-app]: http://cjerdonek.github.io/free-sampler/
 [maintain]: docs/maintain.md
 [rivest-sampler]: http://people.csail.mit.edu/rivest/sampler.py
 [sampler-tests]: https://github.com/cjerdonek/rivest-sampler-tests
