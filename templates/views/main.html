@@ -1,0 +1,7 @@
+<!--
+Using .form-horizontal makes .form-group behave as a row, so
+there is no need to use .row.
+
+We suppress HTML5 client-side input validation using "novalidate."
+This lets us include our own error messages for visual consistency, etc.
+--> <form class="form-horizontal" role="form" novalidate> <fieldset> <div class="form-group"> <div class="col-sm-offset-3 col-sm-9"> Fill in the below to generate your sample. </div> </div> <form-input form-data="form" input-id="'id_total_count'" input-min="'1'" input-type="'number'" key="'totalCount'" label="'Total Count'" placeholder="'Total number of items'"> </form-input> <form-input form-data="form" input-id="'id_seed'" input-min="" input-type="'text'" key="'seed'" label="'Random Seed'" placeholder="'Any numbers or characters'"> </form-input> <form-input form-data="form" input-id="'id_sample_count'" input-min="'1'" input-type="'number'" key="'sampleCount'" label="'Sample Count'" placeholder="'Number of items to select'"> </form-input> <div class="form-group"> <div class="col-sm-offset-3 col-sm-9"> <button type="submit" class="btn btn-primary" ng-click="showResults()">Show Results</button> </div> </div> </fieldset> </form> <div class="row"> <div class="col-sm-offset-3 col-sm-3"> <h2>Raw</h2> <ol> <li ng-repeat="item in allItems track by $index">{{ item }}</li> </ol> </div> <div class="col-sm-3"> <h2>Unique</h2> <ol> <li ng-repeat="item in uniqueItems">{{ item }}</li> </ol> </div> <div class="col-sm-3"> <h2>Sorted</h2> <ol> <li ng-repeat="item in sortedItems">{{ item }}</li> </ol> </div> </div>
