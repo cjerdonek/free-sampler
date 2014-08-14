@@ -29,6 +29,13 @@ describe('services module', function() {
       expect(getSample('0', 1000, 1)).toBe(905);
     });
 
+    it('should throw an error if totalSize is undefined', function() {
+      expect(function() {
+        getSample('abcde', undefined, 3);
+      })
+        .toThrow(new Error('drawing sample 3 from size undefined with seed "abcde" did not return a number'));
+    });
+
   });
 
   describe('getSamples', function() {
@@ -68,6 +75,13 @@ describe('services module', function() {
       // Check the raw array against getSamples().
       expect(getSamples('abcde', 3, 4))
         .toEqual([2, 3, 2, 1]);
+    });
+
+    it('should throw an error if totalSize is undefined', function() {
+      expect(function() {
+        getSamplesUnique('abcde', undefined, 3);
+      })
+        .toThrow(new Error('drawing sample 1 from size undefined with seed "abcde" did not return a number'));
     });
 
   });
