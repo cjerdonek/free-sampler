@@ -1,7 +1,6 @@
 TODO
 ====
 
-* Add instructions at the top.
 * Then deploy new version.
 ----
 * Add an About page with information about the algorithm, author,
