@@ -2,9 +2,11 @@ TODO
 ====
 
 * Handle incorrect input types using Angular, etc.
-* Make form HTML DRY.
+* Move views directory to templates and fix Gruntfile.
 * Add instructions at the top.
-* Add an about page with information about the algorithm, author,
+* Then deploy new version.
+----
+* Add an About page with information about the algorithm, author,
   that the software is open source and on github, etc
 * Add end-to-end tests.
 * Add a "test" option that uses the test cases (and should tests
@@ -15,3 +17,5 @@ TODO
 * Automate keeping the version number in synch across bower.json,
   package.json, and in the page footer.  Can this be a Grunt task?
 * Simplify or automate deploying a new gh-pages version.
+* Include "min" attribute in form-input directive only when input
+  type is "number".

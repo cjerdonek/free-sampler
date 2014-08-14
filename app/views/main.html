@@ -8,27 +8,20 @@ This lets us include our own error messages for visual consistency, etc.
 <form class="form-horizontal" role="form" novalidate>
   <fieldset>
 
-    <!-- TODO: add back 'min="1"'. -->
     <form-input errors="errors" input="input" input-id="'id_total_count'"
-                input-type="'number'" key="'totalCount'" label="'Total Count'"
-                placeholder="'Total number of items'"></form-input>
+                input-min="'1'" input-type="'number'" key="'totalCount'"
+                label="'Total Count'" placeholder="'Total number of items'">
+    </form-input>
 
-    <div class="form-group" ng-class="{ 'has-error': errors.seed }">
-      <label for="id_seed" class="control-label col-sm-3">Seed</label>
-      <div class="col-sm-9">
-        <input type="text" class="form-control" id="id_seed" ng-model="input.seed" placeholder="Random seed (any numbers or characters)">
-      </div>
-      <p class="help-block col-sm-offset-3 col-sm-9" ng-hide="!errors.seed">
-        {{ errors.seed }}
-      </p>
-    </div>
+    <form-input errors="errors" input="input" input-id="'id_seed'"
+                input-min="" input-type="'text'" key="'seed'"
+                label="'Random Seed'" placeholder="'Any numbers or characters'">
+    </form-input>
 
-    <div class="form-group">
-      <label for="id_sample_count" class="control-label col-sm-3">Sample Count</label>
-      <div class="col-sm-9">
-        <input type="number" class="form-control" id="id_sample_count" ng-model="input.sampleCount" min="1" placeholder="Number of items to select">
-      </div>
-    </div>
+    <form-input errors="errors" input="input" input-id="'id_sample_count'"
+                input-min="'1'" input-type="'number'" key="'sampleCount'"
+                label="'Sample Count'" placeholder="'Number of items to select'">
+    </form-input>
 
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-9">

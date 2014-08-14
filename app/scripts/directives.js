@@ -16,6 +16,7 @@
                 errors: '=',
                 input: '=',
                 inputId: '=',
+                inputMin: '=',
                 inputType: '=',
                 key: '=',
                 label: '=',
