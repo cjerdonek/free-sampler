@@ -53,12 +53,12 @@ Acknowledgments
 ---------------
 
 This project was inspired by the browser implementation [here][stark-impl]
-developed by [Philip B. Stark][stark-impl].
+developed by [Philip B. Stark][stark].
 
 
 [free-sampler-app]: http://cjerdonek.github.io/free-sampler/
 [maintain]: docs/maintain.md
-[philip-stark]: http://www.stat.berkeley.edu/~stark/
 [rivest-sampler]: http://people.csail.mit.edu/rivest/sampler.py
 [sampler-tests]: https://github.com/cjerdonek/rivest-sampler-tests
+[stark]: http://www.stat.berkeley.edu/~stark/
 [stark-impl]: http://www.stat.berkeley.edu/~stark/Java/Html/sha256Rand.htm
