@@ -50,7 +50,9 @@
             var result = getSamplesUnique(seed, totalCount, sampleCount);
             var uniqueItems = result[0];
             var sortedItems = uniqueItems.concat();  // make a copy.
-            sortedItems.sort();
+            sortedItems.sort(function(a, b) {
+                return a - b;
+            });
 
             // TODO: put these properties in a model.
             $scope.allItems = result[1];
