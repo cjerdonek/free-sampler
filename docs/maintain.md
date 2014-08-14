@@ -1,7 +1,50 @@
 For Maintainers
 ===============
 
-This document provides information for project maintainers.
+This document provides information for project maintainers and others
+interested in developing and modifying the source.
+
+
+Getting Started
+---------------
+
+To develop locally, you will need to download and install [Node.js][node-js].
+This will also install [`npm`][npm], which is Node's package manager.
+
+Then run the following from the repository root--
+
+    $ npm install
+
+This installs the dependencies listed in the file
+[`package.json`](package.json) into a subdirectory called `node_modules`.
+
+You will also need to install [Bower][bower], which is a command-line
+utility for web application javascript dependencies:
+
+    $ npm install -g bower
+
+Then run the following from the repository root--
+
+    $ bower install
+
+This installs the dependencies listed in the file [`bower.json`](bower.json)
+into a subdirectory called `bower_components`.
+
+
+Testing
+-------
+
+To run unit tests, run the following from the repository root--
+
+    $ grunt test
+
+
+Running
+-------
+
+To run the source code locally from a browser:
+
+    $ grunt serve
 
 
 Building
@@ -46,4 +89,7 @@ The page should now be ready to view.  Note that GitHub says it can take
 up to 10 minutes for changes to appear.
 
 
+[bower]: http://bower.io/
 [github-pages]: https://help.github.com/categories/20/articles
+[node-js]: http://nodejs.org/
+[npm]: https://www.npmjs.org/

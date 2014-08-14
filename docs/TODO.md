@@ -1,7 +1,6 @@
 TODO
 ====
 
-* Put the site up on GH pages.
 * Handle incorrect input types using Angular, etc.
 * Add instructions at the top.
 * Add end-to-end tests.
@@ -14,3 +13,4 @@ TODO
 * Add info about Bower dependencies to README.
 * Automate keeping the version number in synch across bower.json,
   package.json, and in the page footer.  Can this be a Grunt task?
+* Simplify or automate deploying a new gh-pages version.
