@@ -25,6 +25,27 @@ See also Philip B. Stark's [implementation][stark-impl] for another browser
 implementation.
 
 
+Development
+-----------
+
+See the [Maintainers][maintain] page for information on maintaining
+and releasing this project.
+
+
+License
+-------
+
+This project is licensed under the BSD 3-clause license.  See the
+[`LICENSE`](LICENSE) file for details.
+
+
+Author
+------
+
+Chris Jerdonek (<chris.jerdonek@gmail.com>)
+
+
+[maintain]: docs/maintain.md
 [rivest-sampler]: http://people.csail.mit.edu/rivest/sampler.py
 [sampler-tests]: https://github.com/cjerdonek/rivest-sampler-tests
 [stark-impl]: http://www.stat.berkeley.edu/~stark/Java/Html/sha256Rand.htm
