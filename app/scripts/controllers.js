@@ -4,6 +4,10 @@
 
 (function(){
 
+    var samplerControllers = angular.module('freeSamplerApp.controllers', [
+        'freeSamplerApp.services'
+    ]);
+
     // To simulate long blocking computations.
     // function busyWait(seconds) {
     //     var date = new Date();
@@ -13,10 +17,6 @@
     //         }
     //     }
     // }
-
-    var samplerControllers = angular.module('freeSamplerApp', [
-        'freeSamplerApp.services'
-    ]);
 
     /**
      * @ngdoc function
