@@ -3,8 +3,8 @@ FreeSampler
 
 [The first version of this project is still under development.]
 
-This repository contains the source code for a web application called
-"FreeSampler" that lets you run the [SHA-256][sha-256] pseudo-random
+This repository contains the source code for a web application
+that lets you run the [SHA-256][sha-256] pseudo-random
 sampling algorithm described by [Ronald L. Rivest][rivest] in 2011.
 
 The application can be used for things like selecting precincts at
@@ -26,6 +26,8 @@ Python), along with a description, can be found on Rivest's web site.
 
 About the Application
 ---------------------
+
+TODO: move some of this to maintainers.
 
 This implementation uses AngularJS and has both unit tests and end-to-end
 tests.  The project was started using version 0.9.5 of
