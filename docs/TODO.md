@@ -1,8 +1,6 @@
 TODO
 ====
 
-* Handle incorrect input types using Angular, etc.
-* Move views directory to templates and fix Gruntfile.
 * Add instructions at the top.
 * Then deploy new version.
 ----
@@ -11,7 +9,7 @@ TODO
 * Add end-to-end tests.
 * Add a "test" option that uses the test cases (and should tests
   run automatically when starting up?).
-* Expose a debug option which showes hashes.
+* Expose a debug option which shows hashes.
 * Expose option to set lowest number (and display highest number next to it)
 * Add info about Bower dependencies to README.
 * Automate keeping the version number in synch across bower.json,

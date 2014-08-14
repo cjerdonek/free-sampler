@@ -13,8 +13,8 @@
             replace: 'true',
             templateUrl: 'templates/directives/form_input.html',
             scope: {
-                errors: '=',
-                input: '=',
+                // TODO: pass input and errors but not the full formData.
+                formData: '=',
                 inputId: '=',
                 inputMin: '=',
                 inputType: '=',
