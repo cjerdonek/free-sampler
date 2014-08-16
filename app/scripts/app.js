@@ -12,10 +12,27 @@
    *
    * Main module of the application.
    */
-  angular.module('freeSamplerApp', [
+  var samplerApp = angular.module('freeSamplerApp', [
       'ngRoute',
       'freeSamplerApp.controllers',
       'freeSamplerApp.directives'
   ]);
+
+  samplerApp.config(['$routeProvider',
+    function($routeProvider) {
+      $routeProvider.
+        when('/', {
+          templateUrl: 'templates/partials/main.html',
+          controller: 'MainCtrl'
+        }).
+        when('/about', {
+          templateUrl: 'templates/partials/about.html',
+          // TODO: remove this?
+          controller: 'MainCtrl'
+        }).
+        otherwise({
+          redirectTo: '/'
+        });
+    }]);
 
 })();
