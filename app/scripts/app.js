@@ -13,6 +13,7 @@
    * Main module of the application.
    */
   angular.module('freeSamplerApp', [
+      'ngRoute',
       'freeSamplerApp.controllers',
       'freeSamplerApp.directives'
   ]);
