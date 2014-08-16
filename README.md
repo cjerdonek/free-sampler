@@ -1,6 +1,8 @@
 FreeSampler
 ===========
 
+[![Build Status](https://travis-ci.org/cjerdonek/free-sampler.svg?branch=master)](https://travis-ci.org/cjerdonek/free-sampler)
+
 [The first version of this project is still under development.]
 
 This repository contains an open source web application that lets you
