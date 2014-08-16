@@ -1,11 +1,10 @@
 TODO
 ====
 
-* Then deploy new version.
-----
+* Get tests working on Travis.
 * Add an About page with information about the algorithm, author,
   that the software is open source and on github, etc
-* Add end-to-end tests.
+* Add an end-to-end test.
 * Add a "test" option that uses the test cases (and should tests
   run automatically when starting up?).
 * Expose a debug option which shows hashes.
