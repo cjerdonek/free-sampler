@@ -90,6 +90,14 @@ The page should now be ready to view.  Note that GitHub says it can take
 up to 10 minutes for changes to appear.
 
 
+Technical Background
+--------------------
+
+This project was started using version 0.9.5 of
+[`generator-angular`](https://github.com/yeoman/generator-angular),
+the Yeoman generator for AngularJS.
+
+
 [bower]: http://bower.io/
 [git]: http://git-scm.com/
 [github-pages]: https://help.github.com/categories/20/articles

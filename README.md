@@ -26,15 +26,13 @@ The [reference implementation][rivest-impl] of the algorithm (written in
 Python), along with a description, can be found on Rivest's web site.
 
 
-About the Application
----------------------
+Application Features
+--------------------
 
-TODO: move some of this to maintainers.
+TODO: add reference to Travis.
 
 This implementation uses AngularJS and has both unit tests and end-to-end
-tests.  The project was started using version 0.9.5 of
-[`generator-angular`](https://github.com/yeoman/generator-angular),
-the Yeoman generator for AngularJS.
+tests.
 
 It is also tested against the publicly available test cases
 [`rivest-sampler-tests`][sampler-tests].

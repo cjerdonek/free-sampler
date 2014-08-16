@@ -1,7 +1,6 @@
 TODO
 ====
 
-* Get tests working on Travis.
 * Add an About page with information about the algorithm, author,
   that the software is open source and on github, etc
 * Add an end-to-end test.
