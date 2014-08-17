@@ -60,11 +60,12 @@
     "node": ">=0.10.0"
   },
   "scripts": {
+      "update-webdriver": "webdriver-manager update",
       "preprotractor": "npm run update-webdriver",
-      "protractor": "protractor test/protractor.conf.js",
-      "test": "npm run protractor",
+      "protractor": "protractor test/protractor.conf.js $PROTRACTOR_PROFILE",
+
       "test-travis": "protractor test/protractor.travis.js",
       "test-unit": "grunt test",
-      "update-webdriver": "webdriver-manager update"
+      "test": "npm run protractor"
   }
 }
