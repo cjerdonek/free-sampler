@@ -15,6 +15,7 @@
   var samplerApp = angular.module('freeSamplerApp', [
       'ngRoute',
       'freeSamplerApp.controllers',
+      'freeSamplerApp.controllers.nav',
       'freeSamplerApp.directives'
   ]);
 
