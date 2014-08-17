@@ -8,6 +8,7 @@ exports.config = (function() {
     var extra;
     switch (profile) {
         case undefined:
+        case 'chrome':
             extra = {
                 capabilities: {
                     'browserName': 'chrome'
