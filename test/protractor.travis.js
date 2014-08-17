@@ -6,7 +6,9 @@ exports.config = {
   ],
 
   capabilities: {
-    'browserName': 'phantomjs'
+    // Travis has Firefox installed, as well as phantomjs on the PATH.
+    'browserName': 'firefox'
+//    'browserName': 'phantomjs'
   },
 
   baseUrl: 'http://localhost:9000/',
