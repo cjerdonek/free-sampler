@@ -23,6 +23,24 @@ exports.config = (function() {
                 }
             };
             break;
+        case 'travis':
+            // Travis has Firefox installed.  The GUI emulator xvfb
+            // (X Virtual Framebuffer) needs to be started prior to running
+            // Protractor.
+            extra = {
+                capabilities: {
+                    'browserName': 'firefox'
+                }
+            };
+            break;
+        case 'travis-phantom':
+            // Travis has phantomjs on the PATH.
+            extra = {
+                capabilities: {
+                    'browserName': 'firefox'
+                }
+            };
+            break;
         default:
             throw 'invalid protractor profile: ' + profile;
     }
