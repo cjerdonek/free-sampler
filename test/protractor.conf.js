@@ -11,7 +11,16 @@ if (profile === undefined) {
             'browserName': 'chrome'
         },
         chromeOnly: true
-    }
+    };
+}
+
+if (profile === 'phantomjs') {
+    extra = {
+        capabilities: {
+           'browserName': 'phantomjs',
+           'phantomjs.binary.path': './node_modules/karma-phantomjs-launcher/node_modules/phantomjs/bin/phantomjs'
+        }
+    };
 }
 
 var config = {
