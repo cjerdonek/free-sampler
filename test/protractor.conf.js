@@ -5,22 +5,25 @@ var profile = process.env.PROTRACTOR_PROFILE;
 console.log('protractor profile: ' + profile);
 
 var extra;
-if (profile === undefined) {
-    extra = {
-        capabilities: {
-            'browserName': 'chrome'
-        },
-        chromeOnly: true
-    };
-}
-
-if (profile === 'phantomjs') {
-    extra = {
-        capabilities: {
-           'browserName': 'phantomjs',
-           'phantomjs.binary.path': './node_modules/karma-phantomjs-launcher/node_modules/phantomjs/bin/phantomjs'
-        }
-    };
+switch (profile) {
+    case undefined:
+        extra = {
+            capabilities: {
+                'browserName': 'chrome'
+            },
+            chromeOnly: true
+        };
+        break;
+    case 'phantomjs':
+        extra = {
+            capabilities: {
+               'browserName': 'phantomjs',
+               'phantomjs.binary.path': './node_modules/karma-phantomjs-launcher/node_modules/phantomjs/bin/phantomjs'
+            }
+        };
+        break;
+    default:
+        throw 'invalid protractor profile: ' + profile;
 }
 
 var config = {
