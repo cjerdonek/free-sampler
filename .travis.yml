@@ -5,7 +5,7 @@ before_script:
   - 'npm install -g bower grunt-cli'
   - 'bower install'
   - npm run update-webdriver
-  - sleep 3
+  - grunt serve
 script:
   # For information on configuring Travis for browser testing, see--
   # http://docs.travis-ci.com/user/gui-and-headless-browsers/
