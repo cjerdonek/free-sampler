@@ -37,7 +37,7 @@ exports.config = (function() {
             // Travis has phantomjs on the PATH.
             extra = {
                 capabilities: {
-                    'browserName': 'firefox'
+                    'browserName': 'phantomjs'
                 }
             };
             break;
