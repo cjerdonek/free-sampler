@@ -4,6 +4,44 @@ describe('services module', function() {
 
   beforeEach(module('freeSamplerApp.services'));
 
+  describe('spellsInt', function() {
+    var spellsInt;
+
+    beforeEach(inject(function(_spellsInt_) {
+      spellsInt = _spellsInt_;
+    }));
+
+    it('should parse values correctly', function() {
+
+      expect(spellsInt('foo')).toBeNaN();
+      expect(spellsInt('')).toBeNaN();
+      expect(spellsInt('2.5')).toBeNaN();
+      expect(spellsInt('1.0')).toBeNaN();
+      expect(spellsInt('000')).toBeNaN();
+      expect(spellsInt('15px')).toBeNaN();
+
+      expect(spellsInt('1')).toBe(1);
+      expect(spellsInt('0')).toBe(0);
+      expect(spellsInt('-1')).toBe(-1);
+      // Check a 10 digit number.
+      expect(spellsInt('9999999999')).toBe(9999999999);
+
+      // Also check integer literals.
+      expect(spellsInt(1)).toBe(1);
+      expect(spellsInt(0)).toBe(0);
+      expect(spellsInt(-1)).toBe(-1);
+      expect(spellsInt(9999999999)).toBe(9999999999);
+
+      // Some sanity checks.
+      expect(spellsInt(true)).toBeNaN();
+      expect(spellsInt(false)).toBeNaN();
+      expect(spellsInt(undefined)).toBeNaN();
+      expect(spellsInt(NaN)).toBeNaN();
+      expect(spellsInt(Infinity)).toBeNaN();
+    });
+
+  });
+
   describe('sha256', function() {
     var sha256;
 

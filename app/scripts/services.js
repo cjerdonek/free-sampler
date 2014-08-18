@@ -6,6 +6,23 @@
 
     var samplerServices = angular.module('freeSamplerApp.services', []);
 
+    // Return a spellsInt() function.
+    samplerServices.factory('spellsInt', [
+      function spellsIntFactory(){
+        // If value spells an integer, then return the integer.
+        // Otherwise, return NaN.
+        function spellsInt(value) {
+            // parseInt() returns an integer or NaN.
+            var n = parseInt(value, 10);
+            // Comparing toString() lets us invalidate strings like "2.5" or "15px".
+            if (isNaN(n) || (n.toString() !== value.toString())) {
+                return NaN;
+            }
+            return n;
+        }
+        return spellsInt;
+    }]);
+
     // Return the 'sha' namespace defined by node-sha256.js.
     samplerServices.factory('sha', ['$window',
       function shaFactory($window){
