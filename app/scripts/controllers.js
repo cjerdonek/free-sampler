@@ -57,7 +57,14 @@
 
         $scope.todoKeyup = function() {
             // TODO
-            $log.log("keyup");
+            $log.log('keyup');
+        };
+
+        // If the field becomes blank, clear any error.  Otherwise, show
+        // an error if and only if the input is not a valid integer.
+        $scope.totalCountKeyup = function() {
+            var total = input.totalCount;
+            $log.log('total: ' + total);
         };
 
         $scope.showResults = function() {
