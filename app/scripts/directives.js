@@ -20,7 +20,8 @@
                 inputType: '=',
                 key: '=',
                 label: '=',
-                placeholder: '='
+                placeholder: '=',
+                inputKeyup: '='
             }
         };
     }]);

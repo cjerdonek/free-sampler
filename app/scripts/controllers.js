@@ -55,6 +55,11 @@
         $scope.form = {};
         $scope.form.input = input;
 
+        $scope.todoKeyup = function() {
+            // TODO
+            $log.log("keyup");
+        };
+
         $scope.showResults = function() {
             // Clear any errors since we have new input.
             var errors = {};
