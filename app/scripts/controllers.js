@@ -18,6 +18,27 @@
     //     }
     // }
 
+    // Return whether an input element is empty.
+    function isEmpty(inputValue) {
+        // For input type "number", an empty input element can result
+        // in an input value of null.
+        if ((inputValue === null) || (inputValue === '')) {
+            return true;
+        }
+        return false;
+    }
+
+    function updateError(errors, key, errorMessage) {
+        if (errorMessage) {
+            if (errors[key] !== errorMessage) {
+                errors[key] = errorMessage;
+            }
+        } else {
+            // It's okay to delete if the property does not exist.
+            delete errors[key];
+        }
+    }
+
     /**
      * @ngdoc function
      * @name freeSamplerApp.controller:MainCtrl
@@ -29,68 +50,62 @@
       'getSamplesUnique', 'spellsInt',
       function ($log, $scope, $window, getSamplesUnique, spellsInt) {
 
-        function parseNumber(input, key, errors) {
+        // Return an object with either an error message or the parsed integer.
+        function validateNumber(inputValue) {
+            var n = spellsInt(inputValue);
+            if (isNaN(n)) {
+                return {error: 'A whole number bigger than zero is required.'};
+            }
+            if (n < 1) {
+                return {error: 'The number must be bigger than zero.'};
+            }
+            return {value: n};
+        }
+
+        function validateForm(input, errors) {
+            var result,
+                sampleCount,
+                sampleCountError,
+                seed = input.seed,
+                seedError,
+                totalCount,
+                totalCountError;
+
             // Note that with input type "number", the value input[key] may
             // already be converted to a number and not be a string.
             //
             // Moreover, if the user supplied "-1" and the input element has
-            // min="1", then input[key] will be undefined (and the parseInt()
-            // return value NaN) for at least some browsers.  Thus, we include
+            // min="1", then input[key] will be undefined (and spellsInt()
+            // will return NaN) for at least some browsers.  Thus, we include
             // the full helpful error message if the parsed integer is NaN.
-            var inputValue = input[key];
-            var n = spellsInt(inputValue);
-            if (isNaN(n)) {
-                errors[key] = 'A whole number bigger than zero is required.';
-                return;
+            result = validateNumber(input.sampleCount);
+            sampleCount = result.value;
+            sampleCountError = result.error;
+
+            result = validateNumber(input.totalCount);
+            totalCount = result.value;
+            totalCountError = result.error;
+
+            if (!seed) {
+                seedError = 'A random seed is required.';
             }
-            if (n < 1) {
-                errors[key] = 'The number must be bigger than zero.';
-                return;
+            if (!sampleCountError && !totalCountError && (sampleCount > totalCount)) {
+                sampleCountError = 'The sample count must be smaller than the total size.';
             }
-            return n;
+
+            updateError(errors, 'sampleCount', sampleCountError);
+            updateError(errors, 'seed', seedError);
+            updateError(errors, 'totalCount', totalCountError);
+
+            return {
+                sampleCount: sampleCount,
+                seed: seed,
+                totalCount: totalCount
+            };
         }
 
-        var input = {};
-
-        // Initialize the models.
-        $scope.form = {};
-        $scope.form.input = input;
-
-        $scope.todoKeyup = function() {
-            // TODO
-            $log.log('keyup');
-        };
-
-        // If the field becomes blank, clear any error.  Otherwise, show
-        // an error if and only if the input is not a valid integer.
-        $scope.totalCountKeyup = function() {
-            var total = input.totalCount;
-            $log.log('total: ' + total);
-        };
-
-        $scope.showResults = function() {
-            // Clear any errors since we have new input.
-            var errors = {};
-            $scope.form.errors = errors;
-
-            var seed = input.seed;
-            var totalCount = parseNumber(input, 'totalCount', errors);
-            var sampleCount = parseNumber(input, 'sampleCount', errors);
-
-            // Finish validating the input.
-            if (!seed) {
-                errors.seed = 'A random seed is required.';
-            }
-            if (!errors.sampleCount && (sampleCount > totalCount)) {
-                errors.sampleCount = 'The sample count must be smaller than the total size.';
-            }
-
-            // It doesn't suffice simply to check if errors is true.
-            if (!angular.equals(errors, {})) {
-                // Then do not attempt to draw samples.
-                return;
-            }
-
+        // TODO: pass a model on the scope instead of the full scope.
+        function showSamples($scope, seed, totalCount, sampleCount) {
             var result = getSamplesUnique(seed, totalCount, sampleCount);
 
             var uniqueItems = result[0];
@@ -103,6 +118,45 @@
             $scope.allItems = result[1];
             $scope.uniqueItems = uniqueItems;
             $scope.sortedItems = sortedItems;
+        }
+
+        var input = {};
+        var errors = {};
+
+        // Initialize the model.
+        $scope.form = {};
+        $scope.form.errors = errors;
+        $scope.form.input = input;
+
+        $scope.todoKeyup = function() {
+            // TODO
+            $log.log('keyup');
+        };
+
+        // If the field becomes blank, clear any error.  Otherwise, show
+        // an error if and only if the input is not a valid integer.
+        $scope.totalCountKeyup = function() {
+            var total = input.totalCount;
+            $log.log('total: ' + total);
+            if (!isEmpty(total)) {
+                var result = validateNumber(total);
+                if (result.error) {
+                    // TODO: only set the value if the value is different.
+                    errors.totalCount = result.error;
+                    return;
+                }
+            }
+            // It's okay to delete if the property does not exist.
+            delete errors.totalCount;
+        };
+
+        $scope.submit = function() {
+            var result = validateForm(input, errors);
+
+            // It doesn't suffice simply to check if errors is falsey.
+            if (angular.equals(errors, {})) {
+                showSamples($scope, result.seed, result.totalCount, result.sampleCount);
+            }
         };
 
     }]);
