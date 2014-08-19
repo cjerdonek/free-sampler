@@ -129,9 +129,16 @@
         $scope.form.input = input;
         $scope.output = output;
 
-        $scope.todoCheck = function() {
+        $scope.seedCheck = function() {
+          var seed = input.seed;
+          $log.log('seed: ' + seed);
+          // TODO
+        };
+
+        $scope.sampleCountCheck = function() {
+            var sampleCount = input.sampleCount;
+            $log.log('sampleCount: ' + sampleCount);
             // TODO
-            $log.log('keyup');
         };
 
         // If the field becomes blank, clear any error.  Otherwise, show
