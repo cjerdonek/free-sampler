@@ -21,7 +21,7 @@
                 key: '=',
                 label: '=',
                 placeholder: '=',
-                inputBlur: '=checkInput'
+                inputChange: '=whenChanged'
             }
         };
     }]);
