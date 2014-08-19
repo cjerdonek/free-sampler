@@ -104,6 +104,7 @@
             };
         }
 
+        // TODO: move this to services.js.
         function showSamples(output, seed, totalCount, sampleCount) {
             var result = getSamplesUnique(seed, totalCount, sampleCount);
 
@@ -128,14 +129,14 @@
         $scope.form.input = input;
         $scope.output = output;
 
-        $scope.todoKeyup = function() {
+        $scope.todoCheck = function() {
             // TODO
             $log.log('keyup');
         };
 
         // If the field becomes blank, clear any error.  Otherwise, show
         // an error if and only if the input is not a valid integer.
-        $scope.totalCountKeyup = function() {
+        $scope.totalCountCheck = function() {
             var total = input.totalCount;
             $log.log('total: ' + total);
             if (!isEmpty(total)) {

@@ -2,7 +2,7 @@
   <label for="{{ inputId }}" class="control-label col-sm-3">{{ label }}</label>
   <div class="col-sm-9">
     <!-- TODO: include "min" only when type is "number". -->
-    <input class="form-control" id="{{ inputId }}" ng-keyup="inputKeyup()"
+    <input class="form-control" id="{{ inputId }}" ng-blur="inputBlur()"
            ng-model="formData.input[key]"
            placeholder="{{ placeholder }}" type="{{ inputType }}" min="{{ inputMin }}"/>
   </div>
