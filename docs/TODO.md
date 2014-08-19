@@ -4,7 +4,6 @@ TODO
 * Validate while typing and not just on submit
 * Turn the keyup to blur.
 * Make sure that "tabbing" into a form input element does not cause an error.
-* Move controllers.js into subdirectory.
 * Expose option to set lowest number (and display highest number next to it)
 * Add a "test" option that uses the test cases (and should tests
   run automatically when starting up?).
