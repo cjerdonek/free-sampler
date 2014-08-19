@@ -4,7 +4,7 @@
 
 (function(){
 
-    var samplerControllers = angular.module('freeSamplerApp.controllers', [
+    var samplerControllers = angular.module('freeSamplerApp.controllers.form', [
         'freeSamplerApp.services'
     ]);
 
@@ -45,6 +45,18 @@
      * @description
      * # MainCtrl
      * Controller of the freeSamplerApp
+     *
+     * We do not perform form validation on ng-keyup, ng-change, or even
+     * ng-blur.  This is because we take the philosophy that the user
+     * should be able to continue working on the form undisturbed until
+     * pressing the submit button, which sends the message that the user
+     * is finished.
+     *     However, we do clear error messages on ng-change because that
+     * signifies that the user has started to correct the error.  We also
+     * clear errors on related input elements whose error message could
+     * potentially change as a result (e.g. the error message saying that
+     * the sample count is larger than the total number of items).
+     *
      */
     samplerControllers.controller('MainCtrl', ['$log', '$scope', '$window',
       'getSamplesUnique', 'spellsInt',
@@ -129,16 +141,16 @@
         $scope.form.input = input;
         $scope.output = output;
 
-        $scope.seedCheck = function() {
-          var seed = input.seed;
-          $log.log('seed: ' + seed);
-          // TODO
+        $scope.seedChanged = function() {
+            delete errors.seed;
         };
 
-        $scope.sampleCountCheck = function() {
-            var sampleCount = input.sampleCount;
-            $log.log('sampleCount: ' + sampleCount);
-            // TODO
+        $scope.sampleCountChanged = function() {
+            delete errors.sampleCount;
+        };
+
+        $scope.totalCountChanged = function() {
+            delete errors.totalCount;
         };
 
         // If the field becomes blank, clear any error.  Otherwise, show
