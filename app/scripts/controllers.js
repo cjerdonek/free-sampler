@@ -104,8 +104,7 @@
             };
         }
 
-        // TODO: pass a model on the scope instead of the full scope.
-        function showSamples($scope, seed, totalCount, sampleCount) {
+        function showSamples(output, seed, totalCount, sampleCount) {
             var result = getSamplesUnique(seed, totalCount, sampleCount);
 
             var uniqueItems = result[0];
@@ -114,19 +113,20 @@
                 return a - b;
             });
 
-            // TODO: put these properties in a model.
-            $scope.allItems = result[1];
-            $scope.uniqueItems = uniqueItems;
-            $scope.sortedItems = sortedItems;
+            output.allItems = result[1];
+            output.uniqueItems = uniqueItems;
+            output.sortedItems = sortedItems;
         }
 
-        var input = {};
         var errors = {};
+        var input = {};
+        var output = {};
 
         // Initialize the model.
         $scope.form = {};
         $scope.form.errors = errors;
         $scope.form.input = input;
+        $scope.output = output;
 
         $scope.todoKeyup = function() {
             // TODO
@@ -155,7 +155,7 @@
 
             // It doesn't suffice simply to check if errors is falsey.
             if (angular.equals(errors, {})) {
-                showSamples($scope, result.seed, result.totalCount, result.sampleCount);
+                showSamples(output, result.seed, result.totalCount, result.sampleCount);
             }
         };
 

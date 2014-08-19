@@ -45,19 +45,19 @@ This lets us include our own error messages for visual consistency, etc.
 <div class="col-sm-offset-3 col-sm-3">
   <h2>Raw</h2>
   <ol>
-    <li ng-repeat="item in allItems track by $index">{{ item }}</li>
+    <li ng-repeat="item in output.allItems track by $index">{{ item }}</li>
   </ol>
 </div>
 <div class="col-sm-3">
   <h2>Unique</h2>
     <ol>
-      <li ng-repeat="item in uniqueItems">{{ item }}</li>
+      <li ng-repeat="item in output.uniqueItems">{{ item }}</li>
     </ol>
 </div>
 <div class="col-sm-3">
   <h2>Sorted</h2>
     <ol>
-      <li ng-repeat="item in sortedItems">{{ item }}</li>
+      <li ng-repeat="item in output.sortedItems">{{ item }}</li>
     </ol>
 </div>
 
