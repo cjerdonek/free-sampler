@@ -8,16 +8,6 @@
         'freeSamplerApp.services'
     ]);
 
-    // To simulate long blocking computations.
-    // function busyWait(seconds) {
-    //     var date = new Date();
-    //     while (true) {
-    //         if (new Date() - date > 1000 * seconds) {
-    //             break;
-    //         }
-    //     }
-    // }
-
     // Return whether an input element is empty.
     function isEmpty(inputValue) {
         // For input type "number", an empty input element can result
@@ -150,23 +140,6 @@
         };
 
         $scope.totalCountChanged = function() {
-            delete errors.totalCount;
-        };
-
-        // If the field becomes blank, clear any error.  Otherwise, show
-        // an error if and only if the input is not a valid integer.
-        $scope.totalCountCheck = function() {
-            var total = input.totalCount;
-            $log.log('total: ' + total);
-            if (!isEmpty(total)) {
-                var result = validateNumber(total);
-                if (result.error) {
-                    // TODO: only set the value if the value is different.
-                    errors.totalCount = result.error;
-                    return;
-                }
-            }
-            // It's okay to delete if the property does not exist.
             delete errors.totalCount;
         };
 
