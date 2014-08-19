@@ -18,28 +18,6 @@
     //     }
     // }
 
-    function parseNumber(input, key, errors) {
-        // Note that with input type "number", the value input[key] may
-        // already be converted to a number and not be a string.
-        //
-        // Moreover, if the user supplied "-1" and the input element has
-        // min="1", then input[key] will be undefined (and the parseInt()
-        // return value NaN) for at least some browsers.  Thus, we include
-        // the full helpful error message if the parsed integer is NaN.
-        var inputValue = input[key];
-        var n = parseInt(inputValue, 10);
-        // Comparing toString() lets us detect strings like "2.5".
-        if (isNaN(n) || (n.toString() !== inputValue.toString())) {
-            errors[key] = 'A whole number bigger than zero is required.';
-            return;
-        }
-        if (n < 1) {
-            errors[key] = 'The number must be bigger than zero.';
-            return;
-        }
-        return n;
-    }
-
     /**
      * @ngdoc function
      * @name freeSamplerApp.controller:MainCtrl
@@ -47,8 +25,31 @@
      * # MainCtrl
      * Controller of the freeSamplerApp
      */
-    samplerControllers.controller('MainCtrl', ['$log', '$scope', '$window', 'getSamplesUnique',
-      function ($log, $scope, $window, getSamplesUnique) {
+    samplerControllers.controller('MainCtrl', ['$log', '$scope', '$window',
+      'getSamplesUnique', 'spellsInt',
+      function ($log, $scope, $window, getSamplesUnique, spellsInt) {
+
+        function parseNumber(input, key, errors) {
+            // Note that with input type "number", the value input[key] may
+            // already be converted to a number and not be a string.
+            //
+            // Moreover, if the user supplied "-1" and the input element has
+            // min="1", then input[key] will be undefined (and the parseInt()
+            // return value NaN) for at least some browsers.  Thus, we include
+            // the full helpful error message if the parsed integer is NaN.
+            var inputValue = input[key];
+            var n = spellsInt(inputValue);
+            if (isNaN(n)) {
+                errors[key] = 'A whole number bigger than zero is required.';
+                return;
+            }
+            if (n < 1) {
+                errors[key] = 'The number must be bigger than zero.';
+                return;
+            }
+            return n;
+        }
+
         var input = {};
 
         // Initialize the models.
