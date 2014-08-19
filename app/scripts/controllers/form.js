@@ -4,6 +4,13 @@
 
 (function(){
 
+    var errorMessages = {
+        numberRequired: 'A whole number bigger than zero is required.',
+        numberTooSmall: 'The number must be bigger than zero.',
+        sampleCountTooLarge: 'The sample count must be smaller than the total size.',
+        seedRequired: 'A random seed is required.'
+    };
+
     var samplerControllers = angular.module('freeSamplerApp.controllers.form', [
         'freeSamplerApp.services'
     ]);
@@ -18,14 +25,18 @@
         return false;
     }
 
-    function updateError(errors, key, errorMessage) {
-        if (errorMessage) {
-            if (errors[key] !== errorMessage) {
-                errors[key] = errorMessage;
+    // TODO: store in each error the following information:
+    // * error message
+    // * error key
+    // * affecting input elements
+    function updateError(errors, inputKey, errorKey) {
+        if (errorKey) {
+            if (errors[inputKey] !== errorMessages[errorKey]) {
+                errors[inputKey] = errorMessages[errorKey];
             }
         } else {
             // It's okay to delete if the property does not exist.
-            delete errors[key];
+            delete errors[inputKey];
         }
     }
 
@@ -56,10 +67,10 @@
         function validateNumber(inputValue) {
             var n = spellsInt(inputValue);
             if (isNaN(n)) {
-                return {error: 'A whole number bigger than zero is required.'};
+                return {error: 'numberRequired'};
             }
             if (n < 1) {
-                return {error: 'The number must be bigger than zero.'};
+                return {error: 'numberTooSmall'};
             }
             return {value: n};
         }
@@ -89,10 +100,10 @@
             totalCountError = result.error;
 
             if (!seed) {
-                seedError = 'A random seed is required.';
+                seedError = 'seedRequired';
             }
             if (!sampleCountError && !totalCountError && (sampleCount > totalCount)) {
-                sampleCountError = 'The sample count must be smaller than the total size.';
+                sampleCountError = 'sampleCountTooLarge';
             }
 
             updateError(errors, 'sampleCount', sampleCountError);
