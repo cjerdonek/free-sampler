@@ -7,7 +7,7 @@
     var errorMessages = {
         numberRequired: 'A whole number bigger than zero is required.',
         numberTooSmall: 'The number must be bigger than zero.',
-        sampleCountTooLarge: 'The sample count must be smaller than the total size.',
+        sampleCountTooLarge: 'The sample count must be smaller than the total count.',
         seedRequired: 'A random seed is required.'
     };
 
@@ -15,6 +15,8 @@
         'freeSamplerApp.services'
     ]);
 
+    // TODO: determine whether and where I need to use this function.
+    //
     // Return whether an input element is empty.
     function isEmpty(inputValue) {
         // For input type "number", an empty input element can result
@@ -101,10 +103,6 @@
 
         result = validateNumber(spellsInt, input.sampleCount);
 
-        function parseNumber(inputValue) {
-            return validateNumber(spellsInt, inputValue);
-        }
-
         function parseSeed(inputValue) {
             var result = {};
             if (!inputValue) {
@@ -115,25 +113,23 @@
             return result;
         }
 
-        hasError = handleInput(parseSeed, form, parsed, 'seed', hasError);
+        function parseNumber(inputValue) {
+            return validateNumber(spellsInt, inputValue);
+        }
 
-        // // TODO: work out where state is stored: errors, related, etc.
-        // hasError = handleInput(parseNumber, form, parsed, 'seed', hasError);
-        //
-        // result = validateNumber(spellsInt, input.totalCount);
-        // totalCount = result.value;
-        // totalCountError = result.error;
-        //
-        // if (!seed) {
-        //     seedError = 'seedRequired';
-        // }
-        // if (!sampleCountError && !totalCountError && (sampleCount > totalCount)) {
-        //     sampleCountError = makeError(errorMessages.sampleCountTooLarge, ['totalCount']);
-        // }
-        //
-        // updateError(form, 'sampleCount', sampleCountError);
-        // updateError(form, 'seed', seedError);
-        // updateError(form, 'totalCount', totalCountError);
+        function parseSampleCount(inputValue) {
+            var result = parseNumber(inputValue);
+            if ((result.value !== undefined) &&
+                (parsed.totalCount !== undefined) &&
+                (result.value > parsed.totalCount)) {
+                result.error = errorMessages.sampleCountTooLarge;
+            }
+            return result;
+        }
+
+        hasError = handleInput(parseSeed, form, parsed, 'seed', hasError);
+        hasError = handleInput(parseNumber, form, parsed, 'totalCount', hasError);
+        hasError = handleInput(parseSampleCount, form, parsed, 'sampleCount', hasError);
 
         return hasError ? false : parsed;
     }
