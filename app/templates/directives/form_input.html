@@ -3,7 +3,7 @@
   <div class="col-sm-9">
     <!-- TODO: include "min" only when type is "number". -->
     <input class="form-control" id="{{ inputId }}"
-           ng-change="inputChange()" ng-model="formData.input[key]"
+           ng-change="inputChange(key)" ng-model="formData.input[key]"
            placeholder="{{ placeholder }}" type="{{ inputType }}" min="{{ inputMin }}"/>
   </div>
   <p class="help-block col-sm-offset-3 col-sm-9" ng-hide="!formData.errors[key]">
