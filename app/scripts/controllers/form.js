@@ -25,19 +25,132 @@
         return false;
     }
 
-    // TODO: store in each error the following information:
-    // * error message
-    // * error key
-    // * affecting input elements
-    function updateError(errors, inputKey, errorKey) {
-        if (errorKey) {
-            if (errors[inputKey] !== errorMessages[errorKey]) {
-                errors[inputKey] = errorMessages[errorKey];
-            }
-        } else {
-            // It's okay to delete if the property does not exist.
-            delete errors[inputKey];
+    // Return an error object.
+    function makeError(message, related) {
+        return {
+            message: message,
+            related: related
+        };
+    }
+
+    // Return an object with either an error message or the parsed integer.
+    //
+    // Note that with input type "number", the input value may already be
+    // converted to a number and not be a string.
+    //
+    // Moreover, if the user supplied "-1" and the input element has
+    // min="1", then input[key] will be undefined (and spellsInt()
+    // will return NaN) for at least some browsers.  Thus, we include
+    // the full helpful error message if the parsed integer is NaN.
+    function validateNumber(spellsInt, inputValue) {
+        var n = spellsInt(inputValue);
+        if (isNaN(n)) {
+            return {error: errorMessages.numberRequired};
         }
+        if (n < 1) {
+            return {error: errorMessages.numberTooSmall};
+        }
+        return {value: n};
+    }
+
+    // Return whether the form has an error up to this point.
+    //
+    // Params:
+    //   parse: a function that accepts an input value and returns
+    //     an object containing a parsed value or error.
+    function handleInput(parseInput, form, parsed, inputLabel, hasError) {
+        var result = parseInput(form.input[inputLabel]);
+
+        // TODO: confirm this value for key not found.
+        if (result.error) {
+            var error = result.error;
+            var related = error.related;
+
+            if (form.errors[inputLabel] !== result.error) {
+                form.errors[inputLabel] = result.error;
+            }
+            if (related) {
+                for (var i = 0, len = related.length; i < len; i++) {
+                    form.relatedErrors.push(related[i]);
+                }
+            }
+            hasError = true;
+        } else {
+            parsed[inputLabel] = result.value;
+            // It's okay to delete if the property does not exist.
+            delete form.errors[inputLabel];
+        }
+
+        return hasError;
+    }
+
+    // Return an object containing the parsed input fields, or false if
+    // form validation found an error.
+    function validateForm($log, spellsInt, form) {
+        var hasError = false,
+            parsed = {},
+            result,
+            sampleCount,
+            sampleCountError,
+            seedError,
+            totalCount,
+            totalCountError;
+
+        var input = form.input;
+        var seed = input.seed;
+
+        result = validateNumber(spellsInt, input.sampleCount);
+
+        function parseNumber(inputValue) {
+            return validateNumber(spellsInt, inputValue);
+        }
+
+        function parseSeed(inputValue) {
+            var result = {};
+            if (!inputValue) {
+                result.error = errorMessages.seedRequired;
+            } else {
+                result.value = inputValue;
+            }
+            return result;
+        }
+
+        hasError = handleInput(parseSeed, form, parsed, 'seed', hasError);
+
+        // // TODO: work out where state is stored: errors, related, etc.
+        // hasError = handleInput(parseNumber, form, parsed, 'seed', hasError);
+        //
+        // result = validateNumber(spellsInt, input.totalCount);
+        // totalCount = result.value;
+        // totalCountError = result.error;
+        //
+        // if (!seed) {
+        //     seedError = 'seedRequired';
+        // }
+        // if (!sampleCountError && !totalCountError && (sampleCount > totalCount)) {
+        //     sampleCountError = makeError(errorMessages.sampleCountTooLarge, ['totalCount']);
+        // }
+        //
+        // updateError(form, 'sampleCount', sampleCountError);
+        // updateError(form, 'seed', seedError);
+        // updateError(form, 'totalCount', totalCountError);
+
+        return hasError ? false : parsed;
+    }
+
+    // TODO: move this to services.js?
+    function showSamples(getSamplesUnique, output, seed, totalCount, sampleCount) {
+        var result = getSamplesUnique(seed, totalCount, sampleCount);
+
+        var uniqueItems = result[0];
+        var sortedItems = uniqueItems.concat();  // make a copy.
+        sortedItems.sort(function(a, b) {
+            return a - b;
+        });
+
+        output.allItems = result[1];
+        output.uniqueItems = uniqueItems;
+        output.sortedItems = sortedItems;
     }
 
     /**
@@ -63,84 +176,14 @@
       'getSamplesUnique', 'spellsInt',
       function ($log, $scope, $window, getSamplesUnique, spellsInt) {
 
-        // Return an object with either an error message or the parsed integer.
-        function validateNumber(inputValue) {
-            var n = spellsInt(inputValue);
-            if (isNaN(n)) {
-                return {error: 'numberRequired'};
-            }
-            if (n < 1) {
-                return {error: 'numberTooSmall'};
-            }
-            return {value: n};
-        }
-
-        function validateForm(input, errors) {
-            var result,
-                sampleCount,
-                sampleCountError,
-                seed = input.seed,
-                seedError,
-                totalCount,
-                totalCountError;
-
-            // Note that with input type "number", the value input[key] may
-            // already be converted to a number and not be a string.
-            //
-            // Moreover, if the user supplied "-1" and the input element has
-            // min="1", then input[key] will be undefined (and spellsInt()
-            // will return NaN) for at least some browsers.  Thus, we include
-            // the full helpful error message if the parsed integer is NaN.
-            result = validateNumber(input.sampleCount);
-            sampleCount = result.value;
-            sampleCountError = result.error;
-
-            result = validateNumber(input.totalCount);
-            totalCount = result.value;
-            totalCountError = result.error;
-
-            if (!seed) {
-                seedError = 'seedRequired';
-            }
-            if (!sampleCountError && !totalCountError && (sampleCount > totalCount)) {
-                sampleCountError = 'sampleCountTooLarge';
-            }
-
-            updateError(errors, 'sampleCount', sampleCountError);
-            updateError(errors, 'seed', seedError);
-            updateError(errors, 'totalCount', totalCountError);
-
-            return {
-                sampleCount: sampleCount,
-                seed: seed,
-                totalCount: totalCount
-            };
-        }
-
-        // TODO: move this to services.js.
-        function showSamples(output, seed, totalCount, sampleCount) {
-            var result = getSamplesUnique(seed, totalCount, sampleCount);
-
-            var uniqueItems = result[0];
-            var sortedItems = uniqueItems.concat();  // make a copy.
-            sortedItems.sort(function(a, b) {
-                return a - b;
-            });
-
-            output.allItems = result[1];
-            output.uniqueItems = uniqueItems;
-            output.sortedItems = sortedItems;
-        }
-
         var errors = {};
-        var input = {};
-        var output = {};
 
         // Initialize the model.
         $scope.form = {};
         $scope.form.errors = errors;
-        $scope.form.input = input;
-        $scope.output = output;
+        $scope.form.input = {};
+        $scope.form.relatedErrors = {};
+        $scope.output = {};
 
         $scope.seedChanged = function() {
             delete errors.seed;
@@ -155,12 +198,12 @@
         };
 
         $scope.submit = function() {
-            var result = validateForm(input, errors);
-
-            // It doesn't suffice simply to check if errors is falsey.
-            if (angular.equals(errors, {})) {
-                showSamples(output, result.seed, result.totalCount, result.sampleCount);
+            var result = validateForm($log, spellsInt, $scope.form);
+            if (!result) {
+                return;
             }
+            showSamples(getSamplesUnique, $scope.output, result.seed,
+                        result.totalCount, result.sampleCount);
         };
 
     }]);
