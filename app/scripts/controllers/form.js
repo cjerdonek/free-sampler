@@ -15,18 +15,6 @@
         'freeSamplerApp.services'
     ]);
 
-    // TODO: determine whether and where I need to use this function.
-    //
-    // Return whether an input element is empty.
-    function isEmpty(inputValue) {
-        // For input type "number", an empty input element can result
-        // in an input value of null.
-        if ((inputValue === null) || (inputValue === '')) {
-            return true;
-        }
-        return false;
-    }
-
     // Return an error object.
     function makeError(message, related) {
         return {
@@ -49,6 +37,9 @@
     //
     // Note that with input type "number", the input value may already be
     // converted to a number and not be a string.
+    //
+    // For input type "number", an empty input element can result
+    // in an input value of null.
     //
     // Moreover, if the user supplied "-1" and the input element has
     // min="1", then input[key] will be undefined (and spellsInt()
@@ -160,7 +151,6 @@
      * clear errors on related input elements whose error message could
      * potentially change as a result (e.g. the error message saying that
      * the sample count is larger than the total number of items).
-     *
      */
     samplerControllers.controller('MainCtrl', ['$log', '$scope', '$window',
       'getSamplesUnique', 'spellsInt',
@@ -169,9 +159,11 @@
         // Initialize the model.
         var form = {};
         $scope.form = form;
-        $scope.form.errors = {};
-        $scope.form.input = {};
-        $scope.form.relatedErrors = {};
+
+        form.errors = {};
+        form.input = {};
+        form.relatedErrors = {};
+
         $scope.output = {};
 
         $scope.onInputChange = function(inputLabel) {
@@ -187,7 +179,7 @@
             delete errors[inputLabel];
         };
 
-        $scope.submit = function() {
+        form.submit = function() {
             var result = validateForm($log, spellsInt, form);
             if (!result) {
                 return;
