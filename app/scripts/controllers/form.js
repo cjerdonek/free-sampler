@@ -33,31 +33,6 @@
         return result;
     }
 
-    // Return an object with either an error message or the parsed integer.
-    //
-    // Note that with input type "number", the input value may already be
-    // converted to a number and not be a string.
-    //
-    // For input type "number", an empty input element can result
-    // in an input value of null.
-    //
-    // Moreover, if the user supplied "-1" and the input element has
-    // min="1", then input[key] will be undefined (and spellsInt()
-    // will return NaN) for at least some browsers.  Thus, we include
-    // the full helpful error message if the parsed integer is NaN.
-    function validateNumber(spellsInt, inputValue) {
-        var result = {};
-        var n = spellsInt(inputValue);
-        if (isNaN(n)) {
-            result.error = makeError(errorMessages.numberRequired);
-        } else if (n < 1) {
-            result.error = makeError(errorMessages.numberTooSmall);
-        } else {
-            result.value = n;
-        }
-        return result;
-    }
-
     // Return whether the form has an error up to this point.
     //
     // Params:
@@ -90,33 +65,6 @@
         }
 
         return hasError;
-    }
-
-    // Return an object containing the parsed input fields, or false if
-    // form validation found an error.
-    function validateForm($log, spellsInt, form) {
-        var hasError = false,
-            parsed = {};
-
-        function parseNumber(inputValue) {
-            return validateNumber(spellsInt, inputValue);
-        }
-
-        function parseSampleCount(inputValue) {
-            var result = parseNumber(inputValue);
-            if ((result.value !== undefined) &&
-                (parsed.totalCount !== undefined) &&
-                (result.value > parsed.totalCount)) {
-                result.error = makeError(errorMessages.sampleCountTooLarge, ['totalCount']);
-            }
-            return result;
-        }
-
-        hasError = handleInput($log, parseSeed, form, parsed, 'seed', hasError);
-        hasError = handleInput($log, parseNumber, form, parsed, 'totalCount', hasError);
-        hasError = handleInput($log, parseSampleCount, form, parsed, 'sampleCount', hasError);
-
-        return hasError ? false : parsed;
     }
 
     function setOutput(output, all, unique, sorted) {
@@ -160,9 +108,61 @@
       'getSamplesUnique', 'spellsInt',
       function ($log, $scope, $window, getSamplesUnique, spellsInt) {
 
+        // Notes re: form validation & input values
+        //
+        // Note that with input type "number", the input value may already be
+        // converted to a number and not be a string.
+        //
+        // For input type "number", an empty input element can result
+        // in an input value of null.
+        //
+        // Moreover, if the user supplied "-1" and the input element has
+        // min="1", then input[key] will be undefined (and spellsInt()
+        // will return NaN) for at least some browsers.  Thus, we include
+        // the full helpful error message if the parsed integer is NaN.
+
+        // Return an object containing either an error object or the
+        // parsed integer value.
+        function parsePositiveNumber(inputValue) {
+            var result = {};
+            var n = spellsInt(inputValue);
+            if (isNaN(n)) {
+                result.error = makeError(errorMessages.numberRequired);
+            } else if (n < 1) {
+                result.error = makeError(errorMessages.numberTooSmall);
+            } else {
+                result.value = n;
+            }
+            return result;
+        }
+
+        // Return an object containing the parsed input fields, or false if
+        // form validation found an error.
+        function validateForm(form) {
+            var hasError = false,
+                parsed = {};
+
+            function parseSampleCount(inputValue) {
+                var result = parsePositiveNumber(inputValue);
+                if ((result.value !== undefined) &&
+                    (parsed.totalCount !== undefined) &&
+                    (result.value > parsed.totalCount)) {
+                    result.error = makeError(errorMessages.sampleCountTooLarge, ['totalCount']);
+                }
+                return result;
+            }
+
+            hasError = handleInput($log, parseSeed, form, parsed, 'seed', hasError);
+            hasError = handleInput($log, parsePositiveNumber, form, parsed, 'totalCount', hasError);
+            hasError = handleInput($log, parseSampleCount, form, parsed, 'sampleCount', hasError);
+
+            return hasError ? false : parsed;
+        }
+
         // Initialize the model.
         var form = {};
         var output = {};
+        var parsed = {};
 
         $scope.form = form;
         $scope.output = output;
@@ -170,7 +170,18 @@
         form.showing = false;
         form.errors = {};
         form.input = {};
+        form.parsed = parsed;
         form.relatedErrors = {};
+
+        // TODO: update "parsed" in on-change.
+        // TODO: read about when updates occur.
+        form.smallestItemHelp = function() {
+            var highest = parsed.smallestItem + parsed.totalCount - 1;
+            if ((typeof highest !== 'number') || isNaN(highest)) {
+                highest = '';
+            }
+            return 'Highest item: ' + highest;
+        };
 
         form.onInputChange = function(inputLabel) {
             var errors = form.errors;
