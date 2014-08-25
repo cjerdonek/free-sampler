@@ -14,12 +14,12 @@
             templateUrl: 'templates/directives/form_input.html',
             scope: {
                 form: '=formModel',
-                inputId: '=',
-                inputMin: '=',
-                inputType: '=',
-                key: '=',
+                inputId: '@',
+                inputMin: '@',
+                inputType: '@',
+                key: '@',
                 label: '@',
-                placeholder: '='
+                placeholder: '@'
             }
         };
     }]);
