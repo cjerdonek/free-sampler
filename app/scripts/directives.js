@@ -13,12 +13,12 @@
             replace: 'true',
             templateUrl: 'templates/directives/form_input.html',
             scope: {
-                form: '=formData',
+                form: '=formModel',
                 inputId: '=',
                 inputMin: '=',
                 inputType: '=',
                 key: '=',
-                label: '=',
+                label: '@',
                 placeholder: '='
             }
         };
