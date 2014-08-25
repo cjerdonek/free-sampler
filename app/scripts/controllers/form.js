@@ -166,6 +166,7 @@
 
         $scope.form = form;
         $scope.output = output;
+        $scope.parsePositiveNumber = parsePositiveNumber;
 
         form.showing = false;
         form.errors = {};
@@ -183,7 +184,16 @@
             return 'Highest item: ' + highest;
         };
 
-        form.onInputChange = function(inputLabel) {
+        // Params:
+        //   parseInput: a function that accepts an input value and
+        //     returns an object with error and value properties.
+        form.onInputChange = function(parseInput, inputLabel) {
+            if (parseInput) {
+                var result = parseInput(form.input[inputLabel]);
+                // The value will be undefined if parsing yielded an error.
+                parsed[inputLabel] = result.value;
+            }
+
             var errors = form.errors;
             var related = form.relatedErrors[inputLabel];
             form.showing = false;
