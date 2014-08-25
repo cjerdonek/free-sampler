@@ -1,5 +1,5 @@
-FreeSampler
-===========
+Quick Sampler
+=============
 
 [![Build Status](https://travis-ci.org/cjerdonek/free-sampler.svg?branch=master)](https://travis-ci.org/cjerdonek/free-sampler)
 

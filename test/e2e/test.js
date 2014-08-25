@@ -2,7 +2,7 @@
 
 /* http://docs.angularjs.org/guide/dev_guide.e2e-testing */
 
-describe('Free Sampler App', function() {
+describe('Quick Sampler App', function() {
 
   function checkNavCss(buttonText, buttonIndex) {
       var expected, item;
@@ -24,7 +24,7 @@ describe('Free Sampler App', function() {
 
     it('should have the correct title', function() {
       var title = browser.getTitle();
-      expect(title).toEqual('Free Sampler');
+      expect(title).toEqual('Quick Sampler');
     });
 
     it('should highlight the correct nav buttons', function() {
