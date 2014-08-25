@@ -199,7 +199,7 @@
         };
 
         form.submit = function() {
-            var result = validateForm($log, spellsInt, form);
+            var result = validateForm(form);
             if (!result) {
                 return;
             }
