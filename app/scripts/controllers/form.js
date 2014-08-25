@@ -5,10 +5,11 @@
 (function(){
 
     var errorMessages = {
-        numberRequired: 'A whole number bigger than zero is required.',
+        integerRequired: 'A whole number is required.',
         numberTooSmall: 'The number must be bigger than zero.',
         sampleCountTooLarge: 'The sample count must be smaller than the total count.',
-        seedRequired: 'A random seed is required.'
+        seedRequired: 'A random seed is required.',
+        positiveIntegerRequired: 'A whole number bigger than zero is required.'
     };
 
     var samplerControllers = angular.module('freeSamplerApp.controllers.form', [
@@ -123,11 +124,25 @@
 
         // Return an object containing either an error object or the
         // parsed integer value.
-        function parsePositiveNumber(inputValue) {
+        function parseInteger(inputValue) {
             var result = {};
             var n = spellsInt(inputValue);
             if (isNaN(n)) {
-                result.error = makeError(errorMessages.numberRequired);
+                result.error = makeError(errorMessages.integerRequired);
+            } else {
+                result.value = n;
+            }
+            return result;
+        }
+
+        // Return an object containing either an error object or the
+        // parsed integer value.
+        function parsePositiveInteger(inputValue) {
+            var result = {};
+            // TODO: make the logic below DRY with parseInteger().
+            var n = spellsInt(inputValue);
+            if (isNaN(n)) {
+                result.error = makeError(errorMessages.positiveIntegerRequired);
             } else if (n < 1) {
                 result.error = makeError(errorMessages.numberTooSmall);
             } else {
@@ -143,7 +158,7 @@
                 parsed = {};
 
             function parseSampleCount(inputValue) {
-                var result = parsePositiveNumber(inputValue);
+                var result = parsePositiveInteger(inputValue);
                 if ((result.value !== undefined) &&
                     (parsed.totalCount !== undefined) &&
                     (result.value > parsed.totalCount)) {
@@ -153,34 +168,32 @@
             }
 
             hasError = handleInput($log, parseSeed, form, parsed, 'seed', hasError);
-            hasError = handleInput($log, parsePositiveNumber, form, parsed, 'totalCount', hasError);
+            hasError = handleInput($log, parseInteger, form, parsed, 'smallestItem', hasError);
+            hasError = handleInput($log, parsePositiveInteger, form, parsed, 'totalCount', hasError);
+
+            // We deliberately validate sampleCount after totalCount because
+            // validating sampleCount depends on totalCount.
             hasError = handleInput($log, parseSampleCount, form, parsed, 'sampleCount', hasError);
 
             return hasError ? false : parsed;
         }
 
-        // Initialize the model.
-        var form = {};
-        var output = {};
-        var parsed = {};
+        var form,
+            output,
+            parsed;
 
-        $scope.form = form;
-        $scope.output = output;
-        $scope.parsePositiveNumber = parsePositiveNumber;
-
-        $scope.highestItem = function() {
-            var highest = parsed.smallestItem + parsed.totalCount - 1;
-            if ((typeof highest !== 'number') || isNaN(highest)) {
-                highest = '';
-            }
-            return highest;
-        };
+        // Initialize the models.
+        form = {};
+        output = {};
 
         form.showing = false;
         form.errors = {};
         form.input = {};
-        form.parsed = parsed;
+        form.input.smallestItem = 1;
+        form.parsed = {};
         form.relatedErrors = {};
+
+        parsed = form.parsed;
 
         // Params:
         //   parseInput: a function that accepts an input value and
@@ -214,6 +227,20 @@
             showSamples(getSamplesUnique, $scope.output, result.seed,
                         result.totalCount, result.sampleCount);
             form.showing = true;
+        };
+
+        // Initialize the scope.
+        $scope.form = form;
+        $scope.output = output;
+        $scope.parseInteger = parseInteger;
+        $scope.parsePositiveInteger = parsePositiveInteger;
+
+        $scope.highestItem = function() {
+            var highest = parsed.smallestItem + parsed.totalCount - 1;
+            if ((typeof highest !== 'number') || isNaN(highest)) {
+                highest = '';
+            }
+            return highest;
         };
 
     }]);

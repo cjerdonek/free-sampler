@@ -21,13 +21,13 @@ This lets us include our own error messages for visual consistency, etc.
 
     <smp-form-input form-model="form" input-id="id_total_count"
                 input-min="1" input-type="number" key="totalCount"
-                parse-function="parsePositiveNumber"
+                parse-function="parsePositiveInteger"
                 label="Total Items" placeholder="Total number of items">
     </smp-form-input>
 
     <smp-form-input form-model="form" input-id="id_smallest_item"
                 input-min="" input-type="number" key="smallestItem"
-                parse-function="parsePositiveNumber"
+                parse-function="parseInteger"
                 label="Lowest Item" placeholder="Smallest item number">
     </smp-form-input>
 
