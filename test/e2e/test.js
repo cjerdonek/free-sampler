@@ -31,6 +31,14 @@ describe('Free Sampler App', function() {
         checkNavCss('Home', 0);
     });
 
+    it('should preserve form values if navigating to about page and back', function() {
+      element(by.id('id_seed')).sendKeys('abc');
+      element(by.linkText('About')).click();
+      expect(element(by.tagName('h1')).getText()).toEqual('About');
+      element(by.linkText('Home')).click();
+      expect(element(by.id('id_seed')).getAttribute('value')).toEqual('abc');
+    });
+
   });
 
   describe('about page', function() {

@@ -23,13 +23,10 @@
     function($routeProvider) {
       $routeProvider.
         when('/', {
-          templateUrl: 'templates/partials/main.html',
-          controller: 'MainCtrl'
+          templateUrl: 'templates/partials/main.html'
         }).
         when('/about', {
-          templateUrl: 'templates/partials/about.html',
-          // TODO: remove this?
-          controller: 'MainCtrl'
+          templateUrl: 'templates/partials/about.html'
         }).
         otherwise({
           redirectTo: '/'
