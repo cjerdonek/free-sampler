@@ -84,7 +84,11 @@
             }
             if (related !== undefined) {
                 for (var i = 0, len = related.length; i < len; i++) {
-                    form.relatedErrors.push(related[i]);
+                    var relatedLabel = related[i];
+                    if (form.relatedErrors[relatedLabel] === undefined) {
+                        form.relatedErrors[relatedLabel] = [];
+                    }
+                    form.relatedErrors[relatedLabel].push(inputLabel);
                 }
             }
             hasError = true;
@@ -101,12 +105,7 @@
     // form validation found an error.
     function validateForm($log, spellsInt, form) {
         var hasError = false,
-            parsed = {},
-            result;
-
-        var input = form.input;
-
-        result = validateNumber(spellsInt, input.sampleCount);
+            parsed = {};
 
         function parseNumber(inputValue) {
             return validateNumber(spellsInt, inputValue);

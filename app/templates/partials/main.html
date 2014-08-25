@@ -14,23 +14,23 @@ This lets us include our own error messages for visual consistency, etc.
       </div>
     </div>
 
-    <form-input form-data="form"  input-id="'id_seed'"
+    <smp-form-input form-data="form"  input-id="'id_seed'"
                 input-min="" input-type="'text'" key="'seed'"
-                label="'Random Seed'" when-changed="seedChanged"
+                label="'Random Seed'" change-handler="onInputChange"
                 placeholder="'Any numbers or characters'">
-    </form-input>
+    </smp-form-input>
 
-    <form-input form-data="form" input-id="'id_total_count'"
+    <smp-form-input form-data="form" input-id="'id_total_count'"
                 input-min="'1'" input-type="'number'" key="'totalCount'"
-                label="'Total Items'" when-changed="totalCountChanged"
+                label="'Total Items'" change-handler="onInputChange"
                 placeholder="'Total number of items'">
-    </form-input>
+    </smp-form-input>
 
-    <form-input form-data="form"  input-id="'id_sample_count'"
+    <smp-form-input form-data="form"  input-id="'id_sample_count'"
                 input-min="'1'" input-type="'number'" key="'sampleCount'"
-                label="'Sample Count'" when-changed="sampleCountChanged"
+                label="'Sample Count'" change-handler="onInputChange"
                 placeholder="'Number of items to select'">
-    </form-input>
+    </smp-form-input>
 
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-9">

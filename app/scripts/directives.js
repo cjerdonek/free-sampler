@@ -6,10 +6,10 @@
 
     var samplerAppDirectives = angular.module('freeSamplerApp.directives', []);
 
-    samplerAppDirectives.directive('formInput', [
+    samplerAppDirectives.directive('smpFormInput', [
       function () {
         return {
-            restrict: 'AE',
+            restrict: 'E',
             replace: 'true',
             templateUrl: 'templates/directives/form_input.html',
             scope: {
@@ -20,8 +20,8 @@
                 inputType: '=',
                 key: '=',
                 label: '=',
-                placeholder: '=',
-                inputChange: '=whenChanged'
+                handleChange: '=changeHandler',
+                placeholder: '='
             }
         };
     }]);
