@@ -119,6 +119,12 @@
         return hasError ? false : parsed;
     }
 
+    function setOutput(output, all, unique, sorted) {
+        output.allItems = all;
+        output.uniqueItems = unique;
+        output.sortedItems = sorted;
+    }
+
     // TODO: move this to services.js?
     function showSamples(getSamplesUnique, output, seed, totalCount, sampleCount) {
         var result = getSamplesUnique(seed, totalCount, sampleCount);
@@ -129,9 +135,7 @@
             return a - b;
         });
 
-        output.allItems = result[1];
-        output.uniqueItems = uniqueItems;
-        output.sortedItems = sortedItems;
+        setOutput(output, result[1], uniqueItems, sortedItems);
     }
 
     /**
@@ -158,19 +162,21 @@
 
         // Initialize the model.
         var form = {};
+        var output = {};
+
         $scope.form = form;
+        $scope.output = output;
 
         form.showing = false;
         form.errors = {};
         form.input = {};
         form.relatedErrors = {};
 
-        $scope.output = {};
-
         form.onInputChange = function(inputLabel) {
-            form.showing = false;
             var errors = form.errors;
             var related = form.relatedErrors[inputLabel];
+            form.showing = false;
+            setOutput(output);
             if (related !== undefined) {
                 for (var i = 0, len = related.length; i < len; i++) {
                     delete errors[related[i]];
