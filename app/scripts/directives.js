@@ -13,14 +13,12 @@
             replace: 'true',
             templateUrl: 'templates/directives/form_input.html',
             scope: {
-                // TODO: pass input and errors but not the full formData.
-                formData: '=',
+                form: '=formData',
                 inputId: '=',
                 inputMin: '=',
                 inputType: '=',
                 key: '=',
                 label: '=',
-                handleChange: '=changeHandler',
                 placeholder: '='
             }
         };

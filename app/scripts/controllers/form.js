@@ -166,7 +166,7 @@
 
         $scope.output = {};
 
-        $scope.onInputChange = function(inputLabel) {
+        form.onInputChange = function(inputLabel) {
             var errors = form.errors;
             var related = form.relatedErrors[inputLabel];
             if (related !== undefined) {
