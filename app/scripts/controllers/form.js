@@ -35,6 +35,16 @@
         };
     }
 
+    function parseSeed(inputValue) {
+        var result = {};
+        if (!inputValue) {
+            result.error = makeError(errorMessages.seedRequired);
+        } else {
+            result.value = inputValue;
+        }
+        return result;
+    }
+
     // Return an object with either an error message or the parsed integer.
     //
     // Note that with input type "number", the input value may already be
@@ -45,14 +55,16 @@
     // will return NaN) for at least some browsers.  Thus, we include
     // the full helpful error message if the parsed integer is NaN.
     function validateNumber(spellsInt, inputValue) {
+        var result = {};
         var n = spellsInt(inputValue);
         if (isNaN(n)) {
-            return {error: errorMessages.numberRequired};
+            result.error = makeError(errorMessages.numberRequired);
+        } else if (n < 1) {
+            result.error = makeError(errorMessages.numberTooSmall);
+        } else {
+            result.value = n;
         }
-        if (n < 1) {
-            return {error: errorMessages.numberTooSmall};
-        }
-        return {value: n};
+        return result;
     }
 
     // Return whether the form has an error up to this point.
@@ -60,18 +72,17 @@
     // Params:
     //   parse: a function that accepts an input value and returns
     //     an object containing a parsed value or error.
-    function handleInput(parseInput, form, parsed, inputLabel, hasError) {
+    function handleInput($log, parseInput, form, parsed, inputLabel, hasError) {
         var result = parseInput(form.input[inputLabel]);
 
-        // TODO: confirm this value for key not found.
         if (result.error) {
-            var error = result.error;
-            var related = error.related;
+            var errorText = result.error.message;
+            var related = result.error.related;
 
-            if (form.errors[inputLabel] !== result.error) {
-                form.errors[inputLabel] = result.error;
+            if (form.errors[inputLabel] !== errorText) {
+                form.errors[inputLabel] = errorText;
             }
-            if (related) {
+            if (related !== undefined) {
                 for (var i = 0, len = related.length; i < len; i++) {
                     form.relatedErrors.push(related[i]);
                 }
@@ -91,27 +102,11 @@
     function validateForm($log, spellsInt, form) {
         var hasError = false,
             parsed = {},
-            result,
-            sampleCount,
-            sampleCountError,
-            seedError,
-            totalCount,
-            totalCountError;
+            result;
 
         var input = form.input;
-        var seed = input.seed;
 
         result = validateNumber(spellsInt, input.sampleCount);
-
-        function parseSeed(inputValue) {
-            var result = {};
-            if (!inputValue) {
-                result.error = errorMessages.seedRequired;
-            } else {
-                result.value = inputValue;
-            }
-            return result;
-        }
 
         function parseNumber(inputValue) {
             return validateNumber(spellsInt, inputValue);
@@ -122,14 +117,14 @@
             if ((result.value !== undefined) &&
                 (parsed.totalCount !== undefined) &&
                 (result.value > parsed.totalCount)) {
-                result.error = errorMessages.sampleCountTooLarge;
+                result.error = makeError(errorMessages.sampleCountTooLarge, ['totalCount']);
             }
             return result;
         }
 
-        hasError = handleInput(parseSeed, form, parsed, 'seed', hasError);
-        hasError = handleInput(parseNumber, form, parsed, 'totalCount', hasError);
-        hasError = handleInput(parseSampleCount, form, parsed, 'sampleCount', hasError);
+        hasError = handleInput($log, parseSeed, form, parsed, 'seed', hasError);
+        hasError = handleInput($log, parseNumber, form, parsed, 'totalCount', hasError);
+        hasError = handleInput($log, parseSampleCount, form, parsed, 'sampleCount', hasError);
 
         return hasError ? false : parsed;
     }
@@ -172,29 +167,29 @@
       'getSamplesUnique', 'spellsInt',
       function ($log, $scope, $window, getSamplesUnique, spellsInt) {
 
-        var errors = {};
-
         // Initialize the model.
-        $scope.form = {};
-        $scope.form.errors = errors;
+        var form = {};
+        $scope.form = form;
+        $scope.form.errors = {};
         $scope.form.input = {};
         $scope.form.relatedErrors = {};
         $scope.output = {};
 
-        $scope.seedChanged = function() {
-            delete errors.seed;
-        };
-
-        $scope.sampleCountChanged = function() {
-            delete errors.sampleCount;
-        };
-
-        $scope.totalCountChanged = function() {
-            delete errors.totalCount;
+        $scope.onInputChange = function(inputLabel) {
+            var errors = form.errors;
+            var related = form.relatedErrors[inputLabel];
+            if (related !== undefined) {
+                for (var i = 0, len = related.length; i < len; i++) {
+                    delete errors[related[i]];
+                }
+                // We only need to clear related errors once.
+                delete form.relatedErrors[inputLabel];
+            }
+            delete errors[inputLabel];
         };
 
         $scope.submit = function() {
-            var result = validateForm($log, spellsInt, $scope.form);
+            var result = validateForm($log, spellsInt, form);
             if (!result) {
                 return;
             }
