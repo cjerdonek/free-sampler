@@ -31,6 +31,15 @@ This lets us include our own error messages for visual consistency, etc.
                 label="Lowest Item" placeholder="Smallest item number">
     </smp-form-input>
 
+    <div class="form-group">
+      <label for="id_highest_item" class="control-label col-sm-3">Highest Item</label>
+      <div class="col-sm-9">
+        <input class="form-control" id="id_highest_item" type="number"
+               disabled="true" ng-value="highestItem()"
+               placeholder="Highest item number (computed)"/>
+      </div>
+    </div>
+
     <smp-form-input form-model="form" input-id="id_sample_count"
                 input-min="1" input-type="number" key="sampleCount"
                 label="Sample Count" placeholder="Number of items to select">

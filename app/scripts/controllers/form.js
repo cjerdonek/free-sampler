@@ -168,21 +168,19 @@
         $scope.output = output;
         $scope.parsePositiveNumber = parsePositiveNumber;
 
+        $scope.highestItem = function() {
+            var highest = parsed.smallestItem + parsed.totalCount - 1;
+            if ((typeof highest !== 'number') || isNaN(highest)) {
+                highest = '';
+            }
+            return highest;
+        };
+
         form.showing = false;
         form.errors = {};
         form.input = {};
         form.parsed = parsed;
         form.relatedErrors = {};
-
-        // TODO: update "parsed" in on-change.
-        // TODO: read about when updates occur.
-        form.smallestItemHelp = function() {
-            var highest = parsed.smallestItem + parsed.totalCount - 1;
-            if ((typeof highest !== 'number') || isNaN(highest)) {
-                highest = '';
-            }
-            return 'Highest item: ' + highest;
-        };
 
         // Params:
         //   parseInput: a function that accepts an input value and
