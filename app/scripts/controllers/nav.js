@@ -9,6 +9,8 @@
     samplerNavControllers.controller('NavCtrl', ['$log', '$route', '$scope',
       function ($log, $route, $scope) {
 
+        // TODO: consider calculating the class once on route change.
+        //
         // For example, can return "about.html" or "main.html".
         $scope.navButtonClass = function (buttonPage) {
             // $route.current and $route.current.templateUrl are undefined

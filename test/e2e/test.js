@@ -39,6 +39,12 @@ describe('Quick Sampler App', function() {
       expect(element(by.id('id_seed')).getAttribute('value')).toEqual('abc');
     });
 
+    it('should update the highest item input if only the total items is updated', function() {
+      expect(element(by.id('id_highest_item')).getAttribute('value')).toBe('');
+      element(by.id('id_total_count')).sendKeys('100');
+      expect(element(by.id('id_highest_item')).getAttribute('value')).toBe('100');
+    });
+
   });
 
   describe('about page', function() {

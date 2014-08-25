@@ -189,16 +189,20 @@
         form.showing = false;
         form.errors = {};
         form.input = {};
-        form.input.smallestItem = 1;
         form.parsed = {};
         form.relatedErrors = {};
 
         parsed = form.parsed;
+        form.input.smallestItem = 1;
+        // We need to set the parsed value as well to make sure the
+        // highest-item element gets updated if the total count is updated.
+        parsed.smallestItem = 1;
+
 
         // Params:
         //   parseInput: a function that accepts an input value and
         //     returns an object with error and value properties.
-        form.onInputChange = function(parseInput, inputLabel) {
+        form.onInputChange = function(inputLabel, parseInput) {
             if (parseInput) {
                 var result = parseInput(form.input[inputLabel]);
                 // The value will be undefined if parsing yielded an error.
