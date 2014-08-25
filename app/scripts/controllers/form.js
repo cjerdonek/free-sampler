@@ -160,6 +160,7 @@
         var form = {};
         $scope.form = form;
 
+        form.showing = false;
         form.errors = {};
         form.input = {};
         form.relatedErrors = {};
@@ -167,6 +168,7 @@
         $scope.output = {};
 
         form.onInputChange = function(inputLabel) {
+            form.showing = false;
             var errors = form.errors;
             var related = form.relatedErrors[inputLabel];
             if (related !== undefined) {
@@ -186,6 +188,7 @@
             }
             showSamples(getSamplesUnique, $scope.output, result.seed,
                         result.totalCount, result.sampleCount);
+            form.showing = true;
         };
 
     }]);

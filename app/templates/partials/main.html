@@ -31,7 +31,10 @@ This lets us include our own error messages for visual consistency, etc.
 
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-9">
-        <button type='submit' class="btn btn-primary" ng-click="form.submit()">Show Results</button>
+        <button type='submit' class="btn"
+                ng-class="form.showing ? 'btn-success' : 'btn-primary'"
+                ng-disabled="form.showing"
+                ng-click="form.submit()">{{ form.showing ? 'Done!' : 'Show Sample' }}</button>
       </div>
     </div>
   </fieldset>
