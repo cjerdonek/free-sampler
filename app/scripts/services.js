@@ -23,12 +23,6 @@
         return spellsInt;
     }]);
 
-    // Return the 'sha' namespace defined by node-sha256.js.
-    samplerServices.factory('sha', ['$window',
-      function shaFactory($window){
-        return $window.sha;
-    }]);
-
     // Return the 'bigint' namespace defined by bigint.js.
     samplerServices.factory('bigint', ['$window',
       function bigintFactory($window){
@@ -58,12 +52,10 @@
     }]);
 
     // Return a SHA-256 hash function.
-    samplerServices.factory('sha256', ['sha',
-      // Params:
-      //   sha: the sha namespace defined by node-sha256.js.
-      function sha256Factory(sha){
-        function sha256(foo) {
-            var shaObj = new sha.jsSHA(foo, 'TEXT');
+    samplerServices.factory('sha256', [
+      function sha256Factory(){
+        function sha256(seed) {
+            var shaObj = new jsSHA(seed, 'TEXT');
             var hash = shaObj.getHash('SHA-256', 'HEX');
             return hash;
         }
