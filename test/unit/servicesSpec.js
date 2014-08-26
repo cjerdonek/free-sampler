@@ -64,7 +64,7 @@ describe('services module', function() {
     }));
 
     it('should sample 1 item from 1000 items correctly', function() {
-      expect(getSample('0', 1000, 1)).toBe(905);
+      expect(getSample('0', 1000, 1)).toBe(904);
     });
 
     it('should throw an error if totalSize is undefined', function() {

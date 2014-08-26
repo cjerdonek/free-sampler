@@ -84,19 +84,19 @@
 
     samplerServices.factory('getSample', ['bigMod', 'sha256',
       function getSampleFactory(bigMod, sha256){
-        // Return the integer sample corresponding to the given 1-based index.
+        // Return the 0-based index of the nth sample item.
         //
         // Throws an error if the return value would otherwise be NaN.
         //
         // Params:
-        //   index: a whole number representing the index of the sample
-        //     to return: 1 for the first item, 2 for the second item, etc.
+        //   n: the sample item to return: 1 for the first item, 2 for the
+        //     second item, etc.
         //
-        function getSample(seed, totalSize, index) {
-          var hexHash = sha256(seed + ',' + index.toString());
-          var value = bigMod(hexHash, totalSize) + 1;
+        function getSample(seed, totalSize, n) {
+          var hexHash = sha256(seed + ',' + n.toString());
+          var value = bigMod(hexHash, totalSize);
           if (isNaN(value)) {
-              throw 'drawing sample ' + index + ' from size ' + totalSize +
+              throw 'drawing sample ' + n + ' from size ' + totalSize +
                     ' with seed "' + seed + '" did not return a number';
           }
           return value;
@@ -108,12 +108,19 @@
       function getSamplesFactory(getSample){
         // Get samples, allowing duplicates.
         //
-        // Returns an array of 1-based items.
-        function getSamples(seed, totalSize, sampleSize) {
-          var item;
-          var items = [];
+        // Returns an array of integers.
+        //
+        // Params:
+        //   smallestItem: the smallest integer in the collection.
+        //     Defaults to 1.
+        function getSamples(seed, totalSize, sampleSize, smallestItem) {
+          var item,
+              items = [];
+          if (smallestItem === undefined) {
+              smallestItem = 1;
+          }
           for (var i = 1; i <= sampleSize; i++) {
-              item = getSample(seed, totalSize, i);
+              item = getSample(seed, totalSize, i) + smallestItem;
               items.push(item);
           }
           return items;
@@ -125,18 +132,26 @@
       function getSamplesUniqueFactory(getSample){
         // Get samples, skipping duplicates.
         //
-        // Returns a 2-item array of 1-based items:
+        // Params:
+        //   smallestItem: the smallest integer in the collection.
+        //     Defaults to 1.
+        //
+        // Returns an array of length two:
+        //
         //   1) an array without duplicates, and
         //   2) the original raw array with duplicates.
         //
         // If more samples are requested than the given total, then the
         // function simply returns the maximum number possible.
         // In particular, it does not error out, etc.
-        function getSamplesUnique(seed, totalSize, sampleSize) {
+        function getSamplesUnique(seed, totalSize, sampleSize, smallestItem) {
           var item,
               items = [],
               uniqueItems = [],
               selectedItems = {};
+          if (smallestItem === undefined) {
+              smallestItem = 1;
+          }
           // Prevent infinite execution.
           if (sampleSize > totalSize) {
               sampleSize = totalSize;
@@ -145,7 +160,7 @@
               // Since getSample() throws an error instead of returning NaN,
               // we do not have to worry about preventing an endless loop
               // caused by repeated NaN return values.
-              item = getSample(seed, totalSize, i);
+              item = getSample(seed, totalSize, i) + smallestItem;
               items.push(item);
               if (!(item in selectedItems)) {
                   selectedItems[item] = true;
