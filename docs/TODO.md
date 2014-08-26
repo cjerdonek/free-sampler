@@ -1,7 +1,6 @@
 TODO
 ====
 
-* Finish implementing lowest/highest item
 * Add info about Bower dependencies to "Technical Details" of Maintainers page.
 * Finishing adding initial info to About page re: algorithm, author, that
   the software is open source and on github, etc.

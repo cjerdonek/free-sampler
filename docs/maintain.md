@@ -68,7 +68,7 @@ Releasing
 ---------
 
 We maintain a working version of the latest release on the web using
-[GitHub Pages][github-pages]: http://cjerdonek.github.io/free-sampler/
+[GitHub Pages][github-pages]: http://cjerdonek.github.io/quick-sampler/
 
 This section describes how to update this release.
 

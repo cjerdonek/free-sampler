@@ -1,5 +1,5 @@
 {
-  "name": "free-sampler",
+  "name": "quick-sampler",
   "version": "0.1.0",
   "dependencies": {
     "angular": "1.2.22",

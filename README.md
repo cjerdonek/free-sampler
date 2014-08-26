@@ -1,7 +1,7 @@
 Quick Sampler
 =============
 
-[![Build Status](https://travis-ci.org/cjerdonek/free-sampler.svg?branch=master)](https://travis-ci.org/cjerdonek/free-sampler)
+[![Build Status](https://travis-ci.org/cjerdonek/quick-sampler.svg?branch=master)](https://travis-ci.org/cjerdonek/quick-sampler)
 
 This repository contains an open source web application called
 "Quick Sampler" that lets one run the [SHA-256][sha-256] pseudo-random
@@ -11,7 +11,7 @@ Quick Sampler can be used for things like selecting precincts at
 random for a post-election manual audit given a random seed supplied
 by the user.
 
-To try out the latest version, go [here][free-sampler-app].  For bug
+To try out the latest version, go [here][quick-sampler-app].  For bug
 reports and feature requests, visit the [issue tracker][issue-tracker].
 
 
@@ -93,9 +93,9 @@ developed by [Philip B. Stark][stark].
 
 [angularjs]: https://angularjs.org/
 [bootstrap]: http://getbootstrap.com/
-[free-sampler-app]: http://cjerdonek.github.io/free-sampler/
-[issue-tracker]: https://github.com/cjerdonek/free-sampler/issues
+[issue-tracker]: https://github.com/cjerdonek/quick-sampler/issues
 [maintain]: docs/maintain.md
+[quick-sampler-app]: http://cjerdonek.github.io/quick-sampler/
 [rivest]: http://people.csail.mit.edu/rivest/
 [rivest-impl]: http://people.csail.mit.edu/rivest/sampler.py
 [sampler-tests]: https://github.com/cjerdonek/rivest-sampler-tests
