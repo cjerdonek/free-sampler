@@ -1,10 +1,14 @@
 TODO
 ====
 
+* Expose a debug option which shows hashes.
+  - This will help in describing the algorithm in the README
+  - Use encodeURI() to display the seed.
+* Bring README to a completed state
 * Add info about Bower dependencies to "Technical Details" of Maintainers page.
 * Finishing adding initial info to About page re: algorithm, author, that
   the software is open source and on github, etc.
-* Expose a debug option which shows hashes.
+* Allow random seed to be specified over multiple inputs.
 * Expose JSON and text formats, too.
 * Add a "test" option that uses the test cases (and should tests
   run automatically when starting up?).
