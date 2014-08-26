@@ -39,7 +39,8 @@
     // Params:
     //   parse: a function that accepts an input value and returns
     //     an object containing a parsed value or error.
-    function handleInput($log, parseInput, form, parsed, inputLabel, hasError) {
+    function handleInput($log, parseInput, form, parsed, inputLabel, isOkay) {
+        // TODO: clear a value from parsed on error?
         var result = parseInput(form.input[inputLabel]);
 
         if (result.error) {
@@ -58,14 +59,14 @@
                     form.relatedErrors[relatedLabel].push(inputLabel);
                 }
             }
-            hasError = true;
+            isOkay = false;
         } else {
             parsed[inputLabel] = result.value;
             // It's okay to delete if the property does not exist.
             delete form.errors[inputLabel];
         }
 
-        return hasError;
+        return isOkay;
     }
 
     function setOutput(output, all, unique, sorted) {
@@ -156,11 +157,10 @@
             return result;
         }
 
-        // Return an object containing the parsed input fields, or false if
-        // form validation found an error.
-        function validateForm(form) {
-            var hasError = false,
-                parsed = {};
+        // Populate the given object with parsed values, and return
+        // whether the form validated without error.
+        function validateForm(form, parsed) {
+            var isOkay = true;
 
             function parseSampleCount(inputValue) {
                 var result = parsePositiveInteger(inputValue);
@@ -172,18 +172,19 @@
                 return result;
             }
 
-            hasError = handleInput($log, parseSeed, form, parsed, 'seed', hasError);
-            hasError = handleInput($log, parseInteger, form, parsed, 'smallestItem', hasError);
-            hasError = handleInput($log, parsePositiveInteger, form, parsed, 'totalCount', hasError);
+            isOkay = handleInput($log, parseSeed, form, parsed, 'seed', isOkay);
+            isOkay = handleInput($log, parseInteger, form, parsed, 'smallestItem', isOkay);
+            isOkay = handleInput($log, parsePositiveInteger, form, parsed, 'totalCount', isOkay);
 
             // We deliberately validate sampleCount after totalCount because
             // validating sampleCount depends on totalCount.
-            hasError = handleInput($log, parseSampleCount, form, parsed, 'sampleCount', hasError);
+            isOkay = handleInput($log, parseSampleCount, form, parsed, 'sampleCount', isOkay);
 
-            return hasError ? false : parsed;
+            return isOkay;
         }
 
         var form,
+            input,
             output,
             parsed;
 
@@ -191,9 +192,16 @@
         form = {};
         output = {};
 
+        input = {
+            debug: true,
+            seed: 'abc',
+            sampleCount: 5,
+            totalCount: 1000
+        };
+
         form.showing = false;
         form.errors = {};
-        form.input = {};
+        form.input = input;
         form.parsed = {};
         form.relatedErrors = {};
 
@@ -228,8 +236,8 @@
         };
 
         form.submit = function() {
-            var parsed = validateForm(form);
-            if (!parsed) {
+            var isOkay = validateForm(form, parsed);
+            if (!isOkay) {
                 return;
             }
             showSamples(getSamplesUnique, $scope.output, parsed);
@@ -241,6 +249,8 @@
         $scope.output = output;
         $scope.parseInteger = parseInteger;
         $scope.parsePositiveInteger = parsePositiveInteger;
+
+        form.submit();
 
         $scope.highestItem = function() {
             var highest = parsed.smallestItem + parsed.totalCount - 1;

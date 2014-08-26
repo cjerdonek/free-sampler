@@ -46,11 +46,16 @@ This lets us include our own error messages for visual consistency, etc.
     </smp-form-input>
 
     <div class="form-group">
-      <div class="col-sm-offset-3 col-sm-9">
+      <div class="col-sm-offset-3 col-sm-3">
         <button type='submit' class="btn"
                 ng-class="form.showing ? 'btn-success' : 'btn-primary'"
                 ng-disabled="form.showing"
                 ng-click="form.submit()">{{ form.showing ? 'Done!' : 'Show Sample' }}</button>
+      </div>
+      <div class="checkbox col-sm-3">
+        <label>
+          <input type="checkbox" ng-model="form.input.debug"/>Debug
+        </label>
       </div>
     </div>
   </fieldset>
@@ -77,4 +82,19 @@ This lets us include our own error messages for visual consistency, etc.
     </ol>
 </div>
 
+</div>
+
+<div class="row" ng-hide="!form.input.debug">
+  <div class="col-sm-offset-3 col-sm-9">
+    <hr>
+<h2>Debug</h2>
+<pre>
+Seed:
+
+"{{ form.input.seed }}"
+"{{ form.input.seed }}" (urlencoded)
+
+<div ng-repeat="item in output.allItems track by $index">{{ item }}</div>
+</pre>
+  </div>
 </div>
