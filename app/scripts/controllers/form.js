@@ -34,41 +34,6 @@
         return result;
     }
 
-    // Return whether the form has an error up to this point.
-    //
-    // Params:
-    //   parse: a function that accepts an input value and returns
-    //     an object containing a parsed value or error.
-    function handleInput($log, parseInput, form, parsed, inputLabel, isOkay) {
-        // TODO: clear a value from parsed on error?
-        var result = parseInput(form.input[inputLabel]);
-
-        if (result.error) {
-            var errorText = result.error.message;
-            var related = result.error.related;
-
-            if (form.errors[inputLabel] !== errorText) {
-                form.errors[inputLabel] = errorText;
-            }
-            if (related !== undefined) {
-                for (var i = 0, len = related.length; i < len; i++) {
-                    var relatedLabel = related[i];
-                    if (form.relatedErrors[relatedLabel] === undefined) {
-                        form.relatedErrors[relatedLabel] = [];
-                    }
-                    form.relatedErrors[relatedLabel].push(inputLabel);
-                }
-            }
-            isOkay = false;
-        } else {
-            parsed[inputLabel] = result.value;
-            // It's okay to delete if the property does not exist.
-            delete form.errors[inputLabel];
-        }
-
-        return isOkay;
-    }
-
     function setOutput(output, all, unique, sorted) {
         output.allItems = all;
         output.uniqueItems = unique;
@@ -121,9 +86,7 @@
             parsed,
             parseFunctions;
 
-        // Params:
-        //   parseInput: a function that accepts an input value and
-        //     returns an object with error and value properties.
+        // TODO: share code with handleInput().
         function onInputChange(inputLabel) {
             var errors = form.errors,
                 parsed = form.parsed,
@@ -147,6 +110,42 @@
                 delete relatedErrors[inputLabel];
             }
             delete errors[inputLabel];
+        }
+
+        // Return whether the form has an error up to this point.
+        //
+        // Params:
+        //   parse: a function that accepts an input value and returns
+        //     an object containing a parsed value or error.
+        function handleInput(parseInput, inputLabel, isOkay) {
+            // TODO: clear a value from parsed on error?
+            var parsed = form.parsed;
+            var result = parseInput(form.input[inputLabel]);
+
+            if (result.error) {
+                var errorText = result.error.message;
+                var related = result.error.related;
+
+                if (form.errors[inputLabel] !== errorText) {
+                    form.errors[inputLabel] = errorText;
+                }
+                if (related !== undefined) {
+                    for (var i = 0, len = related.length; i < len; i++) {
+                        var relatedLabel = related[i];
+                        if (form.relatedErrors[relatedLabel] === undefined) {
+                            form.relatedErrors[relatedLabel] = [];
+                        }
+                        form.relatedErrors[relatedLabel].push(inputLabel);
+                    }
+                }
+                isOkay = false;
+            } else {
+                parsed[inputLabel] = result.value;
+                // It's okay to delete if the property does not exist.
+                delete form.errors[inputLabel];
+            }
+
+            return isOkay;
         }
 
         // Notes re: form validation & input values
@@ -206,13 +205,13 @@
                 return result;
             }
 
-            isOkay = handleInput($log, parseSeed, form, parsed, 'seed', isOkay);
-            isOkay = handleInput($log, parseInteger, form, parsed, 'smallestItem', isOkay);
-            isOkay = handleInput($log, parsePositiveInteger, form, parsed, 'totalCount', isOkay);
+            isOkay = handleInput(parseSeed, 'seed', isOkay);
+            isOkay = handleInput(parseInteger, 'smallestItem', isOkay);
+            isOkay = handleInput(parsePositiveInteger, 'totalCount', isOkay);
 
             // We deliberately validate sampleCount after totalCount because
             // validating sampleCount depends on totalCount.
-            isOkay = handleInput($log, parseSampleCount, form, parsed, 'sampleCount', isOkay);
+            isOkay = handleInput(parseSampleCount, 'sampleCount', isOkay);
 
             return isOkay;
         }
@@ -227,8 +226,9 @@
 
         input = {
             debug: true,
-            seed: 'abc',
             sampleCount: 5,
+            seed: 'abc',
+            smallestItem: 1,
             totalCount: 1000
         };
 
@@ -239,10 +239,9 @@
         form.relatedErrors = {};
 
         parsed = form.parsed;
-        form.input.smallestItem = 1;
         // We need to set the parsed value as well to make sure the
         // highest-item element gets updated if the total count is updated.
-        parsed.smallestItem = 1;
+        onInputChange('smallestItem');
 
         form.onInputChange = onInputChange;
 
