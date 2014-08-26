@@ -67,6 +67,10 @@ describe('services module', function() {
       expect(getSample('0', 1000, 1)).toBe(904);
     });
 
+    it('should handle a string with a unicode character', function() {
+      expect(getSample('snowman: \u2603', 1000, 1)).toBe(633);
+    });
+
     it('should throw an error if totalSize is undefined', function() {
       expect(function() {
         getSample('abcde', undefined, 3);

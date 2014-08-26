@@ -54,8 +54,9 @@
     // Return a SHA-256 hash function.
     samplerServices.factory('sha256', [
       function sha256Factory(){
-        function sha256(seed) {
-            var shaObj = new jsSHA(seed, 'TEXT');
+        function sha256(s) {
+            // With TEXT, the jsSHA constructor defaults to UTF8.
+            var shaObj = new jsSHA(s, 'TEXT');
             var hash = shaObj.getHash('SHA-256', 'HEX');
             return hash;
         }
