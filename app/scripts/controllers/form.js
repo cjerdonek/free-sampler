@@ -75,7 +75,11 @@
     }
 
     // TODO: move this to services.js?
-    function showSamples(getSamplesUnique, output, seed, totalCount, sampleCount) {
+    function showSamples(getSamplesUnique, output, parsed) {
+        var sampleCount = parsed.sampleCount,
+            seed = parsed.seed,
+            totalCount = parsed.totalCount;
+
         var result = getSamplesUnique(seed, totalCount, sampleCount);
 
         var uniqueItems = result[0];
@@ -224,12 +228,11 @@
         };
 
         form.submit = function() {
-            var result = validateForm(form);
-            if (!result) {
+            var parsed = validateForm(form);
+            if (!parsed) {
                 return;
             }
-            showSamples(getSamplesUnique, $scope.output, result.seed,
-                        result.totalCount, result.sampleCount);
+            showSamples(getSamplesUnique, $scope.output, parsed);
             form.showing = true;
         };
 
