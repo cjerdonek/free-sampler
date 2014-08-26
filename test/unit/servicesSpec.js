@@ -88,6 +88,13 @@ describe('services module', function() {
         .toEqual([247, 427, 157]);
     });
 
+    it('should respect the smallestItem argument', function() {
+      expect(getSamples('abcde', 1000, 3, 0))
+        .toEqual([246, 426, 156]);
+      expect(getSamples('abcde', 1000, 3, -1))
+        .toEqual([245, 425, 155]);
+    });
+
   });
 
   describe('getSamplesUnique', function() {
@@ -98,6 +105,18 @@ describe('services module', function() {
       getSamples = _getSamples_;
       getSamplesUnique = _getSamplesUnique_;
     }));
+
+    it('should sample 2 items from 100 correctly', function() {
+      expect(getSamplesUnique('abcde', 100, 2))
+        .toEqual([[47, 27], [47, 27]]);
+    });
+
+    it('should respect the smallestItem argument', function() {
+      expect(getSamplesUnique('abcde', 100, 2, 0))
+        .toEqual([[46, 26], [46, 26]]);
+      expect(getSamplesUnique('abcde', 100, 2, -1))
+        .toEqual([[45, 25], [45, 25]]);
+    });
 
     it('should handle duplicates', function() {
       expect(getSamplesUnique('abcde', 5, 2))
