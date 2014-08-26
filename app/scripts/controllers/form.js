@@ -115,6 +115,40 @@
       'getSamplesUnique', 'spellsInt',
       function ($log, $scope, $window, getSamplesUnique, spellsInt) {
 
+        var form,
+            input,
+            output,
+            parsed,
+            parseFunctions;
+
+        // Params:
+        //   parseInput: a function that accepts an input value and
+        //     returns an object with error and value properties.
+        function onInputChange(inputLabel) {
+            var errors = form.errors,
+                parsed = form.parsed,
+                parseInput = parseFunctions[inputLabel],
+                relatedErrors = form.relatedErrors;
+
+            if (parseInput) {
+                var result = parseInput(form.input[inputLabel]);
+                // The value will be undefined if parsing yielded an error.
+                parsed[inputLabel] = result.value;
+            }
+
+            var related = relatedErrors[inputLabel];
+            form.showing = false;
+            setOutput(output);
+            if (related !== undefined) {
+                for (var i = 0, len = related.length; i < len; i++) {
+                    delete errors[related[i]];
+                }
+                // We only need to clear related errors once.
+                delete relatedErrors[inputLabel];
+            }
+            delete errors[inputLabel];
+        }
+
         // Notes re: form validation & input values
         //
         // Note that with input type "number", the input value may already be
@@ -183,14 +217,13 @@
             return isOkay;
         }
 
-        var form,
-            input,
-            output,
-            parsed;
-
         // Initialize the models.
         form = {};
         output = {};
+        parseFunctions = {
+            smallestItem: parseInteger,
+            totalCount: parsePositiveInteger
+        };
 
         input = {
             debug: true,
@@ -211,29 +244,7 @@
         // highest-item element gets updated if the total count is updated.
         parsed.smallestItem = 1;
 
-        // Params:
-        //   parseInput: a function that accepts an input value and
-        //     returns an object with error and value properties.
-        form.onInputChange = function(inputLabel, parseInput) {
-            if (parseInput) {
-                var result = parseInput(form.input[inputLabel]);
-                // The value will be undefined if parsing yielded an error.
-                parsed[inputLabel] = result.value;
-            }
-
-            var errors = form.errors;
-            var related = form.relatedErrors[inputLabel];
-            form.showing = false;
-            setOutput(output);
-            if (related !== undefined) {
-                for (var i = 0, len = related.length; i < len; i++) {
-                    delete errors[related[i]];
-                }
-                // We only need to clear related errors once.
-                delete form.relatedErrors[inputLabel];
-            }
-            delete errors[inputLabel];
-        };
+        form.onInputChange = onInputChange;
 
         form.submit = function() {
             var isOkay = validateForm(form, parsed);
@@ -247,8 +258,6 @@
         // Initialize the scope.
         $scope.form = form;
         $scope.output = output;
-        $scope.parseInteger = parseInteger;
-        $scope.parsePositiveInteger = parsePositiveInteger;
 
         form.submit();
 

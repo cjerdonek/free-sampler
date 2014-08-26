@@ -19,7 +19,6 @@
                 inputType: '@',
                 key: '@',
                 label: '@',
-                parseFunction: '=',
                 placeholder: '@'
             }
         };
