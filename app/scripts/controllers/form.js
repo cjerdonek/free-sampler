@@ -78,9 +78,10 @@
     function showSamples(getSamplesUnique, output, parsed) {
         var sampleCount = parsed.sampleCount,
             seed = parsed.seed,
+            smallestItem = parsed.smallestItem,
             totalCount = parsed.totalCount;
 
-        var result = getSamplesUnique(seed, totalCount, sampleCount);
+        var result = getSamplesUnique(seed, totalCount, sampleCount, smallestItem);
 
         var uniqueItems = result[0];
         var sortedItems = uniqueItems.concat();  // make a copy.
@@ -201,7 +202,6 @@
         // We need to set the parsed value as well to make sure the
         // highest-item element gets updated if the total count is updated.
         parsed.smallestItem = 1;
-
 
         // Params:
         //   parseInput: a function that accepts an input value and

@@ -15,7 +15,34 @@ describe('Controller: MainCtrl', function () {
     });
   }));
 
-  // TODO: the tests below should not all need to call submit()?
+  describe('output', function() {
+
+    beforeEach(function() {
+    });
+
+    it('should calculate the sample correctly', function() {
+      var input = scope.form.input;
+      input.seed = 'abcde';
+      input.totalCount = 5;
+      input.sampleCount = 2;
+      scope.form.submit();
+      expect(scope.output.allItems).toEqual([2, 2, 2, 3]);
+      expect(scope.output.uniqueItems).toEqual([2, 3]);
+    });
+
+    it('should respect the lowest item field', function() {
+      var input = scope.form.input;
+      input.seed = 'abcde';
+      input.totalCount = 5;
+      input.sampleCount = 2;
+      input.smallestItem = -1;
+      scope.form.submit();
+      expect(scope.output.allItems).toEqual([0, 0, 0, 1]);
+      expect(scope.output.uniqueItems).toEqual([0, 1]);
+    });
+
+  });
+
   describe('totalCount input', function() {
 
     beforeEach(function() {
