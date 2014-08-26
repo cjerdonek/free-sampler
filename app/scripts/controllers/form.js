@@ -24,16 +24,6 @@
         };
     }
 
-    function parseSeed(inputValue) {
-        var result = {};
-        if (!inputValue) {
-            result.error = makeError(errorMessages.seedRequired);
-        } else {
-            result.value = inputValue;
-        }
-        return result;
-    }
-
     function setOutput(output, all, unique, sorted) {
         output.allItems = all;
         output.uniqueItems = unique;
@@ -117,7 +107,8 @@
         // Params:
         //   parse: a function that accepts an input value and returns
         //     an object containing a parsed value or error.
-        function handleInput(parseInput, inputLabel, isOkay) {
+        // TODO: remove the parseInput argument.
+        function validateInput(parseInput, inputLabel, isOkay) {
             // TODO: clear a value from parsed on error?
             var parsed = form.parsed;
             var result = parseInput(form.input[inputLabel]);
@@ -161,8 +152,19 @@
         // will return NaN) for at least some browsers.  Thus, we include
         // the full helpful error message if the parsed integer is NaN.
 
-        // Return an object containing either an error object or the
-        // parsed integer value.
+        // The parse functions each return an object containing either
+        // an error object or the parsed integer value.
+
+        function parseSeed(inputValue) {
+            var result = {};
+            if (!inputValue) {
+                result.error = makeError(errorMessages.seedRequired);
+            } else {
+                result.value = inputValue;
+            }
+            return result;
+        }
+
         function parseInteger(inputValue) {
             var result = {};
             var n = spellsInt(inputValue);
@@ -174,18 +176,12 @@
             return result;
         }
 
-        // Return an object containing either an error object or the
-        // parsed integer value.
         function parsePositiveInteger(inputValue) {
-            var result = {};
-            // TODO: make the logic below DRY with parseInteger().
-            var n = spellsInt(inputValue);
-            if (isNaN(n)) {
+            var result = parseInteger(inputValue);
+            if (result.error !== undefined) {
                 result.error = makeError(errorMessages.positiveIntegerRequired);
-            } else if (n < 1) {
+            } else if (result.value < 1) {
                 result.error = makeError(errorMessages.numberTooSmall);
-            } else {
-                result.value = n;
             }
             return result;
         }
@@ -205,13 +201,13 @@
                 return result;
             }
 
-            isOkay = handleInput(parseSeed, 'seed', isOkay);
-            isOkay = handleInput(parseInteger, 'smallestItem', isOkay);
-            isOkay = handleInput(parsePositiveInteger, 'totalCount', isOkay);
+            isOkay = validateInput(parseSeed, 'seed', isOkay);
+            isOkay = validateInput(parseInteger, 'smallestItem', isOkay);
+            isOkay = validateInput(parsePositiveInteger, 'totalCount', isOkay);
 
             // We deliberately validate sampleCount after totalCount because
             // validating sampleCount depends on totalCount.
-            isOkay = handleInput(parseSampleCount, 'sampleCount', isOkay);
+            isOkay = validateInput(parseSampleCount, 'sampleCount', isOkay);
 
             return isOkay;
         }
