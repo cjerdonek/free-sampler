@@ -27,7 +27,7 @@
         when('/', {
           templateUrl: 'templates/partials/main.html'
         }).
-        // This route is a convenience for local development.
+        // This route is a convenience when developing locally.
         when('/dev', {
           templateUrl: 'templates/partials/main.html',
           controller: 'DevCtrl'

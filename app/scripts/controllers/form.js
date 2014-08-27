@@ -223,11 +223,7 @@
         };
 
         input = {
-            debug: true,
-            sampleCount: 5,
-            seed: 'abc',
-            smallestItem: 1,
-            totalCount: 1000
+            smallestItem: 1
         };
 
         form.showing = false;
@@ -255,8 +251,6 @@
         // Initialize the scope.
         $scope.form = form;
         $scope.output = output;
-
-        form.submit();
 
         $scope.highestItem = function() {
             var highest = parsed.smallestItem + parsed.totalCount - 1;
