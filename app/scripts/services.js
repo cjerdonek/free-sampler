@@ -55,7 +55,7 @@
     samplerServices.factory('sha256', [
       function sha256Factory(){
         function sha256(s) {
-            // With TEXT, the jsSHA constructor defaults to UTF8.
+            // With 'TEXT', the jsSHA constructor defaults to encoding 'UTF8'.
             var shaObj = new jsSHA(s, 'TEXT');
             var hash = shaObj.getHash('SHA-256', 'HEX');
             return hash;
