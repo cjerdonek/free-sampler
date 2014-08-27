@@ -76,6 +76,50 @@
             parsed,
             parseFunctions;
 
+        // The parse functions each return an object containing either
+        // an error object or the parsed integer value.
+
+        function parseSeed(inputValue) {
+            var result = {};
+            if (!inputValue) {
+                result.error = makeError(errorMessages.seedRequired);
+            } else {
+                result.value = inputValue;
+            }
+            return result;
+        }
+
+        function parseInteger(inputValue) {
+            var result = {};
+            var n = spellsInt(inputValue);
+            if (isNaN(n)) {
+                result.error = makeError(errorMessages.integerRequired);
+            } else {
+                result.value = n;
+            }
+            return result;
+        }
+
+        function parsePositiveInteger(inputValue) {
+            var result = parseInteger(inputValue);
+            if (result.error !== undefined) {
+                result.error = makeError(errorMessages.positiveIntegerRequired);
+            } else if (result.value < 1) {
+                result.error = makeError(errorMessages.numberTooSmall);
+            }
+            return result;
+        }
+
+        function parseSampleCount(inputValue) {
+            var result = parsePositiveInteger(inputValue);
+            if ((result.error === undefined) &&
+                (parsed.totalCount !== undefined) &&
+                (result.value > parsed.totalCount)) {
+                result.error = makeError(errorMessages.sampleCountTooLarge, ['totalCount']);
+            }
+            return result;
+        }
+
         // TODO: share code with handleInput().
         function onInputChange(inputLabel) {
             var errors = form.errors,
@@ -152,61 +196,17 @@
         // will return NaN) for at least some browsers.  Thus, we include
         // the full helpful error message if the parsed integer is NaN.
 
-        // The parse functions each return an object containing either
-        // an error object or the parsed integer value.
-
-        function parseSeed(inputValue) {
-            var result = {};
-            if (!inputValue) {
-                result.error = makeError(errorMessages.seedRequired);
-            } else {
-                result.value = inputValue;
-            }
-            return result;
-        }
-
-        function parseInteger(inputValue) {
-            var result = {};
-            var n = spellsInt(inputValue);
-            if (isNaN(n)) {
-                result.error = makeError(errorMessages.integerRequired);
-            } else {
-                result.value = n;
-            }
-            return result;
-        }
-
-        function parsePositiveInteger(inputValue) {
-            var result = parseInteger(inputValue);
-            if (result.error !== undefined) {
-                result.error = makeError(errorMessages.positiveIntegerRequired);
-            } else if (result.value < 1) {
-                result.error = makeError(errorMessages.numberTooSmall);
-            }
-            return result;
-        }
-
         // Populate the given object with parsed values, and return
         // whether the form validated without error.
-        function validateForm(form, parsed) {
+        function validateForm() {
             var isOkay = true;
-
-            function parseSampleCount(inputValue) {
-                var result = parsePositiveInteger(inputValue);
-                if ((result.value !== undefined) &&
-                    (parsed.totalCount !== undefined) &&
-                    (result.value > parsed.totalCount)) {
-                    result.error = makeError(errorMessages.sampleCountTooLarge, ['totalCount']);
-                }
-                return result;
-            }
 
             isOkay = validateInput(parseSeed, 'seed', isOkay);
             isOkay = validateInput(parseInteger, 'smallestItem', isOkay);
             isOkay = validateInput(parsePositiveInteger, 'totalCount', isOkay);
 
-            // We deliberately validate sampleCount after totalCount because
-            // validating sampleCount depends on totalCount.
+            // We validate sampleCount after totalCount because validating
+            // sampleCount depends on totalCount.
             isOkay = validateInput(parseSampleCount, 'sampleCount', isOkay);
 
             return isOkay;
@@ -242,8 +242,7 @@
         form.onInputChange = onInputChange;
 
         form.submit = function() {
-            var isOkay = validateForm(form, parsed);
-            if (!isOkay) {
+            if (!validateForm()) {
                 return;
             }
             showSamples(getSamplesUnique, $scope.output, parsed);
