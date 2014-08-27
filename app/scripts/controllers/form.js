@@ -24,14 +24,8 @@
         };
     }
 
-    function setOutput(output, all, unique, sorted) {
-        output.allItems = all;
-        output.uniqueItems = unique;
-        output.sortedItems = sorted;
-    }
-
     // TODO: move this to services.js?
-    function showSamples(getSamplesUnique, output, parsed) {
+    function chooseSamples(getSamplesUnique, parsed) {
         var sampleCount = parsed.sampleCount,
             seed = parsed.seed,
             smallestItem = parsed.smallestItem,
@@ -45,7 +39,7 @@
             return a - b;
         });
 
-        setOutput(output, result[1], uniqueItems, sortedItems);
+        return [result[1], uniqueItems, sortedItems];
     }
 
     /**
@@ -120,22 +114,33 @@
             return result;
         }
 
-        // TODO: share code with handleInput().
-        function onInputChange(inputLabel) {
+        function setOutput(all, unique, sorted) {
+            output.allItems = all;
+            output.uniqueItems = unique;
+            output.sortedItems = sorted;
+        }
+
+
+        // Actions to take when an input element changes:
+        //
+        // 1) clear the result display,
+        // 2) clear any associated errors,
+        // 3) set the parsed value if no error, and
+        // 4) return any error (or else null).
+        //
+        // Returns undefined or an error object.
+        function onInput(inputLabel) {
             var errors = form.errors,
                 parsed = form.parsed,
                 parseInput = parseFunctions[inputLabel],
                 relatedErrors = form.relatedErrors;
 
-            if (parseInput) {
-                var result = parseInput(form.input[inputLabel]);
-                // The value will be undefined if parsing yielded an error.
-                parsed[inputLabel] = result.value;
-            }
-
-            var related = relatedErrors[inputLabel];
             form.showing = false;
-            setOutput(output);
+            // Clear the result display since the input has changed.
+            setOutput();
+            // Clear the main error and any related errors.
+            delete errors[inputLabel];
+            var related = relatedErrors[inputLabel];
             if (related !== undefined) {
                 for (var i = 0, len = related.length; i < len; i++) {
                     delete errors[related[i]];
@@ -143,7 +148,12 @@
                 // We only need to clear related errors once.
                 delete relatedErrors[inputLabel];
             }
-            delete errors[inputLabel];
+
+            var result = parseInput(form.input[inputLabel]);
+            // The value will be undefined if parsing yielded an error.
+            parsed[inputLabel] = result.value;
+
+            return result.error;
         }
 
         // Return whether the form has an error up to this point.
@@ -152,7 +162,8 @@
         //   parse: a function that accepts an input value and returns
         //     an object containing a parsed value or error.
         // TODO: remove the parseInput argument.
-        function validateInput(parseInput, inputLabel, isOkay) {
+        // TODO: share code with onInput().
+        function checkInput(parseInput, inputLabel, isOkay) {
             // TODO: clear a value from parsed on error?
             var parsed = form.parsed;
             var result = parseInput(form.input[inputLabel]);
@@ -201,13 +212,13 @@
         function validateForm() {
             var isOkay = true;
 
-            isOkay = validateInput(parseSeed, 'seed', isOkay);
-            isOkay = validateInput(parseInteger, 'smallestItem', isOkay);
-            isOkay = validateInput(parsePositiveInteger, 'totalCount', isOkay);
+            isOkay = checkInput(parseSeed, 'seed', isOkay);
+            isOkay = checkInput(parseInteger, 'smallestItem', isOkay);
+            isOkay = checkInput(parsePositiveInteger, 'totalCount', isOkay);
 
             // We validate sampleCount after totalCount because validating
             // sampleCount depends on totalCount.
-            isOkay = validateInput(parseSampleCount, 'sampleCount', isOkay);
+            isOkay = checkInput(parseSampleCount, 'sampleCount', isOkay);
 
             return isOkay;
         }
@@ -216,6 +227,8 @@
         form = {};
         output = {};
         parseFunctions = {
+            sampleCount: parseSampleCount,
+            seed: parseSeed,
             smallestItem: parseInteger,
             totalCount: parsePositiveInteger
         };
@@ -237,15 +250,16 @@
         parsed = form.parsed;
         // We need to set the parsed value as well to make sure the
         // highest-item element gets updated if the total count is updated.
-        onInputChange('smallestItem');
+        onInput('smallestItem');
 
-        form.onInputChange = onInputChange;
+        form.onInputChange = onInput;
 
         form.submit = function() {
             if (!validateForm()) {
                 return;
             }
-            showSamples(getSamplesUnique, $scope.output, parsed);
+            var result = chooseSamples(getSamplesUnique, parsed);
+            setOutput(result[0], result[1], result[2]);
             form.showing = true;
         };
 
