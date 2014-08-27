@@ -120,7 +120,6 @@
             output.sortedItems = sorted;
         }
 
-
         // Actions to take when an input element changes:
         //
         // 1) clear the result display,
@@ -139,6 +138,7 @@
             // Clear the result display since the input has changed.
             setOutput();
             // Clear the main error and any related errors.
+            // (It's okay to delete if the property does not exist.)
             delete errors[inputLabel];
             var related = relatedErrors[inputLabel];
             if (related !== undefined) {
@@ -156,39 +156,28 @@
             return result.error;
         }
 
-        // Return whether the form has an error up to this point.
-        //
-        // Params:
-        //   parse: a function that accepts an input value and returns
-        //     an object containing a parsed value or error.
-        // TODO: remove the parseInput argument.
-        // TODO: share code with onInput().
-        function checkInput(parseInput, inputLabel, isOkay) {
-            // TODO: clear a value from parsed on error?
-            var parsed = form.parsed;
-            var result = parseInput(form.input[inputLabel]);
+        // Return whether the form is error-free up to this point.
+        // Also sets errors if there is a validation error.
+        function checkInput(isOkay, inputLabel) {
+            var relatedErrors = form.relatedErrors;
+            var error = onInput(inputLabel);
 
-            if (result.error) {
-                var errorText = result.error.message;
-                var related = result.error.related;
+            if (error !== undefined) {
+                var errorText = error.message;
+                var related = error.related;
 
-                if (form.errors[inputLabel] !== errorText) {
-                    form.errors[inputLabel] = errorText;
-                }
+                form.errors[inputLabel] = errorText;
+
                 if (related !== undefined) {
                     for (var i = 0, len = related.length; i < len; i++) {
                         var relatedLabel = related[i];
-                        if (form.relatedErrors[relatedLabel] === undefined) {
-                            form.relatedErrors[relatedLabel] = [];
+                        if (relatedErrors[relatedLabel] === undefined) {
+                            relatedErrors[relatedLabel] = [];
                         }
-                        form.relatedErrors[relatedLabel].push(inputLabel);
+                        relatedErrors[relatedLabel].push(inputLabel);
                     }
                 }
                 isOkay = false;
-            } else {
-                parsed[inputLabel] = result.value;
-                // It's okay to delete if the property does not exist.
-                delete form.errors[inputLabel];
             }
 
             return isOkay;
@@ -212,13 +201,13 @@
         function validateForm() {
             var isOkay = true;
 
-            isOkay = checkInput(parseSeed, 'seed', isOkay);
-            isOkay = checkInput(parseInteger, 'smallestItem', isOkay);
-            isOkay = checkInput(parsePositiveInteger, 'totalCount', isOkay);
+            isOkay = checkInput(isOkay, 'seed');
+            isOkay = checkInput(isOkay, 'smallestItem');
+            isOkay = checkInput(isOkay, 'totalCount');
 
             // We validate sampleCount after totalCount because validating
             // sampleCount depends on totalCount.
-            isOkay = checkInput(parseSampleCount, 'sampleCount', isOkay);
+            isOkay = checkInput(isOkay, 'sampleCount');
 
             return isOkay;
         }
