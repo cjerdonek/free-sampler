@@ -67,6 +67,12 @@ describe('services module', function() {
       expect(getSample('0', 1000, 1)).toBe(904);
     });
 
+    it('should append debug information', function() {
+      var debug = [0];
+      expect(getSample('0', 1000, 1, debug)).toBe(904);
+      expect(debug).toEqual([0, '83b97b859aa5f81b2f0f86ba2a675efaf515ad2d5e2b8652cf2de7e1c2267350']);
+    });
+
     it('should handle a string with a unicode character', function() {
       expect(getSample('snowman: \u2603', 1000, 1)).toBe(633);
     });

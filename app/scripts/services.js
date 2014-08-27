@@ -79,20 +79,27 @@
       function getSampleFactory(bigMod, sha256){
         // Return the 0-based index of the nth sample item.
         //
-        // Throws an error if the return value would otherwise be NaN.
+        // For example, a return value of 0 means the first item in the
+        // collection should be picked.  This function throws an error
+        // if the return value would otherwise be NaN.
         //
         // Params:
-        //   n: the sample item to return: 1 for the first item, 2 for the
-        //     second item, etc.
+        //   n: a whole number representing which sample item to return,
+        //     e.g. 1 for the first item, 2 for the second item, etc.
+        //   debug: an optional argument which is an array to which
+        //     debug information will be stored.
         //
-        function getSample(seed, totalSize, n) {
-          var hexHash = sha256(seed + ',' + n.toString());
-          var value = bigMod(hexHash, totalSize);
-          if (isNaN(value)) {
-              throw 'drawing sample ' + n + ' from size ' + totalSize +
-                    ' with seed "' + seed + '" did not return a number';
-          }
-          return value;
+        function getSample(seed, totalSize, n, debug) {
+            var hexHash = sha256(seed + ',' + n.toString());
+            var value = bigMod(hexHash, totalSize);
+            if (isNaN(value)) {
+                throw 'drawing sample ' + n + ' from size ' + totalSize +
+                      ' with seed "' + seed + '" did not return a number';
+            }
+            if (debug !== undefined) {
+                debug.push(hexHash);
+            }
+            return value;
         }
         return getSample;
     }]);
@@ -106,14 +113,16 @@
         // Params:
         //   smallestItem: the smallest integer in the collection.
         //     Defaults to 1.
-        function getSamples(seed, totalSize, sampleSize, smallestItem) {
+        //   debug: an array in which to store debug information.
+        //
+        function getSamples(seed, totalSize, sampleSize, smallestItem, debug) {
           var item,
               items = [];
           if (smallestItem === undefined) {
               smallestItem = 1;
           }
           for (var i = 1; i <= sampleSize; i++) {
-              item = getSample(seed, totalSize, i) + smallestItem;
+              item = getSample(seed, totalSize, i, debug) + smallestItem;
               items.push(item);
           }
           return items;
