@@ -28,8 +28,8 @@ Then run the following from the repository root--
 
     $ bower install
 
-This installs the dependencies listed in the file [`bower.json`](bower.json)
-into a subdirectory called `bower_components`.
+This installs the dependencies listed in the file
+[`bower.json`](../bower.json) into a subdirectory called `bower_components`.
 
 
 Testing
@@ -73,7 +73,9 @@ We maintain a working version of the latest release on the web using
 This section describes how to update this release.
 
 First, update the version number in
-[`bower.json`](../bower.json), package.json, and in the web page footer.
+[`bower.json`](../bower.json#L3),
+[`package.json`](../package.json#L3), and in the footer of the application
+home page [`index.html`](../app/index.html#L36).
 
 Then, follow the instructions above to build a release.
 
