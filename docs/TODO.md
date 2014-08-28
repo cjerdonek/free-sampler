@@ -1,9 +1,6 @@
 TODO
 ====
 
-* Expose a debug option which shows hashes.
-  - This will help in describing the algorithm in the README
-  - Use encodeURI() to display the seed.
 * Get IE test working using Sauce Labs, including with Travis:
   http://docs.travis-ci.com/user/gui-and-headless-browsers/
 * Mention which browsers tested against.
