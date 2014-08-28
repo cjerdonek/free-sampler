@@ -114,10 +114,11 @@
             return result;
         }
 
-        function setOutput(all, unique, sorted) {
+        function setOutput(all, unique, sorted, debugInfo) {
             output.allItems = all;
             output.uniqueItems = unique;
             output.sortedItems = sorted;
+            output.debug = debugInfo;
         }
 
         // Actions to take when an input element changes:
@@ -240,11 +241,13 @@
         form.onInputChange = onInput;
 
         form.submit = function() {
+            var result, debugInfo;
             if (!validateForm()) {
                 return;
             }
-            var result = chooseSamples(getSamplesUnique, parsed);
-            setOutput(result[0], result[1], result[2]);
+            result = chooseSamples(getSamplesUnique, parsed);
+            debugInfo = 'ABC';
+            setOutput(result[0], result[1], result[2], debugInfo);
             form.showing = true;
         };
 

@@ -85,14 +85,7 @@ This lets us include our own error messages for visual consistency, etc.
 <div class="row" ng-hide="!form.input.debug">
   <div class="col-sm-offset-3 col-sm-9">
     <hr>
-<h2>Debug</h2>
-<pre>
-Seed:
-
-"{{ form.input.seed }}"
-"{{ form.input.seed }}" (urlencoded)
-
-<div ng-repeat="item in output.allItems track by $index">{{ item }}</div>
-</pre>
+    <h2>Debug</h2>
+    <pre>{{ output.debug }}</pre>
   </div>
 </div>
