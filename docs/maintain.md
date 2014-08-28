@@ -77,7 +77,7 @@ First, update the version number in
 [`package.json`](../package.json#L3), and in the footer of the application
 home page [`index.html`](../app/index.html#L36).
 
-Then, follow the instructions above to build a release.
+Second, build a release following the instructions [above](#building).
 
 Copy the contents of the `dist` directory to a clone of the repository
 set to the `gh-pages` branch:
