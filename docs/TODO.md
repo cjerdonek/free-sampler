@@ -4,10 +4,17 @@ TODO
 * Expose a debug option which shows hashes.
   - This will help in describing the algorithm in the README
   - Use encodeURI() to display the seed.
+* Get IE test working using Sauce Labs, including with Travis:
+  http://docs.travis-ci.com/user/gui-and-headless-browsers/
+* Mention which browsers tested against.
 * Bring README to a completed state
 * Add info about Bower dependencies to "Technical Details" of Maintainers page.
 * Finishing adding initial info to About page re: algorithm, author, that
   the software is open source and on github, etc.
+* Double-check gh-pages documentation.
+* Do a new release
+* Add a zip file
+--
 * Allow random seed to be specified over multiple inputs.
 * Expose JSON and text formats, too.
 * Add a "test" option that uses the test cases (and should tests
@@ -19,6 +26,4 @@ TODO
 * Simplify or automate deploying a new gh-pages version.
 * Include "min" attribute in form-input directive only when input
   type is "number".
-* Get IE test working using Sauce Labs, including with Travis:
-  http://docs.travis-ci.com/user/gui-and-headless-browsers/
 * Think about internationalization.
