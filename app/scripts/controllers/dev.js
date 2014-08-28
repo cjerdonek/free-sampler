@@ -16,8 +16,8 @@
 
         var defaultInputs = {
             debug: true,
-            sampleCount: 5,
-            seed: 'abc',
+            sampleCount: 12,
+            seed: 'abcd',
             smallestItem: 1,
             totalCount: 1000
         };
