@@ -26,12 +26,13 @@
 
     // TODO: move this to services.js?
     function chooseSamples(getSamplesUnique, parsed) {
-        var sampleCount = parsed.sampleCount,
+        var hashes = [],
+            sampleCount = parsed.sampleCount,
             seed = parsed.seed,
             smallestItem = parsed.smallestItem,
             totalCount = parsed.totalCount;
 
-        var result = getSamplesUnique(seed, totalCount, sampleCount, smallestItem);
+        var result = getSamplesUnique(seed, totalCount, sampleCount, smallestItem, hashes);
 
         var uniqueItems = result[0];
         var sortedItems = uniqueItems.concat();  // make a copy.
@@ -41,8 +42,9 @@
 
         return {
             all: result[1],
-            unique: uniqueItems,
-            sorted: sortedItems
+            hashes: hashes,
+            sorted: sortedItems,
+            unique: uniqueItems
         };
     }
 
@@ -217,39 +219,35 @@
             return isOkay;
         }
 
-        function makeDebugInfo(parsed, allItems) {
-            var item,
-                largestItem,
+        function makeDebugInfo(parsed, result) {
+            var allItems = result.all,
+                hashes = result.hashes,
+                item,
+                line,
                 lines,
-                maxSampleLength,
                 padIndex,
                 padSample,
                 parsedSeed = parsed.seed,
                 parsedSmallestItem = parsed.smallestItem,
                 parsedTotalCount = parsed.totalCount,
-                sampleCount = allItems.length;
+                sampleCount;
 
-            largestItem = parsedSmallestItem + parsedTotalCount - 1;
-            // We need to consider the smallest for cases like -1 to 4, etc.
-            maxSampleLength = Math.max(parsedSmallestItem.toString().length,
-                                       largestItem.toString().length,
-                                       parsedTotalCount.toString().length);
+            sampleCount = allItems.length;
 
             padIndex = leftPadder(sampleCount.toString().length, ' ');
-            padSample = leftPadder(maxSampleLength, ' ');
+            padSample = leftPadder((parsedTotalCount - 1).toString().length, ' ');
 
             lines = [
                 'Seed: "' + parsedSeed + '"',
                 '      "' + encodeURI(parsedSeed) + '" (url-encoded)',
-                '',
-                'Items:  ' + padSample(parsedTotalCount),
-                'Lowest: ' + padSample(parsedSmallestItem),
                 ''
             ];
 
             for (var i = 0; i < sampleCount; i++) {
-                item = allItems[i];
-                lines.push(padIndex(i + 1) + '.  ' + padSample(item));
+                item = allItems[i] - parsedSmallestItem;
+                line = padIndex(i + 1) + '. ' + hashes[i] + ' % ' +
+                       parsedTotalCount + ' = ' + padSample(item);
+                lines.push(line);
             }
 
             return lines.join('\n');
@@ -283,14 +281,14 @@
         form.onInputChange = onInput;
 
         form.submit = function() {
-            var result,
-                debugInfo;
+            var debugInfo,
+                result;
 
             if (!validateForm()) {
                 return;
             }
             result = chooseSamples(getSamplesUnique, parsed);
-            debugInfo = makeDebugInfo(parsed, result.all);
+            debugInfo = makeDebugInfo(parsed, result);
             setOutput(result.all, result.unique, result.sorted, debugInfo);
             form.showing = true;
         };

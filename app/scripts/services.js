@@ -146,7 +146,7 @@
         // If more samples are requested than the given total, then the
         // function simply returns the maximum number possible.
         // In particular, it does not error out, etc.
-        function getSamplesUnique(seed, totalSize, sampleSize, smallestItem) {
+        function getSamplesUnique(seed, totalSize, sampleSize, smallestItem, debug) {
           var item,
               items = [],
               uniqueItems = [],
@@ -162,7 +162,7 @@
               // Since getSample() throws an error instead of returning NaN,
               // we do not have to worry about preventing an endless loop
               // caused by repeated NaN return values.
-              item = getSample(seed, totalSize, i) + smallestItem;
+              item = getSample(seed, totalSize, i, debug) + smallestItem;
               items.push(item);
               if (!(item in selectedItems)) {
                   selectedItems[item] = true;
