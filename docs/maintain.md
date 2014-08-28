@@ -73,7 +73,7 @@ We maintain a working version of the latest release on the web using
 This section describes how to update this release.
 
 First, update the version number in
-bower.json, package.json, and in the web page footer.
+[`bower.json`](bower.json), package.json, and in the web page footer.
 
 Then, follow the instructions above to build a release.
 
