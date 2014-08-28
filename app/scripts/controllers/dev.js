@@ -17,7 +17,7 @@
         var defaultInputs = {
             debug: true,
             sampleCount: 12,
-            seed: 'abcd',
+            seed: 'snowman: \u2603',
             smallestItem: 1,
             totalCount: 1000
         };

@@ -39,7 +39,11 @@
             return a - b;
         });
 
-        return [result[1], uniqueItems, sortedItems];
+        return {
+            all: result[1],
+            unique: uniqueItems,
+            sorted: sortedItems
+        };
     }
 
     /**
@@ -61,8 +65,8 @@
      * the sample count is larger than the total number of items).
      */
     samplerControllers.controller('MainCtrl', ['$log', '$scope', '$window',
-      'getSamplesUnique', 'spellsInt',
-      function ($log, $scope, $window, getSamplesUnique, spellsInt) {
+      'getSamplesUnique', 'leftPadder', 'spellsInt',
+      function ($log, $scope, $window, getSamplesUnique, leftPadder, spellsInt) {
 
         var form,
             input,
@@ -213,6 +217,44 @@
             return isOkay;
         }
 
+        function makeDebugInfo(parsed, allItems) {
+            var item,
+                largestItem,
+                lines,
+                maxSampleLength,
+                padIndex,
+                padSample,
+                parsedSeed = parsed.seed,
+                parsedSmallestItem = parsed.smallestItem,
+                parsedTotalCount = parsed.totalCount,
+                sampleCount = allItems.length;
+
+            largestItem = parsedSmallestItem + parsedTotalCount - 1;
+            // We need to consider the smallest for cases like -1 to 4, etc.
+            maxSampleLength = Math.max(parsedSmallestItem.toString().length,
+                                       largestItem.toString().length,
+                                       parsedTotalCount.toString().length);
+
+            padIndex = leftPadder(sampleCount.toString().length, ' ');
+            padSample = leftPadder(maxSampleLength, ' ');
+
+            lines = [
+                'Seed: "' + parsedSeed + '"',
+                '      "' + encodeURI(parsedSeed) + '" (url-encoded)',
+                '',
+                'Items:  ' + padSample(parsedTotalCount),
+                'Lowest: ' + padSample(parsedSmallestItem),
+                ''
+            ];
+
+            for (var i = 0; i < sampleCount; i++) {
+                item = allItems[i];
+                lines.push(padIndex(i + 1) + '.  ' + padSample(item));
+            }
+
+            return lines.join('\n');
+        }
+
         // Initialize the models.
         form = {};
         output = {};
@@ -241,13 +283,15 @@
         form.onInputChange = onInput;
 
         form.submit = function() {
-            var result, debugInfo;
+            var result,
+                debugInfo;
+
             if (!validateForm()) {
                 return;
             }
             result = chooseSamples(getSamplesUnique, parsed);
-            debugInfo = 'ABC';
-            setOutput(result[0], result[1], result[2], debugInfo);
+            debugInfo = makeDebugInfo(parsed, result.all);
+            setOutput(result.all, result.unique, result.sorted, debugInfo);
             form.showing = true;
         };
 
