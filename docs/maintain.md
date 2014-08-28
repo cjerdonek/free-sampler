@@ -91,6 +91,11 @@ Inside the clone, commit the changes and push:
 The page should now be ready to view.  Note that GitHub says it can take
 up to 10 minutes for changes to appear.
 
+Also tag the repo version as follows, for example:
+
+    $ git tag v0.2.0
+    $ git push origin v0.2.0
+
 
 Technical Background
 --------------------

@@ -8,6 +8,7 @@ TODO
 * Add info about Bower dependencies to "Technical Details" of Maintainers page.
 * Finishing adding initial info to About page re: algorithm, author, that
   the software is open source and on github, etc.
+* Center the footer.
 * Double-check gh-pages documentation.
 * Do a new release
 * Add a zip file
