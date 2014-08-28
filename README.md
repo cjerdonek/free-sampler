@@ -11,7 +11,7 @@ Quick Sampler can be used for things like selecting precincts at
 random for a post-election manual audit given a random seed supplied
 by the user.
 
-To try out the latest version, go [here][quick-sampler-app].  For bug
+To try the latest stable version, go [here][quick-sampler-app].  For bug
 reports and feature requests, visit the [issue tracker][issue-tracker].
 
 
