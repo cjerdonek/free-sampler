@@ -181,4 +181,20 @@ describe('services module', function() {
 
   });
 
+  describe('leftPadder', function() {
+    var leftPadder;
+
+    beforeEach(inject(function(_leftPadder_) {
+      leftPadder = _leftPadder_;
+    }));
+
+    it('should left-pad', function() {
+      var leftPad = leftPadder(3, 'a');
+
+      expect(leftPad('b')).toBe('aab');
+      expect(leftPad('')).toBe('aaa');
+    });
+
+  });
+
 });

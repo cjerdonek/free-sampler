@@ -175,4 +175,22 @@
         return getSamplesUnique;
     }]);
 
+    samplerServices.factory('leftPadder', [
+      function leftPadderFactory(){
+        // Return a function that left-pads strings to the given length
+        // with the given character.
+        function leftPadder(length, char) {
+            var prefix, sliceArg;
+            prefix = new Array(length + 1).join(char);
+            sliceArg = -1 * length;
+
+            function leftPad(s) {
+                return (prefix + s).slice(sliceArg);
+            }
+
+            return leftPad;
+        }
+        return leftPadder;
+    }]);
+
 })();
