@@ -62,31 +62,31 @@ Fill in the below to generate your sample.
 
 <div ng-hide="!form.showing">
 
-<div class="row">
-<div class="col-sm-offset-3 col-sm-3">
-  <h2>Raw</h2>
-  <ol>
-    <li ng-repeat="item in output.allItems track by $index">{{ item }}</li>
-  </ol>
-</div>
-<div class="col-sm-3">
-  <h2>Unique</h2>
-    <ol>
-      <li ng-repeat="item in output.uniqueItems">{{ item }}</li>
-    </ol>
-</div>
-<div class="col-sm-3">
-  <h2>Sorted</h2>
-    <ol>
-      <li ng-repeat="item in output.sortedItems">{{ item }}</li>
-    </ol>
-</div>
-</div>
+  <div class="row">
+    <div class="col-sm-offset-3 col-sm-3">
+      <h2>Raw</h2>
+      <ol>
+        <li ng-repeat="item in output.allItems track by $index">{{ item }}</li>
+      </ol>
+    </div>
+    <div class="col-sm-3">
+      <h2>Unique</h2>
+        <ol>
+          <li ng-repeat="item in output.uniqueItems">{{ item }}</li>
+        </ol>
+    </div>
+    <div class="col-sm-3">
+      <h2>Sorted</h2>
+        <ol>
+          <li ng-repeat="item in output.sortedItems">{{ item }}</li>
+        </ol>
+    </div>
+  </div>
 
-<div class="row" ng-hide="!form.input.debug">
-  <hr>
-  <h2>Debug</h2>
-  <pre>{{ output.debug }}</pre>
-</div>
+  <div class="row" ng-hide="!form.input.debug">
+    <hr>
+    <h2>Debug</h2>
+    <pre>{{ output.debug }}</pre>
+  </div>
 
 </div>
