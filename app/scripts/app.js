@@ -20,6 +20,11 @@
       'samplerApp.directives'
   ]);
 
+  samplerApp.config(['$logProvider',
+    function($logProvider) {
+      $logProvider.debugEnabled(true);
+    }]);
+
   samplerApp.config(['$routeProvider',
     function($routeProvider) {
       $routeProvider.
@@ -38,5 +43,12 @@
           redirectTo: '/'
         });
     }]);
+
+    samplerApp.run(['$log',
+      function($log) {
+        $log.log('starting app');
+        $log.debug('debug enabled');
+    }]);
+
 
 })();
