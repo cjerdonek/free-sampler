@@ -41,7 +41,10 @@ describe('Quick Sampler App', function() {
 
     it('should update the highest item input if only the total items is updated', function() {
       expect(element(by.id('id_highest_item')).getAttribute('value')).toBe('');
+      // TODO: is this an asynch issue that I need to wait for completion?
       element(by.id('id_total_count')).sendKeys('100');
+      // Try focusing away from the total-count element.
+      element(by.id('id_seed')).click();
       expect(element(by.id('id_highest_item')).getAttribute('value')).toBe('100');
     });
 
