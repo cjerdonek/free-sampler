@@ -2,7 +2,12 @@
 
 exports.config = (function() {
 
-    var profile = process.env.PROTRACTOR_PROFILE;
+    var env,
+        profile;
+
+    env = process.env;
+    profile = env.PROTRACTOR_PROFILE;
+
     console.log('protractor profile: ' + profile);
 
     var extra;
@@ -39,6 +44,16 @@ exports.config = (function() {
             extra = {
                 capabilities: {
                     'browserName': 'phantomjs'
+                }
+            };
+            break;
+        case 'travis-sauce':
+            extra = {
+                sauceUser: env.SAUCE_USERNAME,
+                sauceKey: env.SAUCE_ACCESS_KEY,
+                capabilities: {
+                    'tunnel-identifier': env.TRAVIS_JOB_NUMBER,
+                    build: env.TRAVIS_BUILD_NUMBER
                 }
             };
             break;
