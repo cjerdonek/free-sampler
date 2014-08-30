@@ -87,9 +87,9 @@ exports.config = (function() {
                 name: 'Chrome',
                 browserName: 'chrome',
             }, {
-                name: 'Firefox',
+                name: 'Firefox 28',
                 browserName: 'firefox',
-                tags: ['Firefox']
+                version: '28'
             }, {
                 name: 'IE10 Windows 8',
                 browserName: 'internet explorer',
