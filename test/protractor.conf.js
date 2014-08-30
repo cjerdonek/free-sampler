@@ -10,9 +10,25 @@ exports.config = (function() {
 
     console.log('protractor profile: ' + profile);
 
-    // function makeMultiCapabilities(base, caps) {
-    //
-    // }
+    // Naive implementation of angular.extend():
+    // https://docs.angularjs.org/api/ng/function/angular.extend
+    function extend(dst, src) {
+        for (var key in src) {
+            dst[key] = src[key];
+        }
+        return dst;
+    }
+
+    function makeMultiCapabilities(base, caps) {
+        var newCap,
+            multiCaps = [];
+        for (var i = 0, len = caps.length; i < len; i++) {
+            newCap = extend({}, base);
+            extend(newCap, caps[i]);
+            multiCaps.push(newCap);
+        }
+        return multiCaps;
+    }
 
     var extra;
     // See the following for documentation of the possible browserName,
@@ -63,16 +79,19 @@ exports.config = (function() {
             };
             break;
         case 'travis-sauce':
+            var baseCaps = {
+                'tunnel-identifier': env.TRAVIS_JOB_NUMBER,
+                build: env.TRAVIS_BUILD_NUMBER
+            };
+            var multiCaps = makeMultiCapabilities(baseCaps, [{
+                platform: 'Windows 8',
+                browserName: 'internet explorer',
+                version: '10'
+            }]);
             extra = {
                 sauceUser: env.SAUCE_USERNAME,
                 sauceKey: env.SAUCE_ACCESS_KEY,
-                capabilities: {
-                    'tunnel-identifier': env.TRAVIS_JOB_NUMBER,
-                    build: env.TRAVIS_BUILD_NUMBER,
-                    platform: 'Windows 8',
-                    browserName: 'internet explorer',
-                    version: '10'
-                }
+                multiCapabilities: multiCaps
             };
             break;
         default:
@@ -95,9 +114,7 @@ exports.config = (function() {
       }
     };
 
-    for (var key in extra) {
-        config[key] = extra[key];
-    }
+    extend(config, extra);
 
     return config;
 }());
