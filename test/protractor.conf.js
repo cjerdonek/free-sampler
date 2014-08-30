@@ -84,10 +84,14 @@ exports.config = (function() {
                 build: env.TRAVIS_BUILD_NUMBER
             };
             var subCaps = [{
+                name: 'Chrome',
                 browserName: 'chrome',
             }, {
+                name: 'Firefox',
                 browserName: 'firefox',
+                tags: ['Firefox']
             }, {
+                name: 'IE10 Windows 8',
                 browserName: 'internet explorer',
                 version: '10',
                 platform: 'Windows 8'
