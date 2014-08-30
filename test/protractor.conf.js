@@ -11,13 +11,17 @@ exports.config = (function() {
     console.log('protractor profile: ' + profile);
 
     var extra;
+    // See the following for documentation of the possible browserName,
+    // version, and platform values:
+    // https://code.google.com/p/selenium/wiki/DesiredCapabilities
     switch (profile) {
         case undefined:
-        case 'firefox':
             extra = {
-                capabilities: {
+                multiCapabilities: [{
+                    browserName: 'chrome'
+                }, {
                     browserName: 'firefox'
-                }
+                }]
             };
             break;
         case 'chrome':
@@ -61,7 +65,9 @@ exports.config = (function() {
                 capabilities: {
                     'tunnel-identifier': env.TRAVIS_JOB_NUMBER,
                     build: env.TRAVIS_BUILD_NUMBER,
-                    browserName: 'chrome'
+                    platform: 'WINDOWS',
+                    browserName: 'internet explorer',
+                    version: '9'
                 }
             };
             break;
