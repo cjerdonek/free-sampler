@@ -41,12 +41,14 @@ describe('Quick Sampler App', function() {
 
     it('should update the highest item input if only the total items is updated', function() {
       expect(element(by.id('id_highest_item')).getAttribute('value')).toBe('');
-      // TODO: is this an asynch issue that I need to wait for completion?
       element(by.id('id_total_count')).sendKeys('100');
-      // Sanity check that the total count value registers the change.
+      // Sanity check that the total count value registers the change
+      // to check for the Firefox bug.
       expect(element(by.id('id_total_count')).getAttribute('value')).toBe('100');
-      // Try focusing away from the total-count element.
-      element(by.id('id_seed')).click();
+      // Neither the following assertion nor the one above passed with
+      // Firefox 31 in Sauce Labs, so we downgraded the configured Firefox
+      // version to 28.  See the code comment in the Protractor config file
+      // for more information on this issue.
       expect(element(by.id('id_highest_item')).getAttribute('value')).toBe('100');
     });
 
