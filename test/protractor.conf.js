@@ -13,6 +13,13 @@ exports.config = (function() {
     var extra;
     switch (profile) {
         case undefined:
+        case 'firefox':
+            extra = {
+                capabilities: {
+                    browserName: 'firefox'
+                }
+            };
+            break;
         case 'chrome':
             extra = {
                 capabilities: {
@@ -54,7 +61,7 @@ exports.config = (function() {
                 capabilities: {
                     'tunnel-identifier': env.TRAVIS_JOB_NUMBER,
                     build: env.TRAVIS_BUILD_NUMBER,
-                    browserName: 'firefox'
+                    browserName: 'chrome'
                 }
             };
             break;
