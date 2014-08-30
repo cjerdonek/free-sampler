@@ -60,8 +60,9 @@ Fill in the below to generate your sample.
   </fieldset>
 </form>
 
-<div class="row">
+<div ng-hide="!form.showing">
 
+<div class="row">
 <div class="col-sm-offset-3 col-sm-3">
   <h2>Raw</h2>
   <ol>
@@ -80,11 +81,12 @@ Fill in the below to generate your sample.
       <li ng-repeat="item in output.sortedItems">{{ item }}</li>
     </ol>
 </div>
-
 </div>
 
 <div class="row" ng-hide="!form.input.debug">
   <hr>
   <h2>Debug</h2>
   <pre>{{ output.debug }}</pre>
+</div>
+
 </div>
