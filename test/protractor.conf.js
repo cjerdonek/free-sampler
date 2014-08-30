@@ -83,15 +83,19 @@ exports.config = (function() {
                 'tunnel-identifier': env.TRAVIS_JOB_NUMBER,
                 build: env.TRAVIS_BUILD_NUMBER
             };
-            var multiCaps = makeMultiCapabilities(baseCaps, [{
-                platform: 'Windows 8',
+            var subCaps = [{
+                browserName: 'chrome',
+            }, {
+                browserName: 'firefox',
+            }, {
                 browserName: 'internet explorer',
-                version: '10'
-            }]);
+                version: '10',
+                platform: 'Windows 8'
+            }];
             extra = {
                 sauceUser: env.SAUCE_USERNAME,
                 sauceKey: env.SAUCE_ACCESS_KEY,
-                multiCapabilities: multiCaps
+                multiCapabilities: makeMultiCapabilities(baseCaps, subCaps)
             };
             break;
         default:
