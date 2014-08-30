@@ -10,6 +10,10 @@ exports.config = (function() {
 
     console.log('protractor profile: ' + profile);
 
+    // function makeMultiCapabilities(base, caps) {
+    //
+    // }
+
     var extra;
     // See the following for documentation of the possible browserName,
     // version, and platform values:
@@ -65,9 +69,9 @@ exports.config = (function() {
                 capabilities: {
                     'tunnel-identifier': env.TRAVIS_JOB_NUMBER,
                     build: env.TRAVIS_BUILD_NUMBER,
-                    platform: 'Windows 7',
+                    platform: 'Windows 8',
                     browserName: 'internet explorer',
-                    version: '9'
+                    version: '10'
                 }
             };
             break;
