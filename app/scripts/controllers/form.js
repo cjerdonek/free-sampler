@@ -12,8 +12,8 @@
         positiveIntegerRequired: 'A whole number bigger than zero is required.'
     };
 
-    var samplerControllers = angular.module('freeSamplerApp.controllers.form', [
-        'freeSamplerApp.services'
+    var samplerControllers = angular.module('samplerApp.controllers.form', [
+        'samplerApp.services'
     ]);
 
     // Return an error object.
@@ -50,10 +50,10 @@
 
     /**
      * @ngdoc function
-     * @name freeSamplerApp.controller:MainCtrl
+     * @name samplerApp.controller:MainCtrl
      * @description
      * # MainCtrl
-     * Controller of the freeSamplerApp
+     * Controller of the samplerApp
      *
      * We do not perform form validation on ng-keyup, ng-change, or even
      * ng-blur.  This is because we take the philosophy that the user

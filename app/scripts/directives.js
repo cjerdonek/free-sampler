@@ -4,7 +4,7 @@
 
 (function(){
 
-    var samplerAppDirectives = angular.module('freeSamplerApp.directives', []);
+    var samplerAppDirectives = angular.module('samplerApp.directives', []);
 
     samplerAppDirectives.directive('smpFormInput', [
       function () {

@@ -4,7 +4,7 @@
 
 (function(){
 
-    var samplerServices = angular.module('freeSamplerApp.services', []);
+    var samplerServices = angular.module('samplerApp.services', []);
 
     // Return a spellsInt() function.
     samplerServices.factory('spellsInt', [

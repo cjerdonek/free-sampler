@@ -12,13 +12,12 @@
    *
    * Main module of the application.
    */
-  var samplerApp = angular.module('freeSamplerApp', [
+  var samplerApp = angular.module('samplerApp', [
       'ngRoute',
       'samplerApp.controllers.dev',
-      // TODO: rename freeSamplerApp to samplerApp.
-      'freeSamplerApp.controllers.form',
-      'freeSamplerApp.controllers.nav',
-      'freeSamplerApp.directives'
+      'samplerApp.controllers.form',
+      'samplerApp.controllers.nav',
+      'samplerApp.directives'
   ]);
 
   samplerApp.config(['$routeProvider',

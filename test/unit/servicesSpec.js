@@ -2,7 +2,7 @@
 
 describe('services module', function() {
 
-  beforeEach(module('freeSamplerApp.services'));
+  beforeEach(module('samplerApp.services'));
 
   describe('spellsInt', function() {
     var spellsInt;

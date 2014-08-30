@@ -4,7 +4,7 @@
 
 (function(){
 
-    var samplerNavControllers = angular.module('freeSamplerApp.controllers.nav', []);
+    var samplerNavControllers = angular.module('samplerApp.controllers.nav', []);
 
     samplerNavControllers.controller('NavCtrl', ['$log', '$route', '$scope',
       function ($log, $route, $scope) {

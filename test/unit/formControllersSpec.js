@@ -2,7 +2,7 @@
 
 describe('Controller: MainCtrl', function () {
 
-  beforeEach(module('freeSamplerApp.controllers.form'));
+  beforeEach(module('samplerApp.controllers.form'));
 
   var MainCtrl,
     scope;
