@@ -65,7 +65,7 @@ exports.config = (function() {
                 capabilities: {
                     'tunnel-identifier': env.TRAVIS_JOB_NUMBER,
                     build: env.TRAVIS_BUILD_NUMBER,
-                    platform: 'WINDOWS',
+                    platform: 'Windows 7',
                     browserName: 'internet explorer',
                     version: '9'
                 }
