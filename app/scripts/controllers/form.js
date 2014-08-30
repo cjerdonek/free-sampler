@@ -157,6 +157,7 @@
             }
 
             var result = parseInput(form.input[inputLabel]);
+            $log.log('onInput: ' + result.value);
             // The value will be undefined if parsing yielded an error.
             parsed[inputLabel] = result.value;
 
