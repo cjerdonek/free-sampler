@@ -16,7 +16,7 @@ exports.config = (function() {
         case 'chrome':
             extra = {
                 capabilities: {
-                    'browserName': 'chrome'
+                    browserName: 'chrome'
                 },
                 chromeOnly: true
             };
@@ -24,7 +24,7 @@ exports.config = (function() {
         case 'phantomjs':
             extra = {
                 capabilities: {
-                   'browserName': 'phantomjs',
+                   browserName: 'phantomjs',
                    'phantomjs.binary.path': './node_modules/karma-phantomjs-launcher/node_modules/phantomjs/bin/phantomjs'
                 }
             };
@@ -35,7 +35,7 @@ exports.config = (function() {
             // Protractor.
             extra = {
                 capabilities: {
-                    'browserName': 'firefox'
+                    browserName: 'firefox'
                 }
             };
             break;
@@ -43,7 +43,7 @@ exports.config = (function() {
             // Travis has phantomjs on the PATH.
             extra = {
                 capabilities: {
-                    'browserName': 'phantomjs'
+                    browserName: 'phantomjs'
                 }
             };
             break;
@@ -53,7 +53,8 @@ exports.config = (function() {
                 sauceKey: env.SAUCE_ACCESS_KEY,
                 capabilities: {
                     'tunnel-identifier': env.TRAVIS_JOB_NUMBER,
-                    build: env.TRAVIS_BUILD_NUMBER
+                    build: env.TRAVIS_BUILD_NUMBER,
+                    browserName: 'firefox'
                 }
             };
             break;
