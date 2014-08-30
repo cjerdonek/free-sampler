@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js">
+<html xmlns:ng="http://angularjs.org" class="no-js">
   <head>
     <meta charset="utf-8">
     <title>Quick Sampler</title>
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="freeSamplerApp">
+  <body id="ng-app" ng-app="freeSamplerApp">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -23,11 +23,11 @@
     <div class="container" ng-controller="MainCtrl">
 
       <div class="header" ng-controller="NavCtrl">
-        <ul class="nav nav-pills pull-right">
-          <li ng-class="navButtonClass('main.html')"><a ng-href="#">Home</a></li>
-          <li ng-class="navButtonClass('about.html')"><a href="#/about">About</a></li>
-        </ul>
-        <h3 class="text-muted">Quick Sampler</h3>
+            <ul class="nav nav-pills pull-right">
+              <li ng-class="navButtonClass('main.html')"><a ng-href="#">Home</a></li>
+              <li ng-class="navButtonClass('about.html')"><a href="#/about">About</a></li>
+            </ul>
+            <h3 class="text-muted">Quick Sampler</h3>
       </div>
 
       <div ng-view></div>
