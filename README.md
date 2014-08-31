@@ -18,8 +18,11 @@ reports and feature requests, visit the [issue tracker][issue-tracker].
 Application Features
 --------------------
 
-The application features a user interface designed with
-[Bootstrap][bootstrap] and [AngularJS][angularjs].
+Here are some application highlights:
+
+* Implemented using [Bootstrap][bootstrap] and[AngularJS][angularjs],
+* Designed to be usable in a mobile device, and
+* Tested in the latest Chrome, the latest Firefox, and IE 10.
 
 The application uses only client-side Javascript (i.e. there is no
 server-side logic), so the application can be deployed using only static
@@ -29,8 +32,9 @@ HTML, etc.  Guidance for installing locally can be found in
 The application is tested with automated unit tests and end-to-end
 browser tests.  The mathematical operations are tested against the test
 cases in the publicly available [`rivest-sampler-tests`][sampler-tests]
-repository.  Tests are also set up to run automatically using
-[Travis CI][travis-ci].
+repository.  Tests are set up to run automatically using
+[Travis CI][travis-ci].  Different browsers are tested using
+[Selenium][selenium] on [Sauce Labs][sauce-labs].
 
 
 About the Algorithm
@@ -99,6 +103,8 @@ developed by [Philip B. Stark][stark].
 [rivest]: http://people.csail.mit.edu/rivest/
 [rivest-impl]: http://people.csail.mit.edu/rivest/sampler.py
 [sampler-tests]: https://github.com/cjerdonek/rivest-sampler-tests
+[sauce-labs]: https://saucelabs.com/account
+[selenium]: http://www.seleniumhq.org/
 [sha-256]: http://en.wikipedia.org/wiki/SHA-2
 [stark]: http://www.stat.berkeley.edu/~stark/
 [stark-impl]: http://www.stat.berkeley.edu/~stark/Java/Html/sha256Rand.htm
