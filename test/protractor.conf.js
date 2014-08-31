@@ -81,7 +81,8 @@ exports.config = (function() {
         case 'travis-sauce':
             var baseCaps = {
                 'tunnel-identifier': env.TRAVIS_JOB_NUMBER,
-                build: env.TRAVIS_BUILD_NUMBER
+                build: env.TRAVIS_BUILD_NUMBER,
+                'selenium-version': '2.42.1'
             };
             var subCaps = [{
                 name: 'Chrome',
@@ -95,7 +96,6 @@ exports.config = (function() {
                 // I found that sendKeys('100') wasn't registering a value
                 // for an input element of type "number".  See also--
                 // http://stackoverflow.com/questions/23412912/selenium-send-keys-doesnt-work-if-input-type-number
-                version: '28'
             }, {
                 name: 'IE10 Windows 8',
                 browserName: 'internet explorer',
