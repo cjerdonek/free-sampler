@@ -22,7 +22,7 @@
 
   samplerApp.config(['$logProvider',
     function($logProvider) {
-      $logProvider.debugEnabled(true);
+      $logProvider.debugEnabled(false);
     }]);
 
   samplerApp.config(['$routeProvider',
