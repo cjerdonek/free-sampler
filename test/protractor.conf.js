@@ -97,7 +97,13 @@ exports.config = (function() {
                 name: 'IE10 Windows 8',
                 browserName: 'internet explorer',
                 version: '10',
-                platform: 'Windows 8'
+                platform: 'Windows 8',
+                // Use the default older version of Selenium for IE because
+                // when specifying the newest version we get the following
+                // error on Sauce Labs:
+                //   "UnknownError: The Sauce VMs failed to start the
+                //    browser or device"
+                'selenium-version': undefined
             }];
             extra = {
                 sauceUser: env.SAUCE_USERNAME,
