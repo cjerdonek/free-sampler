@@ -42,13 +42,10 @@ describe('Quick Sampler App', function() {
     it('should update the highest item input if only the total items is updated', function() {
       expect(element(by.id('id_highest_item')).getAttribute('value')).toBe('');
       element(by.id('id_total_count')).sendKeys('100');
-      // Sanity check that the total count value registers the change
-      // to check for the Firefox bug.
+      // Sanity check that the total count value registers the change.
+      // We do this because an old Selenium version had a bug that caused
+      // this assertion to fail.
       expect(element(by.id('id_total_count')).getAttribute('value')).toBe('100');
-      // Neither the following assertion nor the one above passed with
-      // Firefox 31 in Sauce Labs, so we downgraded the configured Firefox
-      // version to 28.  See the code comment in the Protractor config file
-      // for more information on this issue.
       expect(element(by.id('id_highest_item')).getAttribute('value')).toBe('100');
     });
 

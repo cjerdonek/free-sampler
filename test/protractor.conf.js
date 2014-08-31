@@ -82,20 +82,17 @@ exports.config = (function() {
             var baseCaps = {
                 'tunnel-identifier': env.TRAVIS_JOB_NUMBER,
                 build: env.TRAVIS_BUILD_NUMBER,
+                // Manually specify the latest version of Selenium since
+                // Sauce Labs defaults to an old version.  Using the older
+                // version caused one test to fail on Firefox 31.
                 'selenium-version': '2.42.1'
             };
             var subCaps = [{
                 name: 'Chrome',
                 browserName: 'chrome',
             }, {
-                name: 'Firefox 28',
-                browserName: 'firefox',
-                // We use Firefox 28 because Selenium 2.42.1 doesn't seem
-                // to support Firefox 29 or higher.  In particular, when
-                // testing Firefox 31 on Sauce Labs with Linux configured,
-                // I found that sendKeys('100') wasn't registering a value
-                // for an input element of type "number".  See also--
-                // http://stackoverflow.com/questions/23412912/selenium-send-keys-doesnt-work-if-input-type-number
+                name: 'Firefox',
+                browserName: 'firefox'
             }, {
                 name: 'IE10 Windows 8',
                 browserName: 'internet explorer',
