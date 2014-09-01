@@ -1,19 +1,23 @@
 TODO
 ====
 
-* Get IE test working using Sauce Labs, including with Travis:
-  http://docs.travis-ci.com/user/gui-and-headless-browsers/
-* Mention which browsers tested against.
 * Bring README to a completed state
+  - Add link to GitHub page
 * Add info about Bower dependencies to "Technical Details" of Maintainers page.
-* Finishing adding initial info to About page re: algorithm, author, that
+* Finish adding initial info to About page: algorithm, author, that
   the software is open source and on github, etc.
+  - add link to github page.
+* Make the top nav look good in mobile.
+  - Try using default navbar:
+    http://getbootstrap.com/components/#navbar
 * Center the footer.
 * Double-check gh-pages documentation.
 * Do a new release
 * Add a zip file
 --
+* Add logo of plant sprouting from 10-sided dice
 * Allow random seed to be specified over multiple inputs.
+  - Display the seed before the output.
 * Expose JSON and text formats, too.
 * Add a "test" option that uses the test cases (and should tests
   run automatically when starting up?).
