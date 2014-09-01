@@ -137,7 +137,7 @@ exports.config = (function() {
         //  ...
         //  Message:
         //  timeout: timed out after 40000 msec waiting for spec to complete."
-        defaultTimeoutInterval: 50000  // in milliseconds
+        defaultTimeoutInterval: 80000  // in milliseconds
       },
 
       // We increase getPageTimeout from the default of 10 seconds
