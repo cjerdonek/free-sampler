@@ -4,12 +4,13 @@ Quick Sampler
 [![Build Status](https://travis-ci.org/cjerdonek/quick-sampler.svg?branch=master)](https://travis-ci.org/cjerdonek/quick-sampler)
 
 This repository contains an open source web application called
-"Quick Sampler" that lets one run the [SHA-256][sha-256] pseudo-random
-sampling algorithm described by [Ronald L. Rivest][rivest] in 2011.
+"Quick Sampler" that lets one run in a browser the [SHA-256][sha-256]
+pseudo-random sampling algorithm described by [Ronald L. Rivest][rivest]
+in 2011.
 
-Quick Sampler can be used for things like selecting precincts at
-random for a post-election manual audit given a random seed supplied
-by the user.
+Quick Sampler can be used for things like efficiently selecting precincts
+at random for a post-election manual audit.  The algorithm requires the
+user to provide a random seed.
 
 To try the latest stable version, go [here][quick-sampler-app].  For bug
 reports and feature requests, visit the [issue tracker][issue-tracker].
@@ -20,21 +21,26 @@ Application Features
 
 Here are some application highlights:
 
-* Implemented using [Bootstrap][bootstrap] and[AngularJS][angularjs],
-* Designed to be usable in a mobile device, and
-* Tested in the latest Chrome, the latest Firefox, and IE 10.
+* Implemented using only client-side Javascript,
+* Designed for use in both desktop and mobile devices,
+* Tested in the latest Chrome and Firefox and in IE 10,
+* Developed using [Bootstrap][bootstrap] and [AngularJS][angularjs], and
+* Tested with automated unit tests and end-to-end tests.
 
-The application uses only client-side Javascript (i.e. there is no
-server-side logic), so the application can be deployed using only static
-HTML, etc.  Guidance for installing locally can be found in
-[this section](#installing-locally) of this document.
+Since the application uses only client-side Javascript (i.e. there is no
+server-side logic), the application can be deployed using only static
+HTML files, etc.  This makes installation much easier if you would like
+to host the application yourself.  Guidance for installing locally can
+be found in the section of this document on
+[Installing Locally](#installing-locally).
 
 The application is tested with automated unit tests and end-to-end
-browser tests.  The mathematical operations are tested against the test
-cases in the publicly available [`rivest-sampler-tests`][sampler-tests]
-repository.  Tests are set up to run automatically using
-[Travis CI][travis-ci].  Different browsers are tested using
-[Selenium][selenium] on [Sauce Labs][sauce-labs].
+browser tests.  The implementation of the algorithm is tested against
+the test cases that are publicly available in the
+[`rivest-sampler-tests`][sampler-tests] repository.  Tests are set up
+to run automatically using [Travis CI][travis-ci].  Different browser
+versions are tested automatically from Travis using [Selenium][selenium]
+and [Sauce Labs][sauce-labs].
 
 
 About the Algorithm
