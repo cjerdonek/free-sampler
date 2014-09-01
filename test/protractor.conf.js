@@ -127,21 +127,22 @@ exports.config = (function() {
 
       framework: 'jasmine',
 
+      // See this Protractor doc page for more info on timeouts:
+      // https://github.com/angular/protractor/blob/master/docs/timeouts.md
+
       jasmineNodeOpts: {
         // We increase defaultTimeoutInterval from the default of 30 seconds
         // to address the following error when running tests on Sauce Labs:
-        //   "Jasmine spec timed out. Resetting the WebDriver Control Flow.
+        //  "Jasmine spec timed out. Resetting the WebDriver Control Flow.
         //  ...
         //  Message:
-        //  timeout: timed out after 30000 msec waiting for spec to complete."
-        defaultTimeoutInterval: 40000  // in milliseconds
+        //  timeout: timed out after 40000 msec waiting for spec to complete."
+        defaultTimeoutInterval: 50000  // in milliseconds
       },
 
       // We increase getPageTimeout from the default of 10 seconds
       // to address the following error when running tests on Sauce Labs:
       // "Error: Angular could not be found on the page"
-      // See this Protractor doc page for more info on timeouts:
-      // https://github.com/angular/protractor/blob/master/docs/timeouts.md
       getPageTimeout: 20000  // in milliseconds
     };
 
