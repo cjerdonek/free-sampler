@@ -101,8 +101,9 @@ exports.config = (function() {
                 // Use the default older version of Selenium for IE because
                 // when specifying the newest version we get the following
                 // error on Sauce Labs:
-                //   "UnknownError: The Sauce VMs failed to start the
+                //  "UnknownError: The Sauce VMs failed to start the
                 //    browser or device"
+                // Things work with v2.40.0 (built from revision fbe29a9).
                 'selenium-version': undefined
             }];
             extra = {
@@ -128,7 +129,14 @@ exports.config = (function() {
 
       jasmineNodeOpts: {
         defaultTimeoutInterval: 30000
-      }
+      },
+
+      // We increase getPageTimeout from the default of 10 seconds
+      // to address the following error:
+      // "Error: Angular could not be found on the page"
+      // See this Protractor doc page for more info on timeouts:
+      // https://github.com/angular/protractor/blob/master/docs/timeouts.md
+      getPageTimeout: 20000  // in milliseconds
     };
 
     extend(config, extra);
