@@ -21,7 +21,8 @@
     "precincts"
   ],
   "dependencies": {
-    "bigint-node": "1.0.2"
+    "bigint-node": "1.0.2",
+    "BigInt": "5.5.2"
   },
   "devDependencies": {
     "grunt": "^0.4.1",
