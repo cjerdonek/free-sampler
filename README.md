@@ -108,12 +108,11 @@ a new item (as many times as is necessary).
 Installing Locally
 ------------------
 
-If you would like to host Quick Sampler on your own servers, the
-project's [Releases](https://github.com/cjerdonek/quick-sampler/releases)
-page contains pre-built releases.  Each release is a self-contained
-gzip file containing the directory of files to host.  The directory
-contains concatenated, minified Javascript files, all necessary
-third-party Javascript libraries, etc.
+If you would like to host Quick Sampler on your own servers, the project's
+p[Releases][quick-sampler-releases] page contains pre-built releases.
+Each release is a self-contained gzip file containing the directory
+of files to host.  The directory contains concatenated, minified Javascript
+files, all necessary third-party Javascript libraries, etc.
 
 
 Development
@@ -146,9 +145,10 @@ developed by [Philip B. Stark][stark].
 
 [angularjs]: https://angularjs.org/
 [bootstrap]: http://getbootstrap.com/
+[development]: docs/development.md
 [issue-tracker]: https://github.com/cjerdonek/quick-sampler/issues
-[maintain]: docs/maintain.md
 [quick-sampler-app]: http://cjerdonek.github.io/quick-sampler/
+[quick-sampler-releases]: https://github.com/cjerdonek/quick-sampler/releases
 [quick-sampler-repo]: https://github.com/cjerdonek/quick-sampler
 [rivest]: http://people.csail.mit.edu/rivest/
 [rivest-impl]: http://people.csail.mit.edu/rivest/sampler.py
