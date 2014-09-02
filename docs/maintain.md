@@ -78,6 +78,10 @@ and in the footer of the application home page
 
 Second, build a release following the instructions [above](#building).
 
+Then:
+
+    $ tar -czf quick-sampler.tar.gz dist/
+
 Copy the contents of the `dist` directory to a clone of the repository
 set to the `gh-pages` branch:
 
