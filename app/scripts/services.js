@@ -63,12 +63,20 @@
         return sha256;
     }]);
 
-    samplerServices.factory('bigMod', ['bigint',
-      function bigModFactory(bigint){
+    samplerServices.factory('toBigInt', ['bigint',
+      function toBigIntFactory(bigint){
+        function toBigInt(hexString) {
+          return bigint.ParseFromString(hexString, 16);
+        }
+        return toBigInt;
+    }]);
+
+    samplerServices.factory('bigMod', ['bigint', 'toBigInt',
+      function bigModFactory(bigint, toBigInt){
         // Return the integer resulting from interpreting hexString as
         // a big integer in hexadecimal form and dividing.
         function bigMod(hexString, divisor) {
-          var n = bigint.ParseFromString(hexString, 16);
+          var n = toBigInt(hexString);
           // modInt() returns an int and not a bigInt.
           return n.modInt(divisor);
         }

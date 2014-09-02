@@ -56,6 +56,44 @@ describe('services module', function() {
 
   });
 
+  describe('toBigInt', function() {
+    var toBigInt;
+
+    beforeEach(inject(function(_toBigInt_) {
+      toBigInt = _toBigInt_;
+    }));
+
+    it('toBigInt should work', function() {
+      expect(toBigInt('5').repr).toEqual([5, 0]);
+    });
+
+    it('toBigInt should work', function() {
+      expect(toBigInt('c').repr).toEqual([12, 0]);
+    });
+
+    it('toBigInt should work', function() {
+      expect(toBigInt('10').repr).toEqual([16, 0]);
+    });
+
+  });
+
+  describe('bigMod', function() {
+    var bigMod;
+
+    beforeEach(inject(function(_bigMod_) {
+      bigMod = _bigMod_;
+    }));
+
+    it('bigMod should work', function() {
+      expect(bigMod('5', 2)).toBe(1);
+    });
+
+    it('bigMod should work', function() {
+      expect(bigMod('c', 10)).toBe(2);
+    });
+
+  });
+
   describe('getSample', function() {
     var getSample;
 

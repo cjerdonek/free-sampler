@@ -1,7 +1,8 @@
 'use strict';
 
 // As a hack to avoid the following error when loading scripts_vendor/bigint.js,
-// we ensure 'module' is defined.
+// we ensure 'module' is defined:
+// "Uncaught ReferenceError: module is not defined"
 window.module = window.module || {};
 
 // Uncomment the below to see the "omitted" part of an error message
