@@ -1,8 +1,26 @@
-For Maintainers
-===============
+Development
+===========
 
-This document provides information for project maintainers and others
-interested in running and modifying the source locally.
+This document contains development information about Quick Sampler.
+For example, it includes information about how to build a release
+and run and test the source code locally.  It also includes information
+for project maintainers like how to release a new version.
+
+
+Project Background
+------------------
+
+This project was started using version 0.9.5 of
+[`generator-angular`](https://github.com/yeoman/generator-angular),
+the Yeoman generator for AngularJS.
+
+For needed math functions, it depends on the following Javascript libraries,
+which are imported via Bower:
+
+* [jsSHA](https://github.com/Caligatio/jsSHA) by Brian Turek for a
+  Javascript implementation of SHA-256, and
+* [BigInt](https://github.com/Evgenus/BigInt), a thin wrapper around
+  a Javascript library by Baird Leemon for high-precision integer arithmetic.
 
 
 Getting Started
@@ -98,14 +116,6 @@ Also tag the repo version as follows, for example:
 
     $ git tag v0.2.0
     $ git push origin v0.2.0
-
-
-Technical Background
---------------------
-
-This project was started using version 0.9.5 of
-[`generator-angular`](https://github.com/yeoman/generator-angular),
-the Yeoman generator for AngularJS.
 
 
 [bower]: http://bower.io/

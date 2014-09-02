@@ -109,7 +109,7 @@ Installing Locally
 ------------------
 
 If you would like to host Quick Sampler on your own servers, the project's
-p[Releases][quick-sampler-releases] page contains pre-built releases.
+[Releases][quick-sampler-releases] page contains pre-built releases.
 Each release is a self-contained gzip file containing the directory
 of files to host.  The directory contains concatenated, minified Javascript
 files, all necessary third-party Javascript libraries, etc.
