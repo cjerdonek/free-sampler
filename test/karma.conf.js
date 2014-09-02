@@ -34,7 +34,7 @@ module.exports = function(config) {
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'app/scripts/**/*.js',
-      'app/scripts_vendor/**/*.js',
+      'bower_components/big-int/src/BigInt.js',
       'bower_components/jsSHA/src/sha256.js',
       'bower_components/rivest-sampler-tests/tests.json',
       'test/mock/**/*.js',
