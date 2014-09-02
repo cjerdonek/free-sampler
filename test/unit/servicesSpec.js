@@ -64,15 +64,15 @@ describe('services module', function() {
     }));
 
     it('toBigInt should work', function() {
-      expect(toBigInt('5').repr).toEqual([5, 0]);
+      expect(toBigInt('5')).toEqual([5, 0]);
     });
 
     it('toBigInt should work', function() {
-      expect(toBigInt('c').repr).toEqual([12, 0]);
+      expect(toBigInt('c')).toEqual([12, 0]);
     });
 
     it('toBigInt should work', function() {
-      expect(toBigInt('10').repr).toEqual([16, 0]);
+      expect(toBigInt('10')).toEqual([16, 0]);
     });
 
   });

@@ -26,7 +26,7 @@
     // Return the 'bigint' namespace defined by bigint.js.
     samplerServices.factory('bigint', ['$window',
       function bigintFactory($window){
-        return $window.bigint;
+        return $window.BigInt;
     }]);
 
     // Return a Javascript object of test data.
@@ -66,7 +66,10 @@
     samplerServices.factory('toBigInt', ['bigint',
       function toBigIntFactory(bigint){
         function toBigInt(hexString) {
-          return bigint.ParseFromString(hexString, 16);
+          // Evgenus's BigInt only accepts hex strings that are all upper-case.
+          // https://github.com/Evgenus/BigInt/issues/5
+          hexString = hexString.toUpperCase();
+          return bigint.str2bigInt(hexString, 16, 1);
         }
         return toBigInt;
     }]);
@@ -78,7 +81,7 @@
         function bigMod(hexString, divisor) {
           var n = toBigInt(hexString);
           // modInt() returns an int and not a bigInt.
-          return n.modInt(divisor);
+          return bigint.modInt(n, divisor);
         }
         return bigMod;
     }]);
