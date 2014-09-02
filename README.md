@@ -12,9 +12,10 @@ Quick Sampler can be used for things like efficiently selecting precincts
 at random for a post-election manual audit.  The output of the algorithm
 depends on a random seed provided by the user.
 
-The repository is hosted on GitHub [here][quick-sampler-repo].  To try the
-latest release, go [here][quick-sampler-app].  For bug reports and feature
-requests, visit the [issue tracker][issue-tracker].
+The repository is hosted on GitHub [here][quick-sampler-repo].
+
+To try the latest release, go [here][quick-sampler-app].  For bug reports
+and feature requests, visit the [issue tracker][issue-tracker].
 
 
 Application Features
@@ -37,10 +38,10 @@ to host the application on your own servers.  Guidance for installing
 locally can be found in the [Installing Locally](#installing-locally)
 section.
 
-The application is tested with automated unit tests and end-to-end
-browser tests.  The mathematical aspects of the algorithm are tested
-against the publicly available test cases in the
-[`rivest-sampler-tests`][sampler-tests] repository.  Tests are set up
+The tests cover both the mathematics of the algorithm and the user
+interface.  The mathematical aspects of the algorithm are tested against
+the publicly available test cases in the
+[`rivest-sampler-tests`][sampler-tests] repository.  All tests are set up
 to run automatically using [Travis CI][travis-ci].  Different browser
 versions are tested automatically from Travis using [Selenium][selenium]
 on [Sauce Labs][sauce-labs].
@@ -107,7 +108,12 @@ a new item (as many times as is necessary).
 Installing Locally
 ------------------
 
-TODO
+If you would like to host Quick Sampler on your own servers, the
+project's [Releases](https://github.com/cjerdonek/quick-sampler/releases)
+page contains pre-built releases.  Each release is a self-contained
+gzip file containing the directory of files to host.  The directory
+contains concatenated, minified Javascript files, all necessary
+third-party Javascript libraries, etc.
 
 
 Development
