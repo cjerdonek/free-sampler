@@ -1,6 +1,6 @@
 {
   "name": "quick-sampler",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Browser implementation of Ronald L. Rivest's sampling algorithm using AngularJS",
   "license": "BSD-3-Clause",
   "author": "Chris Jerdonek <chris.jerdonek@gmail.com>",

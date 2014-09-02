@@ -72,10 +72,9 @@ We maintain a working version of the latest release on the web using
 
 This section describes how to update this release.
 
-First, update the version number in
-[`bower.json`](../bower.json#L3),
-[`package.json`](../package.json#L3), and in the footer of the application
-home page [`index.html`](../app/index.html#L36).
+First, update the version number in [`package.json`](../package.json#L3)
+and in the footer of the application home page
+[`index.html`](../app/index.html#L36).
 
 Second, build a release following the instructions [above](#building).
 

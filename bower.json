@@ -1,6 +1,5 @@
 {
   "name": "quick-sampler",
-  "version": "0.2.0",
   "dependencies": {
     "angular": "1.2.22",
     "angular-route": "1.2.22",
