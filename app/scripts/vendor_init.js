@@ -1,10 +1,5 @@
 'use strict';
 
-// As a hack to avoid the following error when loading scripts_vendor/bigint.js,
-// we ensure 'module' is defined:
-// "Uncaught ReferenceError: module is not defined"
-window.module = window.module || {};
-
 // Uncomment the below to see the "omitted" part of an error message
 // in the console.  This is a work-around for an issue that was fixed
 // in Chrome version 37.  See here for more info:
