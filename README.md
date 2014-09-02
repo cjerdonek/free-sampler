@@ -27,7 +27,7 @@ Here are some application highlights:
 * Tested in the latest Chrome and Firefox and in IE 10,
 * Developed using [Bootstrap][bootstrap] and [AngularJS][angularjs],
 * Tested with automated unit tests and end-to-end tests, and
-* Source code is available via a permissive open source license
+* Source code available via a permissive open source license
   ([BSD 3-clause](LICENSE)).
 
 Since the application uses only client-side Javascript (i.e. there is no
@@ -38,8 +38,8 @@ locally can be found in the [Installing Locally](#installing-locally)
 section.
 
 The application is tested with automated unit tests and end-to-end
-browser tests.  The implementation of the algorithm is tested against
-the test cases that are publicly available in the
+browser tests.  The mathematical aspects of the algorithm are tested
+against the publicly available test cases in the
 [`rivest-sampler-tests`][sampler-tests] repository.  Tests are set up
 to run automatically using [Travis CI][travis-ci].  Different browser
 versions are tested automatically from Travis using [Selenium][selenium]
@@ -62,10 +62,10 @@ if the seed is publicized.  Moreover, because the algorithm is described
 publicly and is relatively easy to implement, observers can check the
 result against other implementations of the algorithm or even their own.
 
-The reference implementation of the algorithm (written in Python) and
-a description by Rivest can be found [here][rivest-impl] on his web site.
-Another browser implementation developed by [Philip B. Stark][stark]
-can be found [here][stark-app].
+The reference implementation of the algorithm (written in Python), along
+with a description by Rivest can be found [here][rivest-impl]
+on Rivest's web site.  Another browser implementation developed by
+[Philip B. Stark][stark] can be found [here][stark-app].
 
 
 ### Algorithm Description
@@ -97,9 +97,10 @@ two in place of one:
     abc123,2
 
 In general, you will concatenate the random seed with the decimal
-representation of the sequence number you would like to pick.  If you would
-like to pick items without repetition and you get a repeat of an item
-you previously picked, simply apply the operation again until you get
+representation of the sequence number you would like to pick.
+
+If you would like to pick items without repetition and you get a repeat
+of a previously picked item, simply apply the operation again until you get
 a new item (as many times as is necessary).
 
 
