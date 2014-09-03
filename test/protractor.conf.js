@@ -131,13 +131,18 @@ exports.config = (function() {
       // https://github.com/angular/protractor/blob/master/docs/timeouts.md
 
       jasmineNodeOpts: {
-        // We increase defaultTimeoutInterval from the default of 30 seconds
-        // to address the following error when running tests on Sauce Labs:
-        //  "Jasmine spec timed out. Resetting the WebDriver Control Flow.
+        //    Previously, when we were having problems with timeouts on
+        // Sauce Labs, we tried increasing defaultTimeoutInterval from
+        // the default of 30 seconds to 80 seconds (without it helping).
+        //    The error that occurred frequently was the following:
+        // "Jasmine spec timed out. Resetting the WebDriver Control Flow.
         //  ...
         //  Message:
         //  timeout: timed out after 40000 msec waiting for spec to complete."
-        defaultTimeoutInterval: 80000  // in milliseconds
+        //
+        // After e-mailing the support, the timeouts went away.  I'm
+        // not sure if that was a coincidence or not.
+        defaultTimeoutInterval: 30000  // in milliseconds
       },
 
       // We increase getPageTimeout from the default of 10 seconds
