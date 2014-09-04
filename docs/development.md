@@ -85,20 +85,28 @@ This runs `grunt build` prior to serving the files.
 Releasing
 ---------
 
+This section describes all of the steps to release a new version
+of Quick Sampler.
+
+
+### 1. Commit and tag the release
+
+Update the version number in [`package.json`](../package.json#L3)
+and in the footer of the application home page
+[`index.html`](../app/index.html#L36).  Also
+
+Make sure
+
+Second, build a release following the instructions in the
+[Building](#building) section above:
+
+    $ grunt build
+
+
+### Update the GitHub pages version
+
 We maintain a working version of the latest release on the web using
 [GitHub Pages][github-pages]: http://cjerdonek.github.io/quick-sampler/
-
-This section describes how to update this release.
-
-First, update the version number in [`package.json`](../package.json#L3)
-and in the footer of the application home page
-[`index.html`](../app/index.html#L36).
-
-Second, build a release following the instructions [above](#building).
-
-Then:
-
-    $ tar -czf quick-sampler.tar.gz dist/
 
 Copy the contents of the `dist` directory to a clone of the repository
 set to the `gh-pages` branch:
@@ -111,6 +119,15 @@ Inside the clone, commit the changes and push:
 
 The page should now be ready to view.  Note that GitHub says it can take
 up to 10 minutes for changes to appear.
+
+
+### Create a pre-built release
+
+
+Then:
+
+    $ tar -czf quick-sampler.tar.gz dist/
+
 
 Also tag the repo version as follows, for example:
 

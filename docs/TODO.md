@@ -1,20 +1,15 @@
 TODO
 ====
 
-* Bring README to a completed state
-  - Add link to GitHub page
-* Add info about Bower dependencies to "Technical Details" of Maintainers page.
+* Document zipping the release.
 * Finish adding initial info to About page: algorithm, author, that
   the software is open source and on github, etc.
   - add link to github page.
-* Make the top nav look good in mobile.
-  - Try using default navbar:
-    http://getbootstrap.com/components/#navbar
-* Center the footer.
 * Double-check gh-pages documentation.
 * Do a new release
 * Add a zip file
 --
+* Make the navbar collapse at a smaller width.
 * Add logo of plant sprouting from 10-sided dice
 * Allow random seed to be specified over multiple inputs.
   - Display the seed before the output.
