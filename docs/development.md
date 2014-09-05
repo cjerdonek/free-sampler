@@ -93,12 +93,20 @@ of Quick Sampler.
 
 Update the version number in [`package.json`](../package.json#L3)
 and in the footer of the application home page
-[`index.html`](../app/index.html#L36).  Also
+[`index.html`](../app/index.html#L36).  Also make sure the
+[`HISTORY.md`](../HISTORY.md) file is updated so that the latest version
+appears at the top.
 
-Make sure
+Make sure the tests pass by running tests.  Also make sure the
+application runs from the browser.
 
-Second, build a release following the instructions in the
-[Building](#building) section above:
+Commit remaining changes and tag the release, for example:
+
+    $ git tag v0.2.0
+    $ git push origin v0.2.0
+
+In preparation for the following steps, build the release by
+following the instructions in the [Building](#building) section above:
 
     $ grunt build
 
@@ -127,12 +135,6 @@ up to 10 minutes for changes to appear.
 Then:
 
     $ tar -czf quick-sampler.tar.gz dist/
-
-
-Also tag the repo version as follows, for example:
-
-    $ git tag v0.2.0
-    $ git push origin v0.2.0
 
 
 [bower]: http://bower.io/
