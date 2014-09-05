@@ -94,7 +94,7 @@ of Quick Sampler.
 Update the version number in [`package.json`](../package.json#L3)
 and in the footer of the application home page
 [`index.html`](../app/index.html#L36).  Also make sure the
-[`HISTORY.md`](../HISTORY.md) file is updated so that the latest version
+[`HISTORY.md`][history] file is updated so that the latest version
 appears at the top.
 
 Make sure the tests pass by running tests.  Also make sure the
@@ -153,10 +153,27 @@ Rename the directory containing the build, and gzip it:
     $ mv dist quick-sampler-app-v0.2.0
     $ tar -czf quick-sampler-app-v0.2.0.tar.gz quick-sampler-app-v0.2.0/
 
+Go to the GitHub project page and click the "Releases" tab.
+You should see the latest tag you pushed at the top.
+
+Click to "Draft a new release."  Fill in the release information by
+doing the following.
+
+Select the latest tag.  For the release title, type a name of the form
+"Quick Sample v0.2.0".
+
+For the release description, copy the contents of the section of
+[`HISTORY.md`][history] for the version.
+
+Also add the `.tar.gz` file to the binaries section.
+
+Finally, publish the release!
+
 
 [bower]: http://bower.io/
 [git]: http://git-scm.com/
 [github-pages]: https://help.github.com/categories/20/articles
+[history]: ../HISTORY.md
 [node-js]: http://nodejs.org/
 [npm]: https://www.npmjs.org/
 [quick-sampler-demo]: http://cjerdonek.github.io/quick-sampler/
