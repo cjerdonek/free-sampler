@@ -111,26 +111,40 @@ following the instructions in the [Building](#building) section above:
     $ grunt build
 
 
-### Update the GitHub pages version
+### 2. Update the GitHub pages release
 
-We maintain a working version of the latest release on the web using
-[GitHub Pages][github-pages]: http://cjerdonek.github.io/quick-sampler/
+We maintain a working demo version of the latest stable release
+[here][quick-sampler-demo] using [GitHub Pages][github-pages].
 
-Copy the contents of the `dist` directory to a clone of the repository
-set to the `gh-pages` branch:
+Create a new clone of the repository with the `gh-pages` branch checked out
+and tracking the remote branch `origin/gh-pages`:
+
+    $ git clone git@github.com:cjerdonek/quick-sampler.git quick-sampler-gh-pages
+    $ cd quick-sampler-gh-pages/
+    $ git checkout --track origin/gh-pages
+
+Now update the `gh-pages` branch to the latest build by deleting everything:
+
+    $ git rm -r *
+
+Then from your clone of the master branch:
 
     $ cp -r dist/* <path-to-gh-pages-clone>
 
-Inside the clone, commit the changes and push:
+Then back in the `gh-pages` clone:
 
-    $ git push origin gh-pages
+    $ git add --all
+    $ git status  # to double-check changes
+    $ git commit -m "Update to v0.2.0."
+    $ git push
 
-The page should now be ready to view.  Note that GitHub says it can take
-up to 10 minutes for changes to appear.
+You should now be able to view the updated demo on GitHub pages.
+Note that GitHub says it can take up to 10 minutes for changes to appear.
 
 
-### Create a pre-built release
+### 3. Create the pre-built release on GitHub
 
+TODO
 
 Then:
 
@@ -142,3 +156,4 @@ Then:
 [github-pages]: https://help.github.com/categories/20/articles
 [node-js]: http://nodejs.org/
 [npm]: https://www.npmjs.org/
+[quick-sampler-demo]: http://cjerdonek.github.io/quick-sampler/
