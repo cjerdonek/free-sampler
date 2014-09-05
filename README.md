@@ -3,14 +3,18 @@ Quick Sampler
 
 [![Build Status](https://travis-ci.org/cjerdonek/quick-sampler.svg?branch=master)](https://travis-ci.org/cjerdonek/quick-sampler)
 
-This repository contains an open source web application called
-"Quick Sampler" that lets one run in a browser the [SHA-256][sha-256]
-pseudo-random sampling algorithm described by [Ronald L. Rivest][rivest]
-in 2011.
+This repository contains the source code for an open-source web application
+called "Quick Sampler" for transparently and efficiently choosing items
+at random from a collection.
 
-Quick Sampler can be used for things like efficiently selecting precincts
-at random for a post-election manual audit.  The output of the algorithm
-depends on a random seed provided by the user.
+The application does this by running the [SHA-256][sha-256] pseudo-random
+sampling algorithm described publicly by [Ronald L. Rivest][rivest] in 2011.
+You provide the number of items in the collection and a random seed,
+and Quick Sampler generates the items.  The output depends only on this
+information.
+
+Quick Sampler can be used for things like selecting precincts at random
+for a post-election manual audit.
 
 The repository is hosted on GitHub [here][quick-sampler-repo].
 
@@ -118,9 +122,10 @@ files, all necessary third-party Javascript libraries, etc.
 Development
 -----------
 
-See the [Development][development] page for information on building
-the project from source and for other information on the source code.
-This page also contains information for project maintainers.
+See the [Development][development] page for information on developing
+locally, including how to build the project from source and for other
+information on the source code.  This page also contains information
+for project maintainers.
 
 
 License
