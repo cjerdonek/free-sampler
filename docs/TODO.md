@@ -1,10 +1,9 @@
 TODO
 ====
 
-* Document zipping the release.
+* Document posting a release on GitHub.
 * Do a new release
 * Add a zip file
---
 * Expose JSON and text formats, too.
 * Make the navbar collapse at a smaller width.
 * Add logo of plant sprouting from 10-sided dice
