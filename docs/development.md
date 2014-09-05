@@ -144,11 +144,14 @@ Note that GitHub says it can take up to 10 minutes for changes to appear.
 
 ### 3. Create the pre-built release on GitHub
 
-TODO
+This section describes how to create a new pre-built release on GitHub
+using their [Releases](https://github.com/blog/1547-release-your-software)
+feature.
 
-Then:
+Rename the directory containing the build, and gzip it:
 
-    $ tar -czf quick-sampler.tar.gz dist/
+    $ mv dist quick-sampler-app-v0.2.0
+    $ tar -czf quick-sampler-app-v0.2.0.tar.gz quick-sampler-app-v0.2.0/
 
 
 [bower]: http://bower.io/
