@@ -20,13 +20,13 @@ module.exports = function(config) {
       // Convert JSON files to JS strings so our tests can be synchronous.
       //
       // Specifically, this exposes our JSON test-case data as a string
-      // value in the Javascript object $window.__html__,
+      // value in the Javascript object window.__html__,
       // provided we included the path to the JSON file in "files" below.
       // Without doing this, we would need to access the JSON file
       // in our test suite asynchronously using AJAX, which is slower
       // and not obviously permitted in Angular's Karma/Jasmine test
       // framework, since $http is mocked by default.
-      '**/*.json': ['html2js']
+      'bower_components/rivest-sampler-tests/*.json': ['html2js']
     },
 
     // list of files / patterns to load in the browser
