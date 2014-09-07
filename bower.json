@@ -8,7 +8,7 @@
     "bootstrap": "~3.2.0",
     "big-int": "5.5.2",
     "jsSHA": "~1.5.0",
-    "rivest-sampler-tests": "git://github.com/cjerdonek/rivest-sampler-tests.git#v0.1.2"
+    "rivest-sampler-tests": "git://github.com/cjerdonek/rivest-sampler-tests.git#master"
   },
   "devDependencies": {
     "angular-mocks": "1.2.22",

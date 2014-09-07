@@ -1,6 +1,6 @@
 'use strict';
 
-describe('services module', function() {
+describe('services module:', function() {
 
   beforeEach(module('samplerApp.services'));
 
@@ -52,6 +52,23 @@ describe('services module', function() {
     it('should hash a string correctly', function() {
       expect(sha256('foo'))
         .toBe('2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae');
+    });
+
+    it('should hash a non-ascii string correctly', function() {
+      // Unicode Character 'SNOWMAN' (U+2603)
+      // http://www.fileformat.info/info/unicode/char/2603/index.htm
+      expect(sha256('\u2603'))
+        .toBe('51643361c79ecaef25a8de802de24f570ba25d9c2df1d22d94fade11b4f466cc');
+    });
+
+    // We are skipping this test until this issue is fixed:
+    // https://github.com/Caligatio/jsSHA/issues/21
+    xit('should hash a non-BMP string correctly', function() {
+      // We try a smiley emoticon:
+      // Unicode Character 'GRINNING FACE' (U+1F600)
+      // http://www.fileformat.info/info/unicode/char/1F600/index.htm
+      expect(sha256('\ud83d\ude00'))
+        .toBe('f0443a342c5ef54783a111b51ba56c938e474c32324d90c3a60c9c8e3a37e2d9');
     });
 
   });
@@ -191,31 +208,46 @@ describe('services module', function() {
 
   });
 
-  describe('rivest-sampler-tests', function() {
-    var getSamples, tests;
+  describe('rivest-sampler-tests JSON test cases:', function() {
+    var getSamples,
+        json,
+        tests;
 
-    beforeEach(inject(function($window, _getSamples_) {
-      var json;
+    // See the code comments near the the html2js preprocessor configuration
+    // in the Karma configuration file for info on window.__html__.
+    json = window.__html__['bower_components/rivest-sampler-tests/tests.json'];
+    tests = angular.fromJson(json).tests;
+
+    beforeEach(inject(function(_getSamples_) {
       getSamples = _getSamples_;
-      json = $window.__html__['bower_components/rivest-sampler-tests/tests.json'];
-      tests = angular.fromJson(json).tests;
     }));
 
-    it('should have JSON test cases', function() {
-      expect(tests.length).toBeGreaterThan(0);
+    it('should have the right number of tests', function() {
+      expect(tests.length).toBe(10);
     });
 
-    it('should pass its JSON test cases', function() {
-      var test, testData;
-      for (var i = 0,  len = tests.length; i < len; i++) {
-        test = tests[i];
-        testData = test.data;
+    function doTestCase(test) {
+      var data,
+          notes = test.notes || [];
 
-        expect(getSamples(testData.seed, testData.total, testData.count))
+      it('test case #' + (i + 1) + ':\n' + notes.join(''), function() {
+        data = test.data;
+        // We skip the test with the non-BMP seed until this issue is fixed:
+        // https://github.com/Caligatio/jsSHA/issues/21
+        if (data.seed === '\ud83d\ude00') {
+          return;
+        }
+        expect(getSamples(data.seed, data.total, data.count))
           .toEqual(test.expected);
-      }
+      });
+    }
 
-    });
+    for (var i = 0, len = tests.length; i < len; i++) {
+      // We needed to put the it() block inside a function definition
+      // when using a loop.  See here, for example:
+      // http://tosbourn.com/using-loops-in-jasmine/
+      doTestCase(tests[i]);
+    }
 
   });
 
