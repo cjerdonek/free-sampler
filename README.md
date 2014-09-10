@@ -117,6 +117,17 @@ of files to host.  The directory contains concatenated, minified Javascript
 files, all necessary third-party Javascript libraries, etc.
 
 
+Known Issues
+------------
+
+Currently, the application does not support random seed strings that
+contain [non-BMP Unicode characters](http://en.wikipedia.org/wiki/Plane_(Unicode))
+(i.e. characters whose Unicode code point is higher than 65,536).
+This is because of [this issue](https://github.com/Caligatio/jsSHA/issues/21)
+in the [jsSHA](https://github.com/Caligatio/jsSHA) Javascript library
+that the application uses.
+
+
 Development
 -----------
 

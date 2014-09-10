@@ -1,6 +1,7 @@
 TODO
 ====
 
+* Show an error if a non-BMP character is entered in the UI.
 * Expose JSON and text formats, too.
 * Make the navbar collapse at a smaller width.
 * Add logo of plant sprouting from 10-sided dice
