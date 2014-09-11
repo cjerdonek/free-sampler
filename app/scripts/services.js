@@ -43,7 +43,7 @@
         //  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt#Description
         function isBMP(s) {
             var code, i;
-            for (var i = 0; i < s.length; i += 1) {
+            for (i = 0; i < s.length; i += 1) {
                 code = s.charCodeAt(i);
                 if (0xD800 <= code && code <= 0xDBFF) {
                     // Then the character is a high surrogate.
