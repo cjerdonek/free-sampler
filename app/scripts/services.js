@@ -6,6 +6,12 @@
 
     var samplerServices = angular.module('samplerApp.services', []);
 
+    // Return the 'bigint' namespace defined by bigint.js.
+    samplerServices.factory('bigint', ['$window',
+      function bigintFactory($window){
+        return $window.BigInt;
+    }]);
+
     // Return a spellsInt() function.
     samplerServices.factory('spellsInt', [
       function spellsIntFactory(){
@@ -21,12 +27,6 @@
             return n;
         }
         return spellsInt;
-    }]);
-
-    // Return the 'bigint' namespace defined by bigint.js.
-    samplerServices.factory('bigint', ['$window',
-      function bigintFactory($window){
-        return $window.BigInt;
     }]);
 
     // Return a Javascript object of test data.
