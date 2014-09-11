@@ -1,6 +1,8 @@
 Quick Sampler
 =============
 
+[![Build Status](https://travis-ci.org/cjerdonek/quick-sampler.svg?branch=master)](https://travis-ci.org/cjerdonek/quick-sampler)
+
 This repository contains the source code for an open-source web application
 called "Quick Sampler" for transparently and efficiently choosing items
 at random from a collection.

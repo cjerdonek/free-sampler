@@ -1,12 +1,6 @@
 Development
 ===========
 
-[![Build Status](https://travis-ci.org/cjerdonek/quick-sampler.svg?branch=master)](https://travis-ci.org/cjerdonek/quick-sampler)
-
-(Note: a build status image of "Failing" doesn't necessarily mean
-that the code has a problem.  There are occasionally integration or
-connection issues between Travis CI and Sauce Labs.)
-
 This document contains development information about Quick Sampler.
 For example, it includes information about how to build a release
 and run and test the source code locally.  It also includes information
