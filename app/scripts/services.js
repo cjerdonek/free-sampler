@@ -29,6 +29,34 @@
         return spellsInt;
     }]);
 
+    // Return an isBMP() function.
+    samplerServices.factory('isBMP', [
+      function isBMPFactory(){
+        // Return whether the string consists only of BMP Unicode characters,
+        // which are characters whose Unicode code point is smaller than
+        // 65,536.  These are the characters that can be encoded as a
+        // single character of a Javascript string and don't require
+        // encoding with a pair of surrogate characters.
+        //
+        // See the following for more info:
+        //  http://en.wikipedia.org/wiki/Plane_(Unicode)
+        //  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt#Description
+        function isBMP(s) {
+            var code, i;
+            for (var i = 0; i < s.length; i += 1) {
+                code = s.charCodeAt(i);
+                if (0xD800 <= code && code <= 0xDBFF) {
+                    // Then the character is a high surrogate.
+                    // See the code here:
+                    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt#Examples
+                    return false;
+                }
+            }
+            return true;
+        }
+        return isBMP;
+    }]);
+
     // Return a Javascript object of test data.
     samplerServices.factory('getTests', ['$http',
       function getTestsFactory($http){

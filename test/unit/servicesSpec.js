@@ -4,6 +4,25 @@ describe('services module:', function() {
 
   beforeEach(module('samplerApp.services'));
 
+  describe('isBMP', function() {
+    var isBMP;
+
+    beforeEach(inject(function(_isBMP_) {
+      isBMP = _isBMP_;
+    }));
+
+    it('should return true for BMP strings', function() {
+      expect(isBMP('foo')).toBe(true);
+    });
+
+    it('should return false for non-BMP strings', function() {
+      // Unicode Character 'GRINNING FACE' (U+1F600)
+      // http://www.fileformat.info/info/unicode/char/1F600/index.htm
+      expect(isBMP('\ud83d\ude00')).toBe(false);
+    });
+
+  });
+
   describe('spellsInt', function() {
     var spellsInt;
 
