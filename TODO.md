@@ -1,7 +1,6 @@
 TODO
 ====
 
-* Add end-to-end tests for-- BMP, non-BMP, and empty seeds.
 * Expose JSON and text formats, too.
 * Get tests passing with PhantomJS
 * Make the navbar collapse at a smaller width.
