@@ -5,19 +5,16 @@ Quick Sampler
 
 This repository contains the source code for an open-source web application
 called "Quick Sampler" for transparently and efficiently choosing items
-at random from a collection.
+at random from a collection.  Quick Sampler can be used for things like
+selecting precincts at random for a post-election manual audit.
 
 The application does this by running the [SHA-256][sha-256] pseudo-random
 sampling algorithm described publicly by [Ronald L. Rivest][rivest] in 2011.
 You provide the number of items in the collection and a random seed,
-and Quick Sampler generates the items.  The output depends only on this
+and Quick Sampler chooses the items.  The output depends only on this
 information.
 
-Quick Sampler can be used for things like selecting precincts at random
-for a post-election manual audit.
-
 The repository is hosted on GitHub [here][quick-sampler-repo].
-
 To try the latest release, go [here][quick-sampler-app].  For bug reports
 and feature requests, visit the [issue tracker][issue-tracker].
 
