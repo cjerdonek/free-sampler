@@ -39,6 +39,31 @@ describe('Quick Sampler App', function() {
       expect(element(by.id('id_seed')).getAttribute('value')).toEqual('abc');
     });
 
+    it('should display no error for the random seed if an ASCII seed is typed', function() {
+      element(by.id('id_seed')).sendKeys('abc123');
+      element(by.id('submit')).click();
+      expect(element(by.id('id_seed_error')).getText())
+        .toEqual('');
+    });
+
+    it('should display an error if no random seed is typed', function() {
+      element(by.id('submit')).click();
+      expect(element(by.id('id_seed_error')).getText())
+        .toEqual('A random seed is required.');
+    });
+
+    // Skip this test if Chrome is being used because the ChromeDriver
+    // does not currently support sending non-BMP characters:
+    // https://code.google.com/p/chromedriver/issues/detail?id=187
+    (browser.browserName === 'chrome' ? xit : it)(
+      'should display an error if a random seed is typed with a non-BMP character',
+        function() {
+          element(by.id('id_seed')).sendKeys('abc123\ud83d\ude00');
+          element(by.id('submit')).click();
+          expect(element(by.id('id_seed_error')).getText())
+            .toEqual('Random seeds with non-basic characters are not yet supported.');
+    });
+
     it('should update the highest item input if only the total items is updated', function() {
       expect(element(by.id('id_highest_item')).getAttribute('value')).toBe('');
       element(by.id('id_total_count')).sendKeys('100');
