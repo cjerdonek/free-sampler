@@ -8,6 +8,7 @@
         integerRequired: 'A whole number is required.',
         numberTooSmall: 'The number must be bigger than zero.',
         sampleCountTooLarge: 'The sample count must be smaller than the total count.',
+        seedNotBMP: 'Random seeds with non-basic characters are not yet supported.',
         seedRequired: 'A random seed is required.',
         positiveIntegerRequired: 'A whole number bigger than zero is required.'
     };
@@ -67,8 +68,8 @@
      * the sample count is larger than the total number of items).
      */
     samplerControllers.controller('MainCtrl', ['$log', '$scope', '$window',
-      'getSamplesUnique', 'leftPadder', 'spellsInt',
-      function ($log, $scope, $window, getSamplesUnique, leftPadder, spellsInt) {
+      'getSamplesUnique', 'isBMP', 'leftPadder', 'spellsInt',
+      function ($log, $scope, $window, getSamplesUnique, isBMP, leftPadder, spellsInt) {
 
         var form,
             input,
@@ -83,6 +84,8 @@
             var result = {};
             if (!inputValue) {
                 result.error = makeError(errorMessages.seedRequired);
+            } else if (!isBMP(inputValue)) {
+                result.error = makeError(errorMessages.seedNotBMP);
             } else {
                 result.value = inputValue;
             }
