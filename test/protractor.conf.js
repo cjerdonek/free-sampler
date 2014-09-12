@@ -148,7 +148,18 @@ exports.config = (function() {
       // We increase getPageTimeout from the default of 10 seconds
       // to address the following error when running tests on Sauce Labs:
       // "Error: Angular could not be found on the page"
-      getPageTimeout: 20000  // in milliseconds
+      getPageTimeout: 20000,  // in milliseconds
+
+      onPrepare: function() {
+        // Expose the browser name for easy access.  This is useful for
+        // skipping tests based on the browser (e.g. if certain browser
+        // drivers lack certain functionality).
+        //    See here for where this particular implementation idea came from:
+        // http://stackoverflow.com/questions/23872955/get-the-current-browser-name-in-protractor-test
+        browser.getCapabilities().then(function (caps) {
+          browser.browserName = caps.caps_.browserName;
+        });
+      }
     };
 
     extend(config, extra);
